@@ -84,6 +84,7 @@ button{font-family:inherit;cursor:pointer}
 [data-f] .dimout.x{}
 .dimout{animation:none}
 [data-f].show .dimout{animation:dimo 1s 2s forwards}
+.qs:has(.t5.show) .qd:nth-child(2){box-shadow:0 0 0 3px #A58BFF}
 [data-f].cut{filter:none;transform:none;transition:opacity .1s}
 .rv:has(.t3.show) .river{d:path("M1300 400 C 1460 470, 1260 540, 1380 600 C 1480 660, 1300 760, 1410 850 C 1500 920, 1360 960, 1400 1010")}
 .rv .river{transition:stroke-dashoffset var(--dd,.7s) var(--ease) var(--td,0s),d 3s var(--ease)}
@@ -709,24 +710,25 @@ button{font-family:inherit;cursor:pointer}
   <section class="slide" data-b="b4" data-min="2" data-notes="Comece largo: muitos futuros possíveis. Cada teste pequeno, em um lugar diferente, estreita o cone. Termine com as três frases." data-content="Inovação pública: organiza múltiplas lógicas num processo produtivo de aprendizagem e decisão (material-base, seção 6.1; deck, slides 34–35). Leitura do palestrante: o cone de futuros se estreita com testes pequenos, onde o erro é barato. Nota de enquadramento: aqui design não é estética e inovação não é criatividade.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Inovação pública é uma forma<br><span class="g2">de governar a incerteza.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
-      <polygon points="160,560 1700,250 1700,850" fill="rgba(122,77,255,.10)" stroke="#7A4DFF" stroke-width="2" data-f="1"/>
-      <polygon points="160,560 1700,380 1700,740" fill="rgba(122,77,255,.22)" stroke="#7A4DFF" stroke-width="2" data-f="2"/>
-      <polygon points="160,560 1700,470 1700,650" fill="rgba(122,77,255,.42)" stroke="#B9A6FF" stroke-width="2" data-f="3"/>
-      <line x1="160" y1="560" x2="1700" y2="560" stroke="#fff" stroke-width="2" stroke-dasharray="8 8" data-f="1"/>
-      <circle cx="160" cy="560" r="16" fill="#fff" data-f="1"/>
-      <text x="160" y="610" fill="#fff" font-family="IBM Plex Mono" font-size="22" data-f="1">HOJE</text>
-      <circle cx="640" cy="440" r="14" fill="#fff" data-f="2"/>
-      <text x="640" y="400" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle" data-f="2">TESTE 1 · um bairro</text>
-      <circle cx="1140" cy="690" r="14" fill="#fff" data-f="3"/>
-      <text x="1140" y="740" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle" data-f="3">TESTE 2 · outro município</text>
+      <polygon points="160,375 1760,505 1760,635 160,780" fill="rgba(122,77,255,.10)" stroke="#7A4DFF" stroke-width="2" data-f="1"/>
+      <polygon points="620,425 1760,515 1760,625 620,710" fill="rgba(122,77,255,.24)" stroke="#7A4DFF" stroke-width="2" data-f="2"/>
+      <polygon points="1060,480 1760,528 1760,612 1060,650" fill="rgba(122,77,255,.5)" stroke="#B9A6FF" stroke-width="2" data-f="3"/>
+      <line x1="160" y1="565" x2="1760" y2="565" stroke="#fff" stroke-width="2" stroke-dasharray="8 8" data-f="1"/>
+      <circle cx="680" cy="505" r="14" fill="#fff" data-f="2"/>
+      <text x="708" y="512" fill="#fff" font-family="IBM Plex Mono" font-size="22" data-f="2">TESTE 1 · um bairro</text>
+      <circle cx="1110" cy="530" r="14" fill="#fff" data-f="3"/>
+      <text x="1138" y="537" fill="#fff" font-family="IBM Plex Mono" font-size="22" data-f="3">TESTE 2 · outro município</text>
+      <g data-f="1"><line x1="360" y1="590" x2="360" y2="860" stroke="#6b6580" stroke-width="2" stroke-dasharray="4 8"/><circle cx="360" cy="565" r="24" fill="#23202c" stroke="#fff" stroke-width="2"/><text x="360" y="574" fill="#fff" font-family="Anton" font-size="26" text-anchor="middle">1</text></g>
+      <g data-f="2"><line x1="900" y1="590" x2="900" y2="860" stroke="#6b6580" stroke-width="2" stroke-dasharray="4 8"/><circle cx="900" cy="565" r="24" fill="#23202c" stroke="#fff" stroke-width="2"/><text x="900" y="574" fill="#fff" font-family="Anton" font-size="26" text-anchor="middle">2</text></g>
+      <g data-f="3"><line x1="1500" y1="590" x2="1500" y2="860" stroke="#A58BFF" stroke-width="2" stroke-dasharray="4 8"/><circle cx="1500" cy="565" r="24" fill="#7A4DFF"/><text x="1500" y="574" fill="#fff" font-family="Anton" font-size="26" text-anchor="middle">3</text></g>
     </svg>
-    <div class="a" data-f="1" style="left:120px;top:850px;width:480px"><div class="mono">1 · começo</div><p class="body" style="font-size:34px;margin-top:10px">Incerteza no começo.</p></div>
-    <div class="a" data-f="2" style="left:700px;top:850px;width:480px"><div class="mono">2 · meio</div><p class="body" style="font-size:34px;margin-top:10px">Ciclo curto no meio.</p></div>
-    <div class="a" data-f="3" style="left:1280px;top:850px;width:520px"><div class="mono">3 · fim</div><p class="body v" style="font-size:34px;margin-top:10px">Decisão com evidência no fim.</p></div>
+    <div class="a" data-f="1" style="left:120px;top:875px;width:480px;text-align:center"><div class="mono" style="font-size:22px;color:#A09CB0">COMEÇO</div><div style="font-size:38px;font-weight:300;color:#fff;margin-top:8px;line-height:1.15">Incerteza no começo.</div></div>
+    <div class="a" data-f="2" style="left:660px;top:875px;width:480px;text-align:center"><div class="mono" style="font-size:22px;color:#A09CB0">MEIO</div><div style="font-size:38px;font-weight:300;color:#fff;margin-top:8px;line-height:1.15">Ciclo curto no meio.</div></div>
+    <div class="a" data-f="3" style="left:1200px;top:875px;width:600px;text-align:center"><div class="mono" style="font-size:22px;color:#CDBDFF">FIM</div><div style="font-size:38px;font-weight:300;color:#CDBDFF;margin-top:8px;line-height:1.15">Decisão com evidência no fim.</div></div>
   </section>
-  <section class="slide" data-b="b4" data-min="1" data-content="Rajagopalan & Midgley (2020), a partir de Heron & Reason (1997): proposicional, experiencial, presentacional e prática (prefácio de Midgley, PDF p. 7). A maior parte da literatura de pensamento sistêmico privilegia o proposicional. Leitura do palestrante: escuta qualificada é conhecimento experiencial." data-notes="Clique em cada quadrante. A maior parte do pensamento sistêmico privilegia o primeiro. Escuta qualificada é conhecimento experiencial.">
+  <section class="slide qs" data-b="b4" data-min="1" data-content="Rajagopalan & Midgley (2020), a partir de Heron & Reason (1997): proposicional, experiencial, presentacional e prática (prefácio de Midgley, PDF p. 7). A maior parte da literatura de pensamento sistêmico privilegia o proposicional. Leitura do palestrante: escuta qualificada é conhecimento experiencial." data-notes="Clique em cada quadrante. A maior parte do pensamento sistêmico privilegia o primeiro. Escuta qualificada é conhecimento experiencial.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Há quatro formas de conhecer.<br><span class="g2">Não só a dos dados.</span></h2></div>
-    <div class="a" style="left:120px;top:440px;width:1680px">
+    <div class="a" style="left:120px;top:400px;width:1680px">
       <div class="quad">
         <div class="qd" data-f="1"><div class="mono">01</div><h4>Proposicional</h4><p>Conceitos e dados.</p></div>
         <div class="qd" data-f="2"><div class="mono">02</div><h4>Experiencial</h4><p>Vivência direta, a escuta.</p></div>
@@ -734,7 +736,7 @@ button{font-family:inherit;cursor:pointer}
         <div class="qd" data-f="4"><div class="mono">04</div><h4>Prática</h4><p>Saber-fazer.</p></div>
       </div>
     </div>
-    <p class="a" style="left:120px;top:900px;font-size:30px;font-weight:300;margin:0;color:#fff">Escuta qualificada é conhecimento. <span class="v">Não é achismo.</span></p>
+    <div class="a t5" data-f="5" style="left:120px;top:880px;width:1680px;border-top:1px solid #3a3646;padding-top:30px"><p style="font-size:46px;font-weight:300;line-height:1.15;margin:0;color:#fff">Escuta qualificada é conhecimento. <span class="v">Não é achismo.</span></p></div>
   </section>
   <section class="slide" data-b="b4" data-min="2" data-notes="Primeiro os pontos, depois o caminho. Liste tudo o que se relaciona antes de definir o problema." data-content="Sevaldson (2013, p. 1776–1779): GIGA-mapping, mapas densos com no mínimo cerca de 300 entidades e suas relações, para entender e gerar. Sevaldson (2013, p. 1779): simplificação precoce pode levar a conclusões e suposições totalmente erradas. Sevaldson (2022, PDF p. 224): desligar o filtro de relevância no início. Adaptação para a gestão pública: do palestrante.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Liste antes de definir.<br><span class="g2">Tudo o que se relaciona.</span></h2></div>
