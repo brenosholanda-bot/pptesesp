@@ -194,6 +194,10 @@ button{font-family:inherit;cursor:pointer}
 .cq.show .ck{background:#fff;border-color:#fff}
 .cq.show .ck svg{opacity:1}
 .cq[data-f]{transition:opacity .6s,transform .6s,filter .6s,background .5s}
+[data-f].mv{transform:translate(var(--sx),var(--sy));filter:none;transition:transform 1.5s var(--ease),opacity .6s}
+[data-f].mv.show{transform:none}
+[data-f].grow{transform:scaleX(0);transform-origin:left center;transform-box:fill-box;filter:none;transition:transform 1.3s var(--ease),opacity .4s}
+[data-f].grow.show{transform:scaleX(1)}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition-duration:.01ms!important;transition-delay:0s!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
 </style>
 </head>
@@ -360,55 +364,53 @@ button{font-family:inherit;cursor:pointer}
     <p class="a body" data-f="1" style="left:120px;top:560px;width:1680px;font-size:34px">O tribunal mandou o Serpro rever o contrato com a AWS.</p>
     <p class="a body" data-f="2" style="left:120px;top:660px;width:1680px;font-size:34px">Agora o problema é complicado, complexo, ou os dois?</p>
   </section>
-  <section class="slide" data-b="b1" data-min="1" data-notes="Mostre os dois eixos. Pergunte onde a equipe gasta mais tempo. Depois, os dois zooms." data-content="Mesma contratação, dois lados: edital, normas e boas práticas (complicado, decompõe-se) e soberania, dados e confiança (complexo, muda com a ação). O eixo horizontal é o tempo da equipe; o vertical é o peso no resultado. Deck, slides 18–19.">
+  <section class="slide" data-b="b1" data-min="1" data-notes="Mostre os dois eixos. Os pontos saem da origem e se posicionam: pergunte onde a equipe gasta mais tempo. Depois, os dois zooms." data-content="Mesma contratação, dois lados: edital, normas e boas práticas (complicado, decompõe-se) e soberania, dados e confiança (complexo, muda com a ação). O eixo horizontal é o tempo da equipe; o vertical é o peso no resultado. Deck, slides 18–19.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">A mesma contratação<br><span class="g2">tem dois lados.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
-      <line x1="220" y1="820" x2="1720" y2="820" stroke="#3a3646" stroke-width="3"/>
-      <line x1="220" y1="820" x2="220" y2="400" stroke="#3a3646" stroke-width="3"/>
-      <text x="1720" y="866" fill="#A09CB0" font-family="IBM Plex Mono" font-size="22" text-anchor="end">tempo da equipe →</text>
-      <text x="236" y="400" fill="#A09CB0" font-family="IBM Plex Mono" font-size="22">peso no resultado ↑</text>
-      <line x1="1380" y1="740" x2="440" y2="520" stroke="#3a3646" stroke-width="2" stroke-dasharray="8 8" data-f="3"/>
-      <circle cx="1400" cy="740" r="20" fill="#6b6578" data-f="1"/>
-      <circle cx="420" cy="520" r="26" fill="#7A4DFF" data-f="2"/>
+      <line x1="200" y1="860" x2="1740" y2="860" stroke="#8A859C" stroke-width="5"/>
+      <line x1="200" y1="860" x2="200" y2="380" stroke="#8A859C" stroke-width="5"/>
+      <text x="1740" y="916" fill="#D6D2E0" font-family="IBM Plex Mono" font-size="28" text-anchor="end">tempo da equipe →</text>
+      <text x="224" y="392" fill="#D6D2E0" font-family="IBM Plex Mono" font-size="28">peso no resultado ↑</text>
+      <circle class="mv" cx="1380" cy="760" r="30" fill="#8A859C" style="--sx:-1180px;--sy:100px" data-f="1"/>
+      <circle class="mv" cx="520" cy="520" r="34" fill="#7A4DFF" style="--sx:-320px;--sy:340px" data-f="2"/>
     </svg>
-    <div class="a" data-f="1" style="left:900px;top:700px;width:460px;text-align:right"><div class="mono" style="font-size:22px;color:#A09CB0">Complicado · edital</div><div class="body" style="font-size:32px;color:#D6D2E0;margin-top:8px">Muito tempo, pouco peso</div></div>
-    <div class="a" data-f="2" style="left:480px;top:480px;width:800px"><div class="mono" style="font-size:22px;color:#CDBDFF">Complexo · soberania e dados</div><div class="body" style="font-size:32px;color:#CDBDFF;margin-top:8px">Pouco tempo, muito peso</div></div>
-    <p class="a" data-f="4" style="left:120px;top:880px;width:1680px;font-size:28px;font-weight:300;margin:0;color:#D6D2E0">Uma parte pede especialização. A outra pede aprendizagem coletiva. A maior parte do tempo costuma ir para a primeira, mesmo quando a segunda decide o resultado.</p>
+    <div class="a" data-f="1" style="left:760px;top:700px;width:560px;text-align:right"><div class="mono" style="font-size:26px;color:#A09CB0">Complicado · edital</div><div class="body" style="font-size:38px;color:#D6D2E0;margin-top:8px;line-height:1.2">Muito tempo, pouco peso</div></div>
+    <div class="a" data-f="2" style="left:590px;top:470px;width:900px"><div class="mono" style="font-size:26px;color:#CDBDFF">Complexo · soberania e dados</div><div class="body" style="font-size:38px;color:#CDBDFF;margin-top:8px;line-height:1.2">Pouco tempo, muito peso</div></div>
   </section>
-  <section class="slide" data-b="b1" data-min="1" data-notes="Zoom no complicado: muito tempo, impacto limitado no resultado. Como lidar: especialização." data-content="Zoom no complicado (ponto da esquerda no gráfico de dois eixos, do slide anterior): tempo alto e previsível; impacto limitado no resultado; como lidar: especialização. Deck, slides 18–19.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono" style="font-size:22px;color:#A09CB0">Zoom · complicado</div><h2 class="hm" style="margin-top:14px">Complicado: <span class="g2">pede especialista.</span></h2></div>
+  <section class="slide" data-b="b1" data-min="1" data-notes="Zoom no complicado: a barra de tempo é longa e a de impacto é curta. Como lidar: especialização, com um especialista decidindo." data-content="Zoom no complicado: tempo alto e previsível; impacto limitado no resultado; como lidar: especialização. Deck, slides 18–19.">
+    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono" style="font-size:24px;color:#A09CB0">Zoom · complicado</div><h2 class="hm" style="margin-top:14px">Complicado: <span class="g2">pede especialista.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
-      <g transform="translate(60,280) scale(0.5)">
-        <line x1="220" y1="820" x2="1720" y2="820" stroke="#3a3646" stroke-width="6"/>
-        <line x1="220" y1="820" x2="220" y2="400" stroke="#3a3646" stroke-width="6"/>
-        <line x1="1400" y1="740" x2="420" y2="520" stroke="#3a3646" stroke-width="4" stroke-dasharray="16 16"/>
-        <circle cx="1400" cy="740" r="26" fill="#6b6578"/>
-        <circle cx="420" cy="520" r="26" fill="#7A4DFF"/>
-        <circle cx="420" cy="520" r="120" fill="none" stroke="#A58BFF" stroke-width="6" stroke-dasharray="20 14"/>
-      </g>
+      <rect x="120" y="380" width="640" height="590" rx="26" fill="none" stroke="#3a3646" stroke-width="2"/>
+      <text x="160" y="448" fill="#A09CB0" font-family="IBM Plex Mono" font-size="24">TEMPO</text>
+      <rect x="160" y="468" width="560" height="38" rx="8" fill="#23202c"/>
+      <rect class="grow" x="160" y="468" width="520" height="38" rx="8" fill="#8A859C" data-f="1"/>
+      <text x="160" y="638" fill="#A09CB0" font-family="IBM Plex Mono" font-size="24">IMPACTO</text>
+      <rect x="160" y="658" width="560" height="38" rx="8" fill="#23202c"/>
+      <rect class="grow" x="160" y="658" width="150" height="38" rx="8" fill="#8A859C" data-f="2"/>
+      <text x="160" y="796" fill="#A09CB0" font-family="IBM Plex Mono" font-size="24">COMO LIDAR</text>
+      <g data-f="3" transform="translate(0,18)"><circle cx="220" cy="898" r="22" fill="#8A859C"/><line x1="246" y1="898" x2="360" y2="898" stroke="#8A859C" stroke-width="4"/><rect x="368" y="874" width="90" height="48" rx="10" fill="#23202c" stroke="#8A859C" stroke-width="2"/></g>
     </svg>
-    <div class="a" data-f="1" style="left:900px;top:360px;width:900px;border-top:1px solid #2a2633;padding-top:22px"><div class="mono" style="font-size:22px;color:#A09CB0">Tempo</div><div style="font-size:40px;font-weight:300;color:#FFFFFF;margin-top:8px;letter-spacing:-.02em">Alto e previsível</div><div class="body" style="font-size:26px;color:#D6D2E0;margin-top:6px;line-height:1.35">Decompõe-se em etapas, normas e prazos. Gasta-se muito tempo em execução.</div></div>
-    <div class="a" data-f="2" style="left:900px;top:530px;width:900px;border-top:1px solid #2a2633;padding-top:22px"><div class="mono" style="font-size:22px;color:#A09CB0">Impacto</div><div style="font-size:40px;font-weight:300;color:#FFFFFF;margin-top:8px;letter-spacing:-.02em">Limitado no resultado</div><div class="body" style="font-size:26px;color:#D6D2E0;margin-top:6px;line-height:1.35">Quando bem feito, o problema some. Falhar aqui é falha de execução.</div></div>
-    <div class="a" data-f="3" style="left:900px;top:700px;width:900px;border-top:1px solid #2a2633;padding-top:22px"><div class="mono" style="font-size:22px;color:#CDBDFF">Como lidar</div><div style="font-size:40px;font-weight:300;color:#FFFFFF;margin-top:8px;letter-spacing:-.02em">Especialização</div><div class="body" style="font-size:26px;color:#D6D2E0;margin-top:6px;line-height:1.35">Normas, boas práticas, checklists e quem domina o edital.</div></div>
-    
-  </section>
-  <section class="slide" data-b="b1" data-min="1" data-notes="Zoom no complexo: pouco tempo, mas decide o resultado. Como lidar: aprendizagem coletiva." data-content="Zoom no complexo (ponto de cima à esquerda no gráfico de dois eixos): tempo pouco, mas recorrente; impacto alto no resultado; como lidar: aprendizagem coletiva. Deck, slides 18–19.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono" style="font-size:22px;color:#A09CB0">Zoom · complexo</div><h2 class="hm" style="margin-top:14px">Complexo: <span class="v">pede aprendizagem coletiva.</span></h2></div>
+    <div class="a" data-f="1" style="left:900px;top:400px;width:900px;border-top:1px solid #3a3646;padding-top:24px"><div class="mono" style="font-size:24px;color:#A09CB0">Tempo</div><div style="font-size:42px;font-weight:300;color:#FFFFFF;margin-top:10px;letter-spacing:-.02em">Alto e previsível</div><div class="body" style="font-size:27px;color:#D6D2E0;margin-top:8px;line-height:1.35">Etapas, normas e prazos: muito tempo em execução.</div></div>
+    <div class="a" data-f="2" style="left:900px;top:590px;width:900px;border-top:1px solid #3a3646;padding-top:24px"><div class="mono" style="font-size:24px;color:#A09CB0">Impacto</div><div style="font-size:42px;font-weight:300;color:#FFFFFF;margin-top:10px;letter-spacing:-.02em">Limitado no resultado</div><div class="body" style="font-size:27px;color:#D6D2E0;margin-top:8px;line-height:1.35">Quando bem feito, o problema some. Falhar aqui é falha de execução.</div></div>
+    <div class="a" data-f="3" style="left:900px;top:780px;width:900px;border-top:1px solid #3a3646;padding-top:24px"><div class="mono" style="font-size:24px;color:#CDBDFF">Como lidar</div><div style="font-size:42px;font-weight:300;color:#FFFFFF;margin-top:10px;letter-spacing:-.02em">Especialização</div><div class="body" style="font-size:27px;color:#D6D2E0;margin-top:8px;line-height:1.35">Normas, boas práticas, checklists e quem domina o edital.</div></div>
+    </section>
+  <section class="slide" data-b="b1" data-min="1" data-notes="Zoom no complexo: a barra de tempo é curta e a de impacto é longa. Como lidar: aprendizagem coletiva, com muitos nós conectados." data-content="Zoom no complexo: tempo pouco, mas recorrente; impacto alto no resultado; como lidar: aprendizagem coletiva. Deck, slides 18–19.">
+    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono" style="font-size:24px;color:#A09CB0">Zoom · complexo</div><h2 class="hm" style="margin-top:14px">Complexo: <span class="v">pede aprendizagem coletiva.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
-      <g transform="translate(60,280) scale(0.5)">
-        <line x1="220" y1="820" x2="1720" y2="820" stroke="#3a3646" stroke-width="6"/>
-        <line x1="220" y1="820" x2="220" y2="400" stroke="#3a3646" stroke-width="6"/>
-        <line x1="1400" y1="740" x2="420" y2="520" stroke="#3a3646" stroke-width="4" stroke-dasharray="16 16"/>
-        <circle cx="1400" cy="740" r="26" fill="#6b6578"/>
-        <circle cx="420" cy="520" r="40" fill="#7A4DFF"/>
-        <circle cx="420" cy="520" r="120" fill="none" stroke="#A58BFF" stroke-width="6" stroke-dasharray="20 14"/>
-      </g>
+      <rect x="120" y="380" width="640" height="590" rx="26" fill="none" stroke="#3a3646" stroke-width="2"/>
+      <text x="160" y="448" fill="#A09CB0" font-family="IBM Plex Mono" font-size="24">TEMPO</text>
+      <rect x="160" y="468" width="560" height="38" rx="8" fill="#23202c"/>
+      <rect class="grow" x="160" y="468" width="150" height="38" rx="8" fill="#7A4DFF" data-f="1"/>
+      <text x="160" y="638" fill="#A09CB0" font-family="IBM Plex Mono" font-size="24">IMPACTO</text>
+      <rect x="160" y="658" width="560" height="38" rx="8" fill="#23202c"/>
+      <rect class="grow" x="160" y="658" width="520" height="38" rx="8" fill="#7A4DFF" data-f="2"/>
+      <text x="160" y="796" fill="#A09CB0" font-family="IBM Plex Mono" font-size="24">COMO LIDAR</text>
+      <g data-f="3" transform="translate(0,22)"><line x1="240" y1="870" x2="340" y2="846" stroke="#A58BFF" stroke-width="3"/><line x1="340" y1="846" x2="440" y2="880" stroke="#A58BFF" stroke-width="3"/><line x1="240" y1="870" x2="300" y2="930" stroke="#A58BFF" stroke-width="3"/><line x1="300" y1="930" x2="410" y2="934" stroke="#A58BFF" stroke-width="3"/><line x1="440" y1="880" x2="410" y2="934" stroke="#A58BFF" stroke-width="3"/><line x1="340" y1="846" x2="300" y2="930" stroke="#A58BFF" stroke-width="3"/><line x1="340" y1="846" x2="410" y2="934" stroke="#A58BFF" stroke-width="3"/><circle cx="240" cy="870" r="16" fill="#A58BFF"/><circle cx="340" cy="846" r="16" fill="#A58BFF"/><circle cx="440" cy="880" r="16" fill="#A58BFF"/><circle cx="300" cy="930" r="16" fill="#A58BFF"/><circle cx="410" cy="934" r="16" fill="#A58BFF"/></g>
     </svg>
-    <div class="a" data-f="1" style="left:900px;top:360px;width:900px;border-top:1px solid #2a2633;padding-top:22px"><div class="mono" style="font-size:22px;color:#A09CB0">Tempo</div><div style="font-size:40px;font-weight:300;color:#FFFFFF;margin-top:8px;letter-spacing:-.02em">Pouco, mas recorrente</div><div class="body" style="font-size:26px;color:#D6D2E0;margin-top:6px;line-height:1.35">Volta a cada decisão. Não termina quando o edital é publicado.</div></div>
-    <div class="a" data-f="2" style="left:900px;top:530px;width:900px;border-top:1px solid #2a2633;padding-top:22px"><div class="mono" style="font-size:22px;color:#A09CB0">Impacto</div><div style="font-size:40px;font-weight:300;color:#FFFFFF;margin-top:8px;letter-spacing:-.02em">Alto no resultado</div><div class="body" style="font-size:26px;color:#D6D2E0;margin-top:6px;line-height:1.35">Define o que o sistema faz com os dados e quem confia nele.</div></div>
-    <div class="a" data-f="3" style="left:900px;top:700px;width:900px;border-top:1px solid #2a2633;padding-top:22px"><div class="mono" style="font-size:22px;color:#CDBDFF">Como lidar</div><div style="font-size:40px;font-weight:300;color:#FFFFFF;margin-top:8px;letter-spacing:-.02em">Aprendizagem coletiva</div><div class="body" style="font-size:26px;color:#D6D2E0;margin-top:6px;line-height:1.35">Ouvir quem usa, testar pequeno e rever com quem decide.</div></div>
-    
-  </section>
+    <div class="a" data-f="1" style="left:900px;top:400px;width:900px;border-top:1px solid #3a3646;padding-top:24px"><div class="mono" style="font-size:24px;color:#A09CB0">Tempo</div><div style="font-size:42px;font-weight:300;color:#FFFFFF;margin-top:10px;letter-spacing:-.02em">Pouco, mas recorrente</div><div class="body" style="font-size:27px;color:#D6D2E0;margin-top:8px;line-height:1.35">Volta a cada decisão. Não termina quando o edital é publicado.</div></div>
+    <div class="a" data-f="2" style="left:900px;top:590px;width:900px;border-top:1px solid #3a3646;padding-top:24px"><div class="mono" style="font-size:24px;color:#A09CB0">Impacto</div><div style="font-size:42px;font-weight:300;color:#FFFFFF;margin-top:10px;letter-spacing:-.02em">Alto no resultado</div><div class="body" style="font-size:27px;color:#D6D2E0;margin-top:8px;line-height:1.35">Define o que o sistema faz com os dados e quem confia nele.</div></div>
+    <div class="a" data-f="3" style="left:900px;top:780px;width:900px;border-top:1px solid #3a3646;padding-top:24px"><div class="mono" style="font-size:24px;color:#CDBDFF">Como lidar</div><div style="font-size:42px;font-weight:300;color:#FFFFFF;margin-top:10px;letter-spacing:-.02em">Aprendizagem coletiva</div><div class="body" style="font-size:27px;color:#D6D2E0;margin-top:8px;line-height:1.35">Ouvir quem usa, testar pequeno e rever com quem decide.</div></div>
+    </section>
   <section class="slide" data-b="b1" data-min="2" data-notes="Desenhe o ciclo no ar. Cada tentativa de solução volta ao problema e o reformula." data-content="Rittel e Webber (1973): problemas sem formulação definitiva; cada tentativa de solução reformula o problema. Bason (2010, impr. p. 9): problemas abertos a interpretação, com soluções concorrentes ou conflitantes, provavelmente sem solução definitiva.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Problemas perversos<br><span class="g2">não se fecham de uma vez.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
