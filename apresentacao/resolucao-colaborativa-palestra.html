@@ -8,11 +8,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#000;--fg:#F3F2F7;--mute:#A09CB0;--gray:#4B4759;--line:#27232F;--vi:#9B2BFF;--vi2:#C98BFF;--vi-soft:rgba(155,43,255,.16);--ease:cubic-bezier(.2,.7,.2,1)}
+:root{--bg:#111116;--fg:#F3F2F7;--mute:#A09CB0;--gray:#4B4759;--line:#27232F;--vi:#7A4DFF;--vi2:#C98BFF;--vi-soft:rgba(155,43,255,.16);--ease:cubic-bezier(.2,.7,.2,1)}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);overflow:hidden;font-family:'Work Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 button{font-family:inherit;cursor:pointer}
-#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;overflow:hidden;background:#000}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;overflow:hidden;background:#17171d}
 .slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility 0s linear .6s}
 .slide.active{opacity:1;visibility:visible;transition:opacity .6s var(--ease)}
 .a{position:absolute}
@@ -27,12 +27,12 @@ button{font-family:inherit;cursor:pointer}
 .lead{font-size:34px;font-weight:300;color:var(--mute);line-height:1.4;margin:0}
 .body{font-size:30px;font-weight:300;line-height:1.4;color:#D9D6E3;margin:0}
 .g{color:var(--gray)}
-.v{color:var(--vi)}
+.v{background:linear-gradient(90deg,#7A4DFF,#F2EEFF);-webkit-background-clip:text;background-clip:text;color:transparent}
 .v2{color:var(--vi2)}
 .w{color:#fff}
 .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;background:#141218;border:1px solid #2b2734;font-size:18px;color:#ddd;white-space:nowrap;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
 .card{background:#0E0C12;border:1px solid #241F2D;border-radius:22px;padding:34px 38px}
-.card.vb{background:var(--vi);border-color:var(--vi);color:#fff}
+.card.vb{background:linear-gradient(120deg,#6A3CFF 0%,#B9A6FF 100%);border-color:transparent;color:#fff}
 .card.vb .mono{color:#F1E4FF}
 .card h4{font-size:40px;font-weight:300;margin:0 0 10px;letter-spacing:-.02em;line-height:1.1}
 .card p{font-size:27px;font-weight:300;line-height:1.4;color:#B9B5C6;margin:0}
@@ -63,7 +63,7 @@ button{font-family:inherit;cursor:pointer}
 .node.v{background:var(--vi)}
 .lbl{font-family:'IBM Plex Mono',monospace;font-size:23px;color:#CFCAD9;text-transform:uppercase;letter-spacing:.06em}
 .big-num{font-family:'Anton',Impact,sans-serif;font-size:150px;line-height:.9;color:#fff}
-.big-num.v{color:var(--vi)}
+.big-num.v{background:linear-gradient(90deg,#7A4DFF,#F2EEFF);-webkit-background-clip:text;background-clip:text;color:transparent}
 .frag-line{stroke:#3a3446;stroke-width:2;fill:none}
 .spin{animation:spin 26s linear infinite;transform-origin:center}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -151,10 +151,11 @@ button{font-family:inherit;cursor:pointer}
 .topline::before,.topline::after{content:"";position:absolute;top:-3px;width:7px;height:7px;border-radius:50%;background:#fff}
 .topline::before{left:-3px}.topline::after{right:-3px}
 #sec{position:absolute;left:960px;top:78px;transform:translate(-50%,-50%);z-index:6}
-#ruler{position:absolute;left:60px;right:60px;bottom:88px;height:40px;z-index:5;cursor:pointer;display:flex;align-items:stretch;gap:4px}
-#ruler .bk{position:relative;height:100%;background:#17141c;border-radius:4px;overflow:hidden}
-#ruler .bk i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--vi);transition:width .6s var(--ease)}
-#ruler .bk span{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:18px;color:#cfc9da;white-space:nowrap;z-index:2;text-transform:uppercase}
+#ruler{position:absolute;left:60px;right:60px;bottom:96px;height:22px;z-index:5;cursor:pointer;display:flex;align-items:stretch;gap:4px}
+#ruler .bk{position:relative;height:100%;background:repeating-linear-gradient(90deg,rgba(255,255,255,.28) 0 1px,transparent 1px 10px);border-left:1px solid rgba(255,255,255,.6);overflow:visible}
+#ruler .bk i{position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(90deg,#7A4DFF,#FFFFFF);transition:width .6s var(--ease)}
+#ruler .bk span{position:absolute;left:8px;top:-30px;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#CFCAD9;white-space:nowrap;z-index:2;text-transform:uppercase}
+#ruler .bk em{position:absolute;left:0;bottom:-30px;font-family:'IBM Plex Mono',monospace;font-size:16px;color:#8d8799;font-style:normal}
 #ruler .bk.cur span{color:#fff}
 #clock{position:absolute;left:60px;bottom:138px;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#B9B5C6;letter-spacing:.05em}
 #nav{position:absolute;right:60px;bottom:30px;display:flex;align-items:center;gap:14px;z-index:6}
@@ -183,7 +184,12 @@ button{font-family:inherit;cursor:pointer}
 .ix-g button:hover{background:#1d1926}
 .opt-tag{position:absolute;top:150px;right:120px;font-family:'IBM Plex Mono',monospace;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--vi2);border:1px dashed #5b4a70;border-radius:999px;padding:6px 14px}
 .kcase{font-family:'Anton',Impact,sans-serif;font-size:60px;line-height:1;text-transform:uppercase;color:#fff;letter-spacing:.01em}
-.kcase b{color:var(--vi);font-weight:400}
+.kcase b{background:linear-gradient(90deg,#7A4DFF,#F2EEFF);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:400}
+.ht{position:absolute;right:0;top:0;width:820px;height:100%;background-image:radial-gradient(circle,rgba(122,77,255,.9) 2px,transparent 2.6px);background-size:20px 20px;-webkit-mask-image:linear-gradient(270deg,#000 0%,transparent 78%);mask-image:linear-gradient(270deg,#000 0%,transparent 78%);opacity:.55;pointer-events:none}
+.cq.show{background:var(--vi);border-color:var(--vi)}
+.cq.show .ck{background:#fff;border-color:#fff}
+.cq.show .ck svg{opacity:1}
+.cq[data-f]{transition:opacity .6s,transform .6s,filter .6s,background .5s}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition-duration:.01ms!important;transition-delay:0s!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
 </style>
 </head>
@@ -209,7 +215,8 @@ button{font-family:inherit;cursor:pointer}
     </svg>
   </section>
   <section class="slide" data-b="ab" data-min="1" data-notes="Conte a história sem pressa. Mostre só os fatos. A pergunta vem depois." data-content="Recanto das Emas, DF. 300 bicicletas em 2011 para estudantes de dois centros de ensino médio que moravam a até 7 km da escola (Web: Agência Vermelho/Agência Brasil, 2011; material-base, bloco 1).">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2011</b> · Recanto das Emas, DF</div><h2 class="hm" style="margin-top:14px">O governo distribuiu bicicletas<br><span class="g">para ir à escola.</span></h2></div>
+    <div class="ht"></div>
+        <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2011</b> · Recanto das Emas, DF</div><h2 class="hm" style="margin-top:14px">O governo distribuiu bicicletas<br><span class="g">para ir à escola.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
       <line x1="200" y1="600" x2="1720" y2="600" stroke="#2a2633" stroke-width="2"/>
       <circle cx="260" cy="600" r="14" fill="#fff" data-f="1"/>
@@ -221,17 +228,18 @@ button{font-family:inherit;cursor:pointer}
     <div class="a" data-f="3" style="left:1220px;top:650px;width:460px"><div class="body">Quase ninguém usou.</div></div>
   </section>
   <section class="slide" data-b="ab" data-min="1" data-notes="Pausa de 10 segundos. Não comente as respostas: a palestra volta a esta pergunta.">
-    <div class="a r mono" style="--d:0;left:120px;top:170px">Pausa para pensar</div>
+    <div class="ht"></div>
+        <div class="a r mono" style="--d:0;left:120px;top:170px">Pausa para pensar</div>
     <div class="pz" style="top:230px"><h2 class="q r" style="--d:1">Por que quase ninguém pedalou?</h2></div>
-    <div class="ring-box r" style="--d:2" data-tot="10" data-rem="10">
+    <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
-      <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Aperte para iniciar.</span></div>
+      <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Avance para iniciar.</span></div>
     </div>
   </section>
   <section class="slide" data-b="ab" data-min="1" data-notes="Depois da pausa, feche o caso. Pergunte por que ninguém foi ouvido." data-content="Amarelas, como os ônibus do programa. Virou motivo de vergonha e de bullying entre os alunos (deck, slides 3–5). Ninguém perguntou aos jovens. A ligação da cor a grupos políticos locais aparece no deck, sem fonte localizada. Em 2023, as especificações do FNDE ainda pediam bicicleta predominantemente amarela (Comunicado nº 004/2023).">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono">Resposta</div><h2 class="hm" style="margin-top:14px">Amarela, como o ônibus.<br><span class="g">E ninguém perguntou.</span></h2></div>
+    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono">Resposta</div><h2 class="hm" style="margin-top:14px">Amarela, como o ônibus e o carteiro.<br><span class="g">E ninguém perguntou.</span></h2></div>
     <div class="a" style="left:120px;top:520px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:26px">
-      <div class="card vb" data-f="1"><h4>Vergonha e bullying</h4><p>A cor dizia de quem era a bicicleta. Os alunos deixaram de usar.</p></div>
+      <div class="card vb" data-f="1"><h4>Vergonha e bullying</h4><p>Como o ônibus e o carteiro dos Correios: a cor marcava quem usava, e os alunos deixaram de pedalar.</p></div>
       <div class="card" data-f="2"><h4>Ninguém perguntou</h4><p>A escolha da cor e do modelo não passou pelos jovens que iam pedalar.</p></div>
     </div>
   </section>
@@ -243,27 +251,28 @@ button{font-family:inherit;cursor:pointer}
     </div>
     <p class="a lead" data-f="2" style="left:120px;top:960px;width:1680px;color:#fff;font-size:30px">Formular bem um problema complexo ninguém consegue fazer sozinho.</p>
   </section>
-  <section class="slide" data-b="ab" data-min="0" data-notes="Roteiro em grandes temas. O tempo de cada bloco aparece na barra de baixo." data-content="Ordem e minutos dos blocos (material-base, seção 1.3): abertura, tipo de problema, lentes, erro padrão, resposta, objeções e decisão.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono">Roteiro</div><h2 class="hm" style="margin-top:14px">Sete movimentos.</h2></div>
-    <div class="a" style="left:120px;top:380px;width:1680px;display:grid;grid-template-columns:1fr 1fr;column-gap:60px;row-gap:14px">
-      <div class="a r" style="--d:1;position:relative"><span class="mono v">05</span> <span class="anton" style="font-size:64px;color:#fff">Um caso e uma tese</span></div>
-      <div class="a r" style="--d:2;position:relative"><span class="mono v">08</span> <span class="anton" style="font-size:64px;color:#fff">Que tipo de problema</span></div>
-      <div class="a r" style="--d:3;position:relative"><span class="mono v">10</span> <span class="anton" style="font-size:64px;color:#fff">Lentes e fronteiras</span></div>
-      <div class="a r" style="--d:4;position:relative"><span class="mono v">04</span> <span class="anton" style="font-size:64px;color:#fff">O erro padrão</span></div>
-      <div class="a r" style="--d:5;position:relative"><span class="mono v">12</span> <span class="anton" style="font-size:64px;color:#fff">Um método para formular</span></div>
-      <div class="a r" style="--d:6;position:relative"><span class="mono v">04</span> <span class="anton" style="font-size:64px;color:#fff">Objeções</span></div>
-      <div class="a r" style="--d:7;position:relative"><span class="mono v">07</span> <span class="anton" style="font-size:64px;color:#fff">Decidir e sustentar</span></div>
+  <section class="slide" data-b="ab" data-min="0" data-notes="Roteiro em grandes temas. O tempo de cada bloco aparece na barra de baixo." data-content="Ordem e minutos dos blocos (material-base, seção 1.3).">
+    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono">Roteiro</div><h2 class="hm" style="margin-top:14px">O que vamos fazer.</h2></div>
+    <div class="a" style="left:120px;top:380px;width:1680px;display:grid;grid-template-columns:1fr 1fr;column-gap:60px;row-gap:22px">
+      <div class="a r" style="--d:1;position:relative"><span class="mono v">05</span> <span class="anton" style="font-size:60px;color:#fff">Um caso e uma tese</span></div>
+      <div class="a r" style="--d:2;position:relative"><span class="mono v">08</span> <span class="anton" style="font-size:60px;color:#fff">Complicado e complexo</span></div>
+      <div class="a r" style="--d:3;position:relative"><span class="mono v">10</span> <span class="anton" style="font-size:60px;color:#fff">Quem fica de fora</span></div>
+      <div class="a r" style="--d:4;position:relative"><span class="mono v">04</span> <span class="anton" style="font-size:60px;color:#fff">Onde o erro se repete</span></div>
+      <div class="a r" style="--d:5;position:relative"><span class="mono v">12</span> <span class="anton" style="font-size:60px;color:#fff">Formular junto</span></div>
+      <div class="a r" style="--d:6;position:relative"><span class="mono v">04</span> <span class="anton" style="font-size:60px;color:#fff">Objeções que aparecem</span></div>
+      <div class="a r" style="--d:7;position:relative"><span class="mono v">07</span> <span class="anton" style="font-size:60px;color:#fff">Decidir e sustentar</span></div>
     </div>
   </section>
   <section class="slide" data-b="ab" data-min="1" data-opt="1" data-content="Lei de 31/10/1904 com multa e comprovante para emprego e matrícula. Regulamento vazou em 9/11. Revolta de 10 a 16/11, estado de sítio em 16/11 e suspensão da obrigatoriedade (A Gazeta/BBC; O Povo+). Havia reforma urbana autoritária, carestia e disputa política; a vacina foi o pretexto (A Gazeta/BBC). Em 1908, epidemia de varíola matou quase 6,4 mil no Rio. Material-base, ficha C4." data-notes="Use se a sala ainda não viu o caso. A vacina era eficaz; a revolta foi contra a forma como a política foi imposta.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>1904</b> · Rio de Janeiro</div><h2 class="hm" style="margin-top:14px">A vacina funcionava.<br><span class="g">A política falhou.</span></h2></div>
+    <div class="ht"></div>
+        <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>1904</b> · Rio de Janeiro</div><h2 class="hm" style="margin-top:14px">A vacina funcionava.<br><span class="g">A política falhou.</span></h2></div>
     <p class="a lead" data-f="6" style="left:120px;top:900px;width:1680px">Pense: o que faria essa lei ser recebida como ameaça, e não como proteção?</p>
     <svg class="a" style="left:120px;top:640px" width="1680" height="240" aria-hidden="true">
       <line x1="0" y1="60" x2="1680" y2="60" stroke="#2a2633" stroke-width="2"/>
       <g data-f="2"><circle cx="60" cy="60" r="14" fill="#fff"/><text x="60" y="130" fill="#B9B5C6" font-family="IBM Plex Mono" font-size="20">31 OUT · LEI OBRIGATÓRIA</text></g>
       <g data-f="3"><circle cx="520" cy="60" r="14" fill="#fff"/><text x="520" y="130" fill="#B9B5C6" font-family="IBM Plex Mono" font-size="20">9 NOV · REGULAMENTO VAZA</text></g>
       <g data-f="4"><circle cx="980" cy="60" r="14" fill="#9B2BFF"/><text x="980" y="130" fill="#B9B5C6" font-family="IBM Plex Mono" font-size="20">10 A 16 NOV · A CIDADE PARA</text></g>
-      <g data-f="5"><circle cx="1440" cy="60" r="14" fill="#9B2BFF"/><text x="1800" y="130" text-anchor="end" fill="#B9B5C6" font-family="IBM Plex Mono" font-size="20">16 NOV · OBRIGATORIEDADE SUSPENSA</text></g>
+      <g data-f="5"><circle cx="1440" cy="60" r="14" fill="#9B2BFF"/><text x="1800" y="130" text-anchor="end" fill="#B9B5C6" font-family="IBM Plex Mono" font-size="20">16 NOV · LEI SUSPENSA</text></g>
     </svg>
   </section>
   <section class="slide divider" data-b="b1" data-min="0" data-content="Bloco 1: diferença entre problema complicado e complexo (material-base, seção 3)." data-notes="Anuncie o bloco: vamos separar dois tipos de problema que parecem iguais.">
@@ -296,17 +305,21 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="3" style="left:120px;top:940px;font-size:26px;font-weight:300;margin:0;color:#fff">O complexo não é o complicado com mais variáveis. É outra natureza de problema.</p>
   </section>
   <section class="slide" data-b="b1" data-min="1" data-notes="Apresente o caso com os dois lados, sem votação. Depois faça a pergunta." data-content="Licitação de serviços de nuvem no governo federal, com a AWS. Um lado é o edital e as normas; o outro é soberania, governança de dados e confiança pública (deck, slides 18–19). Confirme detalhes de datas e valores com a fonte antes de citar.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>Governo federal</b> · licitação de nuvem</div><h2 class="hm" style="margin-top:14px">Uma contratação de nuvem,<br><span class="g">com a AWS.</span></h2></div>
+    <div class="ht"></div>
+        <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>Governo federal</b> · licitação de nuvem</div><h2 class="hm" style="margin-top:14px">Uma contratação de nuvem,<br><span class="g">com a AWS.</span></h2></div>
+    <p class="a body" style="left:120px;top:370px;width:1680px;font-size:28px">Contrato de nuvem com a AWS. O TCU viu risco de acesso estrangeiro a dados do governo e mandou o Serpro rever o contrato.</p>
     <div class="a" style="left:120px;top:520px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:26px">
       <div class="card" data-f="1"><h4>Um lado do edital</h4><p>Elaborar e executar o edital. Seguir normas e boas práticas de contratação.</p></div>
       <div class="card" data-f="2"><h4>O outro lado</h4><p>Soberania, governança de dados e confiança pública.</p></div>
     </div>
+    <p class="foot" style="position:absolute;left:120px;bottom:150px;font-size:22px;margin:0;color:#8d8799">Agradecemos ao Capital Digital.</p>
   </section>
   <section class="slide" data-b="b1" data-min="1" data-notes="Pausa de 10 segundos. Deixe a sala pensar antes de ver a resposta." data-content="Pergunta para pensar. Não há resposta única: a sala deve escolher o lado onde a equipe gasta mais tempo.">
-    <div class="pz" style="top:170px"><div class="mono">Pausa para pensar</div><h2 class="q" style="font-size:88px;margin-top:20px">Em qual dos dois lados a sua equipe gasta mais tempo?</h2></div>
-    <div class="ring-box r" style="--d:2" data-tot="10" data-rem="10">
+    <div class="ht"></div>
+        <div class="pz" style="top:170px"><div class="mono">Pausa para pensar</div><p class="lead" style="margin-top:20px;font-size:30px">Em jogo: quem pode acessar os dados do governo.</p><h2 class="q" style="font-size:80px;margin-top:20px">Em qual dos dois lados a sua equipe gasta mais tempo?</h2></div>
+    <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
-      <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Aperte para iniciar.</span></div>
+      <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Avance para iniciar.</span></div>
     </div>
   </section>
   <section class="slide" data-b="b1" data-min="1" data-content="Mesma contratação, dois lados: um pede especialização (edital, normas, boas práticas); o outro, aprendizagem coletiva (soberania, dados, confiança). Deck, slides 18–19." data-notes="Mostre a mesma barra: a contratação tem as duas partes. Pergunte em qual delas o tempo da equipe vai.">
@@ -331,24 +344,24 @@ button{font-family:inherit;cursor:pointer}
     <div class="a" data-f="3" style="left:200px;top:722px;width:420px;text-align:right"><div class="lbl">Problema reformulado</div></div>
     <p class="a" data-f="4" style="left:120px;top:940px;width:1680px;font-size:30px;font-weight:300;margin:0;color:#fff">Cada solução tentada muda o próprio problema.</p>
   </section>
-  <section class="slide" data-b="b1" data-min="1" data-notes="Duas forças chegam ao mesmo governo. Quando a força é externa, a resposta de rotina não basta." data-content="Bason (2010, impr. p. 11–15), citando Osborne e Brown (2005): forças externas exigem inovação mais radical. Forças externas: produtividade, expectativas dos cidadãos, globalização, pressão da mídia (deck, slide 20). Leitura do palestrante: o governo costuma responder ao primeiro tipo quando o problema vem do segundo.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">O duplo desafio:<br><span class="g">de dentro e de fora.</span></h2></div>
+  <section class="slide" data-b="b1" data-min="1" data-notes="Desenhe as duas linhas. A planejada segue o plano; a emergente se afasta e não é clara. A resposta do governo precisa mudar de direção." data-content="Bason (2010, impr. p. 11–15), citando Osborne e Brown (2005): forças externas exigem inovação mais radical. Forças externas: produtividade, expectativas dos cidadãos, globalização, pressão da mídia (deck, slide 20). Leitura do palestrante: a resposta de rotina acompanha a linha planejada; a emergente pede outra direção.">
+    <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Uma linha segue o plano.<br><span class="g">Outra não tem forma clara.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
-      <defs><marker id="arB" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto"><path d="M0,0 L10,6 L0,12" fill="none" stroke="#fff" stroke-width="2.5"/></marker><marker id="arP" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto"><path d="M0,0 L10,6 L0,12" fill="none" stroke="#9B2BFF" stroke-width="2.5"/></marker></defs>
-      <path data-f="3" d="M590 495 C 680 495, 690 600, 770 600" fill="none" stroke="#fff" stroke-width="3" marker-end="url(#arB)"/>
-      <path data-f="3" d="M590 755 C 680 755, 690 640, 770 640" fill="none" stroke="#9B2BFF" stroke-width="3" marker-end="url(#arP)"/>
-      <path data-f="4" d="M1130 600 C 1220 600, 1230 495, 1350 495" fill="none" stroke="#fff" stroke-width="3" marker-end="url(#arB)"/>
-      <path data-f="4" d="M1130 640 C 1220 640, 1230 755, 1350 755" fill="none" stroke="#9B2BFF" stroke-width="3" marker-end="url(#arP)"/>
+      <line x1="160" y1="500" x2="1760" y2="500" stroke="#fff" stroke-width="3" stroke-dasharray="14 10" data-f="1"/>
+      <text x="160" y="468" fill="#fff" font-family="IBM Plex Mono" font-size="22" data-f="1">PLANEJADO · reformas em curso</text>
+      <path d="M160 690 L180 692 L200 694 L220 697 L240 699 L260 700 L280 700 L300 698 L320 695 L340 691 L360 685 L380 680 L400 675 L420 671 L440 670 L460 670 L480 674 L500 680 L520 688 L540 697 L560 706 L580 714 L600 719 L620 721 L640 720 L660 714 L680 705 L700 694 L720 681 L740 669 L760 658 L780 651 L800 648 L820 650 L840 657 L860 668 L880 683 L900 699 L920 715 L940 729 L960 738 L980 743 L1000 741 L1020 732 L1040 719 L1060 701 L1080 681 L1100 661 L1120 644 L1140 632 L1160 627 L1180 628 L1200 638 L1220 654 L1240 675 L1260 698 L1280 721 L1300 742 L1320 757 L1340 764 L1360 763 L1380 752 L1400 735 L1420 711 L1440 684 L1460 657 L1480 633 L1500 615 L1520 606 L1540 606 L1560 617 L1580 637 L1600 663 L1620 694 L1640 724 L1660 752 L1680 773 L1700 784 L1720 785 L1740 774 L1760 753" fill="none" stroke="#7A4DFF" stroke-width="4" data-f="2"/>
+      <text x="160" y="790" fill="#B9A6FF" font-family="IBM Plex Mono" font-size="22" data-f="2">EMERGENTE · forças externas, sem forma clara</text>
+      <path d="M900 699 C 1080 699, 1140 420, 1760 360" fill="none" stroke="#fff" stroke-width="3" marker-end="url(#rsp)" data-f="3"/>
+      <defs><marker id="rsp" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto"><path d="M0,0 L10,6 L0,12" fill="none" stroke="#fff" stroke-width="2.5"/></marker></defs>
+      <text x="1290" y="330" fill="#fff" font-family="IBM Plex Mono" font-size="22" data-f="3">RESPOSTA · muda de direção</text>
+      <line x1="160" y1="920" x2="1760" y2="920" stroke="#3a3446" stroke-width="2"/>
+      <text x="1760" y="960" fill="#8d8799" font-family="IBM Plex Mono" font-size="20" text-anchor="end" data-f="4">tempo →</text>
     </svg>
-    <div class="a" data-f="1" style="left:120px;top:430px;width:470px;height:130px;border:2px solid #fff;border-radius:22px;padding:24px 28px"><div class="mono">Interna</div><div class="body w" style="font-size:32px;margin-top:6px">Planejadas: reformas e metas em curso</div></div>
-    <div class="a" data-f="2" style="left:120px;top:700px;width:470px;height:130px;border:2px solid #9B2BFF;border-radius:22px;padding:24px 28px"><div class="mono v">Externa</div><div class="body w" style="font-size:32px;margin-top:6px">Emergentes: produtividade, cidadãos, mídia</div></div>
-    <div class="a" data-f="3" style="left:770px;top:530px;width:360px;height:180px;background:#17141c;border-radius:22px;display:flex;align-items:center;justify-content:center"><div class="anton" style="font-size:60px;color:#fff">Governo</div></div>
-    <div class="a" data-f="4" style="left:1350px;top:430px;width:450px;height:130px;background:#0E0C12;border-radius:22px;padding:24px 28px"><div class="mono">Resposta</div><div class="body w" style="font-size:32px;margin-top:6px">Ajuste de rotina</div></div>
-    <div class="a" data-f="4" style="left:1350px;top:690px;width:450px;height:130px;background:#9B2BFF;border-radius:22px;padding:24px 28px"><div class="mono" style="color:#F3E8FF">Resposta</div><div class="body w" style="font-size:32px;margin-top:6px;color:#fff">Inovação mais radical</div></div>
-    <p class="a" data-f="5" style="left:120px;top:940px;font-size:30px;font-weight:300;margin:0;color:#fff">Ainda tratamos a política como decisão racional.</p>
+    <p class="a" data-f="5" style="left:120px;top:1000px;font-size:0px"></p>
   </section>
   <section class="slide" data-b="b1" data-min="1" data-opt="1" data-content="Dúvida sem resposta imediata. Contrapeso: Alford e Head (2017) distinguem problemas mais e menos perversos; Bannink, Sancino e Sorrentino (2024) deslocam o foco para a constelação de atores; Termeer, Dewulf e Biesbroek (2019) avaliam criticamente o conceito." data-notes="Pergunta de dúvida: não responda. Deixe a sala dividir. Depois diga que a dificuldade pode estar nos atores mais do que no problema.">
-    <div class="pz" style="top:170px"><div class="mono">Dúvida para a sala</div><h2 class="q" style="font-size:88px;margin-top:20px">Qual dos dois é complicado?</h2></div>
+    <div class="ht"></div>
+        <div class="pz" style="top:170px"><div class="mono">Dúvida para a sala</div><h2 class="q" style="font-size:88px;margin-top:20px">Qual dos dois é complicado, e qual é complexo?</h2></div>
     <div class="a" style="left:120px;top:540px;width:1680px" >
       <div class="vote">
         <div class="card" data-f="1" style="min-height:260px"><h4>A · Emitir uma certidão com prazo e regras</h4><p>Pedido com requisitos, verificação e prazo definido.</p></div>
@@ -401,8 +414,9 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="3" style="left:0;right:0;top:1000px;text-align:center;font-size:28px;font-weight:300;margin:0;color:#fff">Nenhuma é dispensável. Nenhuma dá conta sozinha.</p>
   </section>
   <section class="slide" data-b="b2" data-min="1" data-content="Pergunta para a sala sobre a última reunião difícil. Escute as respostas sem avaliar (material-base, seção 4.7)." data-notes="Deixe a pergunta respirar. A sala deve pensar numa lógica que faltou e dizer em voz alta.">
-    <div class="pz" style="top:200px"><div class="mono">Pausa para pensar</div><h2 class="q">Qual lógica esteve ausente na última reunião difícil da sua unidade?</h2></div>
-    <div class="ring-box r" style="--d:2" data-tot="10" data-rem="10">
+    <div class="ht"></div>
+        <div class="pz" style="top:200px"><div class="mono">Pausa para pensar</div><h2 class="q">Qual lógica esteve ausente na última reunião difícil da sua unidade?</h2></div>
+    <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
       <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Uma lógica. Em voz alta, se houver coragem.</span></div>
     </div>
@@ -432,27 +446,32 @@ button{font-family:inherit;cursor:pointer}
     </div>
     <p class="a" data-f="4" style="left:120px;top:880px;font-size:30px;font-weight:300;margin:0;color:#fff">Um sistema perfeitamente eficiente é perfeitamente frágil.</p>
   </section>
-  <section class="slide" data-b="b2" data-min="1" data-notes="Explique a mudança primeiro: de placa para plástico. Depois, o conflito." data-content="Cisterna de placa: Programa Um Milhão de Cisternas, da sociedade civil (ASA) com apoio do MDS; feita por pedreiros e famílias; ASA estima R$ 2,2 mil. Cisterna de plástico: programa Água para Todos, do Ministério da Integração; instalada em cerca de um dia; ASA estima pouco mais de R$ 5 mil; meta de 300 mil até 2014 (Agência Brasil/IHU, 2012).">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2011–2012</b> · Semiárido</div><h2 class="hm" style="margin-top:14px">A mudança: de placa<br><span class="g">para plástico.</span></h2></div>
-    <div class="a" style="left:120px;top:520px;width:1680px;display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;gap:20px">
-      <div class="card" data-f="1"><h4>Placa</h4><p>Feita por pedreiros e famílias das comunidades, no P1MC, com a ASA e apoio do MDS. A ASA estima R$ 2,2 mil.</p></div>
-      <div class="anton" data-f="2" style="font-size:80px;color:#9B2BFF;text-align:center">→</div>
-      <div class="card vb" data-f="2"><h4>Plástico</h4><p>Instalada em cerca de um dia pelo Água para Todos, do Ministério da Integração. Meta de 300 mil até 2014. A ASA estima pouco mais de R$ 5 mil.</p></div>
-    </div>
+  <section class="slide" data-b="b2" data-min="1" data-notes="Explique a mudança primeiro, com a linha do tempo: de placa para plástico. Depois, o conflito." data-content="Placa: P1MC, da sociedade civil (ASA) com apoio do MDS; feita por pedreiros e famílias; ASA estima R$ 2,2 mil. Plástico: Água para Todos, do Ministério da Integração; instalada em cerca de um dia; ASA estima pouco mais de R$ 5 mil; meta de 300 mil até 2014 (Agência Brasil/IHU, 2012). Prêmio internacional de políticas em 2017, citado no deck (confirmar o nome exato).">
+    <div class="ht"></div>
+    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2011–2017</b> · Semiárido</div><h2 class="hm" style="margin-top:14px">A mudança: de placa<br><span class="g">para plástico.</span></h2></div>
+    <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
+      <line x1="160" y1="800" x2="1760" y2="800" stroke="#3a3446" stroke-width="2"/>
+      <g data-f="1"><circle cx="300" cy="800" r="14" fill="#fff"/><text x="300" y="850" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle">2011</text></g>
+      <g data-f="2"><circle cx="700" cy="800" r="14" fill="#7A4DFF"/><text x="700" y="850" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle">2012</text></g>
+      <g data-f="3"><circle cx="1140" cy="800" r="14" fill="#7A4DFF"/><text x="1140" y="850" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle">2014 · meta</text></g>
+      <g data-f="4"><circle cx="1580" cy="800" r="14" fill="#fff"/><text x="1580" y="850" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle">2017 · prêmio</text></g>
+    </svg>
+    <div class="a" data-f="1" style="left:160px;top:440px;width:560px"><div class="card"><h4>Placa · P1MC</h4><p>Feita por pedreiros e famílias das comunidades. A ASA estima R$ 2,2 mil.</p></div></div>
+    <div class="a" data-f="2" style="left:880px;top:440px;width:700px"><div class="card vb"><h4>Plástico · Água para Todos</h4><p>Instalada em cerca de um dia. A ASA estima pouco mais de R$ 5 mil.</p></div></div>
+    <p class="a" data-f="3" style="left:160px;top:640px;width:1600px;font-size:28px;font-weight:300;margin:0;color:#fff">A meta era de 300 mil cisternas até 2014.</p>
   </section>
-  <section class="slide" data-b="b2" data-min="1" data-notes="Agora o conflito e o que ele mudou. A ASA lançou campanha contra o modelo; a pressão nas ruas levou a um recuo parcial." data-content="Conflito: ASA lançou campanha contra o modelo; cerca de 15 mil pessoas protestaram em Petrolina (O Eco, 2012). Queixas de deformação e furos, segundo a ASA; o ministério diz que o problema atinge 0 a 1% das 17,8 mil instaladas e que foram substituídas (Agência Brasil/IHU, 2012). Retomada do convênio com o MDS atrasou cerca de dois meses (CartaCapital). Defesa do ministério: reunir tecnologias diferentes; o polietileno é usado em outros países (CartaCapital). Reportagens de janeiro de 2012 apontaram vínculos políticos locais na distribuição, com nota do ministério: existe, não foi usado na narrativa.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono">O conflito</div><h2 class="hm" style="margin-top:14px">O modelo mudou.<br><span class="g">A ASA foi para a rua.</span></h2></div>
-    <div class="a" style="left:120px;top:500px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:26px">
-      <div class="card dk" data-f="1"><h4 style="color:#fff">Quem reagiu</h4><p>Cerca de 15 mil pessoas protestaram em Petrolina. A ASA lançou campanha contra o modelo.</p></div>
-      <div class="card" data-f="2"><h4>O que se discute</h4><p>Queixas de deformação e furos, segundo a ASA. O ministério fala em 0 a 1% das 17,8 mil instaladas.</p></div>
-      <div class="card vb" data-f="3" style="grid-column:span 2"><h4>O que resultou</h4><p>O governo recuou parcialmente. A retomada do convênio com o MDS atrasou cerca de dois meses.</p></div>
-    </div>
+  <section class="slide" data-b="b2" data-min="1" data-notes="Agora o conflito, e o que ele mudou. A ASA foi para a rua; a pressão levou a um recuo parcial. O resultado: mais cisternas de placa e o prêmio em 2017." data-content="Conflito: ASA lançou campanha contra o modelo; cerca de 15 mil pessoas protestaram em Petrolina (O Eco, 2012). Queixas de deformação e furos, segundo a ASA; o ministério diz que o problema atinge 0 a 1% das 17,8 mil instaladas (Agência Brasil/IHU, 2012). Retomada do convênio com o MDS atrasou cerca de dois meses (CartaCapital). Resultado: a política passou a valorizar a placa e a comunidade, com aumento dessas cisternas; prêmio internacional em 2017 citado no deck. Reportagens de janeiro de 2012 apontaram vínculos políticos locais, com nota do ministério: existe, não foi usado na narrativa.">
+    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono">O conflito e o que mudou</div><h2 class="hm" style="margin-top:14px">A pressão mudou o modelo.<br><span class="g">A placa voltou com força.</span></h2></div>
+    <div class="a" data-f="1" style="left:120px;top:470px;width:800px"><div class="card dk"><h4 style="color:#fff">Conflito · 2012</h4><p>Cerca de 15 mil pessoas protestaram em Petrolina. A ASA lançou campanha contra o plástico.</p></div></div>
+    <div class="a" data-f="2" style="left:1000px;top:470px;width:800px"><div class="card"><h4>O que se discute</h4><p>Queixas de deformação e furos, segundo a ASA. O ministério fala em 0 a 1% das instaladas.</p></div></div>
+    <div class="a" data-f="3" style="left:120px;top:720px;width:1680px"><div class="card vb"><h4>O que resultou</h4><p>O governo recuou parcialmente. A placa, feita pela comunidade, ganhou espaço. A política foi reconhecida com um prêmio em 2017.</p></div></div>
   </section>
   <section class="slide" data-b="b2" data-min="1" data-notes="Pausa de 10 segundos. Peça o critério antes da escolha." data-content="Pergunta para pensar. Plástico instala em um dia; placa leva cerca de cinco dias e é feita pela comunidade (material-base, ficha C2). Não há resposta única: a escolha da sala mostra o critério que usa.">
-    <div class="pz" style="top:170px"><div class="mono">Pausa para pensar</div><h2 class="q" style="font-size:88px;margin-top:20px">Estiagem cada vez maior, 300 mil cisternas para entregar. Qual você escolhe?</h2></div>
-    <div class="ring-box r" style="--d:2" data-tot="10" data-rem="10">
+    <div class="ht"></div>
+        <div class="pz" style="top:170px"><div class="mono">Pausa para pensar</div><h2 class="q" style="font-size:88px;margin-top:20px">Estiagem cada vez maior, 300 mil cisternas para entregar. Qual você escolhe?</h2></div>
+    <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
-      <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Aperte para iniciar.</span></div>
+      <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Avance para iniciar.</span></div>
     </div>
   </section>
   <section class="slide" data-b="b2" data-min="1" data-opt="1" data-content="Dialética na leitura popular de Hegel: tese, antítese, síntese. O conceito central em Hegel é a superação (Aufhebung). Dialógica: Morin. Confirme edição e página de Morin antes de citar (material-base, seção 4.5)." data-notes="Dialética popular: a contradição vira síntese. Dialógica (Morin): dois princípios necessários e antagônicos que permanecem juntos. Troque o ou pelo e.">
@@ -499,7 +518,8 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="5" style="left:1220px;top:520px;width:600px;font-size:34px;font-weight:300;margin:0;color:#fff">Simplificar o problema não simplifica a realidade. Transfere o custo para quem implementa.</p>
   </section>
   <section class="slide" data-b="b3" data-min="1" data-content="Minha Casa Minha Vida, Faixa 1 (desde 2009). A ideia: moradia em escala com subsídio alto e conjuntos padronizados. Pesquisas em 22 municípios (deck, slide 32; fonte a identificar): conjuntos sem transporte, serviço ou emprego; taxas acima da renda; planta de dois quartos sem espaço para família grande ou comércio." data-notes="Mostre as duas barras. A unidade foi entregue; o acesso à cidade não. Pesquisas em 22 municípios descreveram os conjuntos afastados e sem serviços.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2009</b> · Minha Casa Minha Vida, Faixa 1</div><h2 class="hm" style="margin-top:14px">Casa entregue é política entregue?</h2></div>
+    <div class="ht"></div>
+        <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2009</b> · Minha Casa Minha Vida, Faixa 1</div><h2 class="hm" style="margin-top:14px">Casa entregue é política entregue?</h2></div>
     <div class="a" style="left:120px;top:460px;width:1680px">
       <div class="lbl" style="margin-bottom:14px">Unidade entregue</div>
       <div style="width:1680px;height:60px;background:#9B2BFF;border-radius:6px"></div>
@@ -509,8 +529,9 @@ button{font-family:inherit;cursor:pointer}
     <div class="a" data-f="2" style="left:120px;top:790px;width:1680px"><p class="body" style="font-size:28px">Pesquisas em 22 municípios: conjuntos rurais antigos, taxas acima da renda, planta de dois quartos que não comporta família grande.</p></div>
   </section>
   <section class="slide" data-b="b3" data-min="1" data-content="Pergunta do caso, sem resposta única. O critério é a definição do problema: unidade entregue ou acesso à cidade (material-base, seção 9.2, C3)." data-notes="Pausa de 10 segundos. A pergunta não tem resposta fácil. Deixe a sala se dividir.">
-    <div class="pz" style="top:200px"><div class="mono">Pausa para pensar · caso</div><h2 class="q">Uma família saiu do aluguel em área de risco e ganhou casa própria a 2 horas do trabalho. Deu certo ou errado?</h2></div>
-    <div class="ring-box r" style="--d:2" data-tot="10" data-rem="10">
+    <div class="ht"></div>
+        <div class="pz" style="top:200px"><div class="mono">Pausa para pensar · caso</div><h2 class="q">Uma família saiu do aluguel em área de risco e ganhou casa própria a 2 horas do trabalho. Deu certo ou errado?</h2></div>
+    <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
       <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Escolha um lado antes de ver o que as pesquisas mostram.</span></div>
     </div>
@@ -519,83 +540,100 @@ button{font-family:inherit;cursor:pointer}
     <div class="dvbig">04</div>
     <div class="a r" style="--d:0;left:120px;top:460px"><div class="mono v">Bloco 04</div><h2 class="anton" style="font-size:150px;margin:20px 0 0;color:#fff">A resposta:<br>resolução colaborativa</h2></div>
   </section>
-  <section class="slide" data-b="b4" data-min="2" data-notes="Inovação não é o setor das ideias novas. É governar a incerteza: o cone de futuros se abre no começo e estreita a cada teste pequeno." data-content="Inovação pública como tecnologia de mediação: organiza múltiplas lógicas num processo produtivo de aprendizagem e decisão (material-base, seção 6.1; deck, slides 34–35). Cone de futuro: no começo há muitos futuros possíveis; testes pequenos, onde o erro é barato, estreitam o cone antes de escalar. Nota de enquadramento: aqui design não é estética e inovação não é criatividade.">
+  <section class="slide" data-b="b4" data-min="2" data-notes="Comece largo: muitos futuros possíveis. Cada teste pequeno, em um lugar diferente, estreita o cone. Termine com as três frases." data-content="Inovação pública: organiza múltiplas lógicas num processo produtivo de aprendizagem e decisão (material-base, seção 6.1; deck, slides 34–35). Leitura do palestrante: o cone de futuros se estreita com testes pequenos, onde o erro é barato. Nota de enquadramento: aqui design não é estética e inovação não é criatividade.">
+    <div class="ht"></div>
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Inovação pública é uma forma<br><span class="g">de governar a incerteza.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
-      <polygon points="160,560 1760,300 1760,820" fill="rgba(155,43,255,.12)" stroke="#9B2BFF" stroke-width="2" data-f="1"/>
-      <polygon points="160,560 1760,470 1760,650" fill="rgba(155,43,255,.32)" stroke="#9B2BFF" stroke-width="3" data-f="2"/>
-      <line x1="160" y1="560" x2="1760" y2="560" stroke="#fff" stroke-width="2" stroke-dasharray="8 8" data-f="2"/>
+      <polygon points="160,560 1700,250 1700,850" fill="rgba(122,77,255,.10)" stroke="#7A4DFF" stroke-width="2" data-f="1"/>
+      <polygon points="160,560 1700,380 1700,740" fill="rgba(122,77,255,.22)" stroke="#7A4DFF" stroke-width="2" data-f="2"/>
+      <polygon points="160,560 1700,470 1700,650" fill="rgba(122,77,255,.42)" stroke="#B9A6FF" stroke-width="2" data-f="3"/>
+      <line x1="160" y1="560" x2="1700" y2="560" stroke="#fff" stroke-width="2" stroke-dasharray="8 8" data-f="1"/>
       <circle cx="160" cy="560" r="16" fill="#fff" data-f="1"/>
-      <circle cx="560" cy="560" r="14" fill="#fff" data-f="3"/><circle cx="1000" cy="560" r="14" fill="#fff" data-f="3"/>
+      <text x="160" y="610" fill="#fff" font-family="IBM Plex Mono" font-size="22" data-f="1">HOJE</text>
+      <circle cx="640" cy="440" r="14" fill="#fff" data-f="2"/>
+      <text x="640" y="400" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle" data-f="2">TESTE 1 · um bairro</text>
+      <circle cx="1140" cy="690" r="14" fill="#fff" data-f="3"/>
+      <text x="1140" y="740" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle" data-f="3">TESTE 2 · outro município</text>
     </svg>
-    <div class="a" data-f="1" style="left:120px;top:600px"><div class="mono">Hoje</div></div>
-    <div class="a" data-f="1" style="left:1400px;top:220px;width:360px;text-align:right"><div class="mono">Futuros possíveis</div></div>
-    <div class="a" data-f="3" style="left:500px;top:610px;width:240px"><div class="mono">Teste 1</div></div>
-    <div class="a" data-f="3" style="left:940px;top:610px;width:240px"><div class="mono">Teste 2</div></div>
-    <p class="a" data-f="4" style="left:120px;top:910px;width:1680px;font-size:30px;font-weight:300;margin:0;color:#fff">Incerteza no começo, ciclo curto no meio, decisão com evidência no fim.</p>
+    <div class="a" data-f="1" style="left:120px;top:850px;width:480px"><div class="mono">1 · começo</div><p class="body" style="font-size:34px;margin-top:10px">Incerteza no começo.</p></div>
+    <div class="a" data-f="2" style="left:700px;top:850px;width:480px"><div class="mono">2 · meio</div><p class="body" style="font-size:34px;margin-top:10px">Ciclo curto no meio.</p></div>
+    <div class="a" data-f="3" style="left:1280px;top:850px;width:520px"><div class="mono">3 · fim</div><p class="body v" style="font-size:34px;margin-top:10px">Decisão com evidência no fim.</p></div>
   </section>
   <section class="slide" data-b="b4" data-min="1" data-content="Rajagopalan & Midgley (2020), a partir de Heron & Reason (1997): proposicional, experiencial, presentacional e prática (prefácio de Midgley, PDF p. 7). A maior parte da literatura de pensamento sistêmico privilegia o proposicional. Leitura do palestrante: escuta qualificada é conhecimento experiencial." data-notes="Clique em cada quadrante. A maior parte do pensamento sistêmico privilegia o primeiro. Escuta qualificada é conhecimento experiencial.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Há quatro formas de conhecer.<br><span class="g">Não só a dos dados.</span></h2></div>
     <div class="a" style="left:120px;top:440px;width:1680px">
       <div class="quad">
-        <div class="qd on" data-q="0"><div class="mono">01</div><h4>Proposicional</h4><p>Conceitos e dados.</p></div>
-        <div class="qd" data-q="1"><div class="mono">02</div><h4>Experiencial</h4><p>Vivência direta, a escuta.</p></div>
-        <div class="qd" data-q="2"><div class="mono">03</div><h4>Presentacional</h4><p>Arte e narrativa.</p></div>
-        <div class="qd" data-q="3"><div class="mono">04</div><h4>Prática</h4><p>Saber-fazer.</p></div>
+        <div class="qd" data-f="1"><div class="mono">01</div><h4>Proposicional</h4><p>Conceitos e dados.</p></div>
+        <div class="qd" data-f="2"><div class="mono">02</div><h4>Experiencial</h4><p>Vivência direta, a escuta.</p></div>
+        <div class="qd" data-f="3"><div class="mono">03</div><h4>Presentacional</h4><p>Arte e narrativa.</p></div>
+        <div class="qd" data-f="4"><div class="mono">04</div><h4>Prática</h4><p>Saber-fazer.</p></div>
       </div>
     </div>
     <p class="a" style="left:120px;top:900px;font-size:30px;font-weight:300;margin:0;color:#fff">Escuta qualificada é conhecimento. <span class="v">Não é achismo.</span></p>
   </section>
-  <section class="slide" data-b="b4" data-min="2" data-notes="Cada clique expande o mapa. Antes de simplificar, o mapa precisa ser grande. Não sobre-desenhe: ele deve continuar aberto." data-content="Sevaldson (2013, p. 1776–1779): GIGA-mapping, mapas densos com no mínimo cerca de 300 entidades e suas relações, para entender e gerar. Sevaldson (2013, p. 1779): simplificação precoce pode levar a conclusões e suposições totalmente erradas. Sevaldson (2022, PDF p. 224): desligar o filtro de relevância no início. Adaptação para a gestão pública: do palestrante, a partir do Systems Oriented Design.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Expandir antes de simplificar.<br><span class="g">Liste o que se relaciona.</span></h2></div>
+  <section class="slide" data-b="b4" data-min="2" data-notes="Primeiro os pontos, depois o caminho. Liste tudo o que se relaciona antes de definir o problema." data-content="Sevaldson (2013, p. 1776–1779): GIGA-mapping, mapas densos com no mínimo cerca de 300 entidades e suas relações, para entender e gerar. Sevaldson (2013, p. 1779): simplificação precoce pode levar a conclusões e suposições totalmente erradas. Sevaldson (2022, PDF p. 224): desligar o filtro de relevância no início. Adaptação para a gestão pública: do palestrante.">
+    <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Liste antes de definir.<br><span class="g">Tudo o que se relaciona.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true" id="netSvg"></svg>
-    <div class="a" data-f="4" style="left:1240px;top:560px;width:600px"><p class="body" style="font-size:30px;color:#fff">Simplificar cedo pode levar a conclusões totalmente erradas.</p><p class="body" style="margin-top:18px;font-size:24px">Mapas grandes, com cerca de 300 entidades ou mais, servem para entender e gerar. Não sobre-desenhe: o mapa tem de continuar aberto.</p></div>
-    <p class="a" data-f="5" style="left:1240px;top:900px;width:600px;font-size:20px;font-weight:300;color:var(--mute);margin:0">Sevaldson (2013, p. 1776–1779); Sevaldson (2022, PDF p. 224).</p>
+    <p class="a" data-f="5" style="left:120px;top:960px;font-size:22px;font-weight:300;margin:0;color:#8d8799">Sevaldson (2013; 2022). Mapas com cerca de 300 entidades ou mais.</p>
   </section>
   <section class="slide" data-b="b4" data-min="2" data-content="Exercício de dois minutos em duplas: quem não está na mesa (material-base, seção 6.5)." data-notes="Peça duplas. Inicie o cronômetro e espere os dois minutos inteiros. Depois peça que uma dupla diga quem anotou.">
-    <div class="pz" style="top:170px"><div class="mono">Exercício · duplas</div><h2 class="q" style="font-size:96px;margin-top:20px">Quem não está na mesa?</h2><p class="lead" style="margin-top:36px;max-width:1100px">Pense num problema que você enfrenta hoje. Anote uma pessoa ou grupo que não está nessa conversa.</p></div>
-    <div class="ring-box r" style="--d:2" data-tot="120">
-      <button class="timer" id="exTimer"><svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg><span><span class="tt" style="display:block">2:00</span><span class="hint2" style="display:block">Aperte para iniciar</span></span></button>
+    <div class="ht"></div>
+        <div class="pz" style="top:170px"><div class="mono">Exercício · duplas</div><h2 class="q" style="font-size:96px;margin-top:20px">Quem não está na mesa?</h2><p class="lead" style="margin-top:36px;max-width:1100px">Pense num problema que você enfrenta hoje. Anote uma pessoa ou grupo que não está nessa conversa.</p></div>
+    <div class="ring-box r" style="--d:2" data-f="1" data-tot="120">
+      <div class="timer" id="exTimer"><svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg><span><span class="tt" style="display:block">2:00</span><span class="hint2" style="display:block">Aperte para iniciar</span></span></div>
     </div>
   </section>
-  <section class="slide" data-b="b4" data-min="1" data-notes="Desenhe a mesa. Quem decide está sentado; quem é afetado, quase nunca. Pergunte quem, no problema da sala, está do lado de fora." data-content="Três círculos (deck, slide 47): decide (técnicos e políticos, sempre na sala); consultado (sociedade civil organizada, às vezes na sala); afetado (quem vive o problema, quase nunca na sala e o mais dependente do resultado). Frase de apoio: a participação não falha só quando alguém é ignorado; falha quando alguém sequer é convidado.">
+  <section class="slide" data-b="b4" data-min="1" data-notes="Desenhe a mesa aos poucos. Primeiro quem decide, na cabeceira. Depois quem é consultado. Por último, as cadeiras vazias de quem é afetado." data-content="Três grupos (deck, slide 47): decide (técnicos e políticos, sempre na sala); consultado (sociedade civil organizada, às vezes na sala); afetado (quem vive o problema, quase nunca na sala e o mais dependente do resultado). A participação não falha só quando alguém é ignorado; falha quando alguém sequer é convidado.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Convoque quem<br><span class="g">não está na mesa.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
-      <circle cx="560" cy="650" r="170" fill="#0E0C12" stroke="#fff" stroke-width="3"/>
-      <circle cx="560" cy="390" r="26" fill="#9B2BFF"/><circle cx="740" cy="650" r="26" fill="#9B2BFF"/>
-      <circle cx="380" cy="650" r="26" fill="#6b6578"/>
-      <circle cx="420" cy="480" r="26" fill="none" stroke="#9B2BFF" stroke-width="3" stroke-dasharray="6 6" data-f="2"/>
-      <circle cx="700" cy="480" r="26" fill="none" stroke="#9B2BFF" stroke-width="3" stroke-dasharray="6 6" data-f="2"/>
-      <circle cx="700" cy="820" r="26" fill="none" stroke="#9B2BFF" stroke-width="3" stroke-dasharray="6 6" data-f="2"/>
-      <circle cx="420" cy="820" r="26" fill="none" stroke="#9B2BFF" stroke-width="3" stroke-dasharray="6 6" data-f="2"/>
-      <circle cx="560" cy="910" r="26" fill="none" stroke="#9B2BFF" stroke-width="3" stroke-dasharray="6 6" data-f="2"/>
-      <text x="560" y="662" fill="#fff" font-family="Anton" font-size="40" text-anchor="middle">A MESA</text>
+      <rect x="420" y="520" width="640" height="260" rx="130" fill="#0E0C12" stroke="#fff" stroke-width="3"/>
+      <text x="740" y="668" fill="#fff" font-family="Anton" font-size="44" text-anchor="middle">A MESA</text>
+      <circle cx="360" cy="650" r="30" fill="#7A4DFF" data-f="1"/>
+      <text x="200" y="740" fill="#fff" font-family="IBM Plex Mono" font-size="22" data-f="1">DECIDE · cabeceira</text>
+      <circle cx="500" cy="470" r="24" fill="#fff" data-f="2"/><circle cx="680" cy="470" r="24" fill="#fff" data-f="2"/><circle cx="860" cy="470" r="24" fill="#fff" data-f="2"/>
+      <text x="680" y="430" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle" data-f="2">CONSULTADO</text>
+      <circle cx="500" cy="830" r="24" fill="none" stroke="#7A4DFF" stroke-width="3" stroke-dasharray="6 6" data-f="3"/><circle cx="680" cy="830" r="24" fill="none" stroke="#7A4DFF" stroke-width="3" stroke-dasharray="6 6" data-f="3"/><circle cx="860" cy="830" r="24" fill="none" stroke="#7A4DFF" stroke-width="3" stroke-dasharray="6 6" data-f="3"/>
+      <text x="680" y="900" fill="#B9A6FF" font-family="IBM Plex Mono" font-size="22" text-anchor="middle" data-f="3">AFETADO · cadeiras vazias</text>
     </svg>
-    <div class="a" data-f="1" style="left:820px;top:330px;width:900px"><div class="card"><h4>Decide</h4><p>Técnicos e políticos. Estão sempre na sala.</p></div></div>
-    <div class="a" data-f="1" style="left:820px;top:520px;width:900px"><div class="card"><h4>Consultado</h4><p>Sociedade civil organizada. Às vezes tem cadeira.</p></div></div>
-    <div class="a" data-f="2" style="left:820px;top:710px;width:900px"><div class="card vb"><h4>Afetado · cadeira vazia</h4><p>Quem vive o problema. Quase nunca tem cadeira, e é quem mais depende do resultado.</p></div></div>
+    <div class="a" data-f="1" style="left:1160px;top:330px;width:720px"><div class="card"><h4>Decide</h4><p>Técnicos e políticos. Estão sempre na sala.</p></div></div>
+    <div class="a" data-f="2" style="left:1160px;top:560px;width:720px"><div class="card"><h4>Consultado</h4><p>Sociedade civil organizada. Às vezes tem cadeira.</p></div></div>
+    <div class="a" data-f="3" style="left:1160px;top:790px;width:720px"><div class="card vb"><h4>Afetado</h4><p>Quem vive o problema. Quase nunca tem cadeira, e é quem mais depende do resultado.</p></div></div>
   </section>
   <section class="slide" data-b="b4" data-min="2" data-notes="Passe um passo de cada vez. Mostre a mudança de pergunta, não a solução. O caso não diz que o posto de justiça não servia; diz que a pergunta estava mal formulada." data-content="Sá et al. (2020), The TQM Journal, DOI 10.1108/tqm-12-2019-0300. O governo central formulou a pergunta de cima para baixo: quais serviços de justiça levar a uma comunidade pequena e de baixa densidade. A escuta de moradores e atores locais mostrou restrições de mobilidade e falta de oportunidades econômicas. Limite: o estudo cobre identificação e conceituação, sem medir resultado.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2020</b> · Penela, Portugal</div><h2 class="hm" style="margin-top:14px">A pergunta estava mal formulada.</h2></div>
-    <div class="a" style="left:120px;top:500px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:26px">
+    <div class="ht"></div>
+        <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2020</b> · Penela, Portugal</div><h2 class="hm" style="margin-top:14px">A pergunta estava mal formulada.</h2></div>
+    <div class="a" style="left:120px;top:400px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:24px">
       <div class="card" data-f="1"><div class="mono v2">Passo 1</div><h4 style="margin-top:12px">Pergunta do diagnóstico</h4><p>Quais serviços de justiça levar à comunidade?</p></div>
       <div class="card" data-f="2"><div class="mono v2">Passo 2</div><h4 style="margin-top:12px">Escuta</h4><p>Moradores e atores locais falam do dia a dia, não do serviço.</p></div>
       <div class="card" data-f="3"><div class="mono v2">Passo 3</div><h4 style="margin-top:12px">Descoberta</h4><p>Restrições de mobilidade e falta de oportunidades explicavam a baixa demanda.</p></div>
       <div class="card vb" data-f="4"><div class="mono">Passo 4</div><h4 style="margin-top:12px">Pergunta nova</h4><p>Como testar mobilidade e oportunidade com a comunidade?</p></div>
     </div>
-    <p class="a" data-f="5" style="left:120px;top:930px;width:1680px;font-size:28px;font-weight:300;margin:0;color:#fff">Não é o posto de justiça que não servia. É a pergunta que estava errada.</p>
+    <p class="a" data-f="5" style="left:120px;top:960px;width:1680px;font-size:28px;font-weight:300;margin:0;color:#fff">Não é o posto de justiça que não servia. É a pergunta que estava errada.</p>
   </section>
-  <section class="slide" data-b="b4" data-min="1" data-content="Análise ZIP (Sevaldson, 2013, p. 1781–1782): Zoom, Potencial, Intervenção. Testar pequeno, onde o erro é barato (deck, slide 34)." data-notes="Explique os três critérios. Feche com o teste pequeno, onde o erro é barato.">
+  <section class="slide" data-b="b4" data-min="1" data-notes="Explique as três zonas. Z: onde falta informação. P: o que já funciona e vale aprender. I: a intervenção pequena, que se testa." data-content="Análise ZIP (Sevaldson, 2013, p. 1781–1782): Zoom (onde falta informação, aprofunde), Potencial (problema evidente ou algo que funciona e vale aprender), Intervenção (algo novo a fazer ou relação nova a criar). Testar pequeno, onde o erro é barato; ajustar antes de escalar (deck, slide 34).">
+    <div class="ht"></div>
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Localize o ponto de intervenção.<br><span class="g">Teste pequeno.</span></h2></div>
-    <div class="a" style="left:120px;top:460px;width:1680px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px">
-      <div class="card" data-f="1"><div class="anton" style="font-size:120px;color:var(--vi);line-height:.9">Z</div><h4 style="margin-top:20px">Zoom</h4><p>Onde falta informação. Aprofunde ali.</p></div>
-      <div class="card" data-f="2"><div class="anton" style="font-size:120px;color:var(--vi);line-height:.9">P</div><h4 style="margin-top:20px">Potencial</h4><p>Algo evidente, ou que funciona e vale aprender.</p></div>
-      <div class="card vb" data-f="3"><div class="anton" style="font-size:120px;color:#fff;line-height:.9">I</div><h4 style="margin-top:20px">Intervenção</h4><p>Algo novo a fazer, ou uma relação nova a criar.</p></div>
-    </div>
-    <p class="a" data-f="4" style="left:120px;top:900px;font-size:32px;font-weight:300;margin:0;color:#fff">Ajuste antes de escalar. <span class="v">Análise ZIP, Sevaldson (2013).</span></p>
+    <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
+      <defs><marker id="zar" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto"><path d="M0,0 L10,6 L0,12" fill="none" stroke="#fff" stroke-width="2.5"/></marker></defs>
+      <rect x="160" y="400" width="460" height="330" rx="18" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="10 8" data-f="1"/>
+      <text x="190" y="450" fill="#fff" font-family="Anton" font-size="46" data-f="1">Z</text>
+      <text x="260" y="450" fill="#CFCAD9" font-family="IBM Plex Mono" font-size="20" data-f="1">onde falta informação</text>
+      <rect x="700" y="440" width="460" height="290" rx="18" fill="rgba(122,77,255,.12)" stroke="#7A4DFF" stroke-width="2" data-f="2"/>
+      <text x="730" y="490" fill="#fff" font-family="Anton" font-size="46" data-f="2">P</text>
+      <text x="800" y="490" fill="#CFCAD9" font-family="IBM Plex Mono" font-size="20" data-f="2">o que já funciona</text>
+      <circle cx="900" cy="570" r="12" fill="#fff" data-f="2"/><circle cx="1010" cy="620" r="12" fill="#fff" data-f="2"/>
+      <line x1="620" y1="565" x2="700" y2="565" stroke="#fff" stroke-width="3" marker-end="url(#zar)" data-f="2"/>
+      <rect x="1240" y="480" width="440" height="230" rx="18" fill="rgba(122,77,255,.42)" stroke="#7A4DFF" stroke-width="2" data-f="3"/>
+      <text x="1270" y="530" fill="#fff" font-family="Anton" font-size="46" data-f="3">I</text>
+      <text x="1340" y="530" fill="#fff" font-family="IBM Plex Mono" font-size="20" data-f="3">intervenção pequena</text>
+      <rect x="1400" y="600" width="110" height="50" rx="8" fill="#fff" data-f="3"/>
+      <line x1="1160" y1="585" x2="1240" y2="585" stroke="#fff" stroke-width="3" marker-end="url(#zar)" data-f="3"/>
+    </svg>
+    <p class="a" data-f="4" style="left:120px;top:880px;width:1680px;font-size:32px;font-weight:300;margin:0;color:#fff">Testar pequeno, onde o erro é barato. <span class="v">Ajustar antes de escalar.</span></p>
   </section>
   <section class="slide" data-b="b4" data-min="1" data-opt="1" data-content="Forrester & Body (2014), cap. 8 de Design for Policy, citado por Bason (2014), impr. p. 113–114. Uma mãe de duas crianças teve negada a lista prioritária de habitação por 1,50 dólar acima do limite de renda. Não cite o nome. O capítulo não apresenta impacto medido." data-notes="Conte a história de uma mãe de duas crianças, sem nome. A regra de renda decidiu, por 1,50 dólar.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>Canberra</b> · Austrália</div><h2 class="hm" style="margin-top:14px">Uma regra de renda<br><span class="g">decidiu por 1,50 dólar.</span></h2></div>
+    <div class="ht"></div>
+        <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>Canberra</b> · Austrália</div><h2 class="hm" style="margin-top:14px">Uma regra de renda<br><span class="g">decidiu por 1,50 dólar.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
       <line x1="120" y1="560" x2="1800" y2="560" stroke="#2a2633" stroke-width="2"/>
       <line x1="1000" y1="500" x2="1000" y2="620" stroke="#fff" stroke-width="4" data-f="1"/>
@@ -608,8 +646,9 @@ button{font-family:inherit;cursor:pointer}
     </div>
   </section>
   <section class="slide" data-b="b4" data-min="1" data-opt="1" data-content="Pergunta para pensar. A regra de renda funcionou para quem? Sem resposta única." data-notes="Pausa de 10 segundos. Deixe a sala dividir antes de mostrar as ideias.">
-    <div class="pz" style="top:170px"><div class="mono">Pausa para pensar · caso opcional</div><h2 class="q" style="font-size:86px;margin-top:20px">Se a renda passa do limite por 1,50 dólar, o sistema funcionou?</h2></div>
-    <div class="ring-box r" style="--d:2" data-tot="10" data-rem="10">
+    <div class="ht"></div>
+        <div class="pz" style="top:170px"><div class="mono">Pausa para pensar · caso opcional</div><h2 class="q" style="font-size:86px;margin-top:20px">Se a renda passa do limite por 1,50 dólar, o sistema funcionou?</h2></div>
+    <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
       <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Para quem?</span></div>
     </div>
@@ -624,7 +663,8 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="4" style="left:120px;top:880px;font-size:28px;font-weight:300;margin:0;color:#fff">Um protótipo, testado com as famílias antes de escalar.</p>
   </section>
   <section class="slide" data-b="b4" data-min="2" data-opt="1" data-content="Oslo (2012), Sevaldson (2013, p. 1770–1773): equipe de atendimento a vítimas de violência sexual, pronto-socorro e polícia; GIGA-map validado; intervenções de produto, espaço e informação. Limite: feedback incompleto (p. 1783). Tema sensível: tom sóbrio." data-notes="Caso sensível. Tom sóbrio, só o essencial. O mapa foi feito com a equipe, não para ela.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2012</b> · Oslo, Noruega</div><h2 class="hm" style="margin-top:14px">Mapear o sistema junto com<br><span class="g">quem trabalha nele.</span></h2></div>
+    <div class="ht"></div>
+        <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2012</b> · Oslo, Noruega</div><h2 class="hm" style="margin-top:14px">Mapear o sistema junto com<br><span class="g">quem trabalha nele.</span></h2></div>
     <div class="a" style="left:120px;top:460px;width:1680px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px">
       <div class="card" data-f="1"><h4>Mapa do sistema</h4><p>Prevenção e resposta, validado com especialistas.</p></div>
       <div class="card" data-f="2"><h4>Jornada da vítima</h4><p>Construída com os profissionais, adotada de imediato.</p></div>
@@ -636,22 +676,24 @@ button{font-family:inherit;cursor:pointer}
     <div class="dvbig">05</div>
     <div class="a r" style="--d:0;left:120px;top:460px"><div class="mono v">Bloco 05</div><h2 class="anton" style="font-size:150px;margin:20px 0 0;color:#fff">Objeções que<br>você vai ouvir</h2></div>
   </section>
-  <section class="slide" data-b="b5" data-min="2" data-content="Bason (2010, cap. 9, impr. p. 196–198), paráfrase: três objeções e respostas. Para a segunda: se conhecer o cliente é caro, quanto custa não conhecê-lo? (frase de uma unidade britânica de customer insight)." data-notes="Clique em cada cartão para virar. Leia a objeção, deixe a sala completar, depois mostre a resposta.">
+  <section class="slide" data-b="b5" data-min="2" data-content="Bason (2010, cap. 9, impr. p. 196–198), paráfrase: três objeções e respostas. Para a segunda: se conhecer o cliente é caro, quanto custa não conhecê-lo? (frase de uma unidade britânica de customer insight)." data-notes="Avance para virar cada cartão. Leia a objeção, deixe a sala completar, depois mostre a resposta.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Três objeções.<br><span class="g">Três respostas.</span></h2></div>
     <div class="a" style="left:120px;top:500px;width:1680px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:34px">
-      <div class="flip" tabindex="0"><div class="fi"><div class="ff"><span class="mono">Objeção 1</span><b>“Vira ditadura do cidadão.”</b></div><div class="fb"><span class="mono" style="color:#F3E8FF">Resposta</span><p>O cidadão contribui para descobrir o que vai funcionar. Quem decide continua sendo a instância política.</p></div></div></div>
-      <div class="flip" tabindex="0"><div class="fi"><div class="ff"><span class="mono">Objeção 2</span><b>“Custa caro e demora.”</b></div><div class="fb"><span class="mono" style="color:#F3E8FF">Resposta</span><p>Mais caro é descobrir tarde que a solução desenhada na mesa não funciona.</p></div></div></div>
-      <div class="flip" tabindex="0"><div class="fi"><div class="ff"><span class="mono">Objeção 3</span><b>“Cria expectativa.”</b></div><div class="fb"><span class="mono" style="color:#F3E8FF">Resposta</span><p>É válida. Seja transparente sobre o que será feito e o que não será.</p></div></div></div>
+      <div class="flip" tabindex="0" data-f="1"><div class="fi"><div class="ff"><span class="mono">Objeção 1</span><b>“Ouvir o cidadão é entregar a decisão a ele.”</b></div><div class="fb"><span class="mono" style="color:#F3E8FF">Resposta</span><p>Não. Ele contribui com experiência e evidência. Quem decide continua sendo quem tem o mandato, e deve dizer por que decidiu.</p></div></div></div>
+      <div class="flip" tabindex="0" data-f="2"><div class="fi"><div class="ff"><span class="mono">Objeção 2</span><b>“Custa caro e demora.”</b></div><div class="fb"><span class="mono" style="color:#F3E8FF">Resposta</span><p>Mais caro é descobrir tarde que a solução desenhada na mesa não funciona.</p></div></div></div>
+      <div class="flip" tabindex="0" data-f="3"><div class="fi"><div class="ff"><span class="mono">Objeção 3</span><b>“Cria expectativa.”</b></div><div class="fb"><span class="mono" style="color:#F3E8FF">Resposta</span><p>É válida. Seja transparente sobre o que será feito e o que não será.</p></div></div></div>
     </div>
   </section>
   <section class="slide" data-b="b5" data-min="1" data-content="Repactuação da reparação de Mariana, assinada em 25/10/2024: 49 municípios, 11 no Espírito Santo (Agência Pública, 24/10/2024; Agência Minas). Antecedente: o TAC-Gov previa comissões de atingidos (Agência Brasil/acessa, 09/2024)." data-notes="Apresente o acordo com os fatos. Tom descritivo. Depois, a pergunta.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2015–2024</b> · Rio Doce</div><h2 class="hm" style="margin-top:14px">Repactuação assinada<br><span class="g">em 25/10/2024.</span></h2></div>
+    <div class="ht"></div>
+        <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2015–2024</b> · Rio Doce</div><h2 class="hm" style="margin-top:14px">Repactuação assinada<br><span class="g">em 25/10/2024.</span></h2></div>
     <div class="a" data-f="1" style="left:120px;top:520px;width:1680px"><p class="lead w" style="font-size:36px">49 municípios, 11 deles no Espírito Santo. A repactuação da reparação de Mariana.</p></div>
     <div class="a" data-f="2" style="left:120px;top:720px;width:1680px"><p class="body" style="font-size:28px">Antes dela, o TAC-Gov previa comissões de atingidos, consolidadas só anos depois, com obstáculos judiciais.</p></div>
   </section>
   <section class="slide" data-b="b5" data-min="1" data-content="Atingidos e movimentos denunciaram não participação na negociação (Agência Pública, 24/10/2024). O MAB reconhece avanços e aponta insuficiências (MAB, 24/10/2024). O MPF destaca o anexo 6 e o Conselho Federal de Participação Social (MPF). Minas criou a IMPS/Doce, consultiva (Agência Minas, 22/10/2025). Tom descritivo." data-notes="Pausa de 10 segundos. Depois, as duas posições na mesma tela, sem adjetivos. Tom descritivo; não tome partido.">
-    <div class="pz" style="top:170px"><div class="mono">Caso · Rio Doce · pausa para pensar</div><h2 class="q" style="font-size:88px;margin-top:20px">Participar do acompanhamento de um acordo equivale a ter participado da sua construção?</h2></div>
-    <div class="ring-box r" style="--d:2" data-tot="10" data-rem="10">
+    <div class="ht"></div>
+        <div class="pz" style="top:170px"><div class="mono">Caso · Rio Doce · pausa para pensar</div><h2 class="q" style="font-size:88px;margin-top:20px">Participar do acompanhamento de um acordo equivale a ter participado da sua construção?</h2></div>
+    <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
       <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Sim ou não. Por quê?</span></div>
     </div>
@@ -662,28 +704,29 @@ button{font-family:inherit;cursor:pointer}
     <div class="dvbig">06</div>
     <div class="a r" style="--d:0;left:120px;top:460px"><div class="mono v">Bloco 06</div><h2 class="anton" style="font-size:150px;margin:20px 0 0;color:#fff">Decidir e<br>sustentar</h2></div>
   </section>
-  <section class="slide" data-b="b6" data-min="2" data-notes="Mostre os quatro modos como desenho: quem fica de fora, quem decide. Pergunte em qual deles a última decisão da equipe foi tomada." data-content="Quatro modos de decidir (deck, slide 49; material-base, seção 8.1): consenso (todos concordam, pode paralisar); consentimento (ninguém tem objeção grave, adesão morna); maioria (vota-se e decide-se, produz perdedores); autoridade com escuta (alguém decide depois de ouvir; realista no Estado, legítima só se a escuta for de verdade). Como se decide vale tanto quanto o que se decide.">
+  <section class="slide" data-b="b6" data-min="2" data-notes="Passe para cada modo. Para cada um: o que ganha e o que perde. Nenhum é o modo certo por padrão; depende do problema." data-content="Quatro modos de decidir (deck, slide 49; material-base, seção 8.1). Como se decide vale tanto quanto o que se decide. Autoridade com escuta é realista no Estado, mas só é legítima se a escuta for de verdade.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Decidir é acordar,<br><span class="g">não descobrir.</span></h2></div>
-    <div class="a" style="left:120px;top:400px;width:1680px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px">
-      <div class="card" data-f="1" style="height:500px;padding:26px 26px;display:flex;flex-direction:column;justify-content:space-between">
-        <svg viewBox="0 0 300 140" width="100%" height="150" aria-hidden="true"><circle cx="40" cy="70" r="14" fill="#9B2BFF"/><circle cx="80" cy="70" r="14" fill="#9B2BFF"/><circle cx="120" cy="70" r="14" fill="#9B2BFF"/><circle cx="160" cy="70" r="14" fill="#9B2BFF"/><circle cx="200" cy="70" r="14" fill="#9B2BFF"/><circle cx="240" cy="70" r="14" fill="#9B2BFF"/><circle cx="280" cy="70" r="14" fill="#9B2BFF"/><path d="M26 70 Q160 10 294 70" fill="none" stroke="#9B2BFF" stroke-width="2"/></svg>
-        <div><h4 style="font-size:40px;line-height:1.05">Consenso</h4><p>Todos concordam.</p><p style="margin-top:12px;color:#fff">Custa: risco de paralisia.</p></div>
-      </div>
-      <div class="card" data-f="1" style="height:500px;padding:26px 26px;display:flex;flex-direction:column;justify-content:space-between">
-        <svg viewBox="0 0 300 140" width="100%" height="150" aria-hidden="true"><circle cx="40" cy="70" r="14" fill="#9B2BFF"/><circle cx="80" cy="70" r="14" fill="#9B2BFF"/><circle cx="120" cy="70" r="14" fill="#9B2BFF"/><circle cx="160" cy="70" r="14" fill="#9B2BFF"/><circle cx="200" cy="70" r="14" fill="#9B2BFF"/><circle cx="240" cy="70" r="14" fill="#9B2BFF"/><circle cx="280" cy="70" r="14" fill="none" stroke="#6b6578" stroke-width="3" stroke-dasharray="5 5"/></svg>
-        <div><h4 style="font-size:40px;line-height:1.05">Consentimento</h4><p>Ninguém tem objeção grave.</p><p style="margin-top:12px;color:#fff">Custa: adesão morna.</p></div>
-      </div>
-      <div class="card" data-f="1" style="height:500px;padding:26px 26px;display:flex;flex-direction:column;justify-content:space-between">
-        <svg viewBox="0 0 300 140" width="100%" height="150" aria-hidden="true"><circle cx="40" cy="70" r="14" fill="#9B2BFF"/><circle cx="80" cy="70" r="14" fill="#9B2BFF"/><circle cx="120" cy="70" r="14" fill="#9B2BFF"/><circle cx="160" cy="70" r="14" fill="#9B2BFF"/><circle cx="200" cy="70" r="14" fill="#9B2BFF"/><circle cx="240" cy="70" r="14" fill="#2b2734"/><circle cx="280" cy="70" r="14" fill="#2b2734"/></svg>
-        <div><h4 style="font-size:40px;line-height:1.05">Maioria</h4><p>Vota-se e decide-se.</p><p style="margin-top:12px;color:#fff">Custa: produz perdedores.</p></div>
-      </div>
-      <div class="card" data-f="1" style="height:500px;padding:26px 26px;display:flex;flex-direction:column;justify-content:space-between;background:#120a1c;border-color:#9B2BFF">
-        <svg viewBox="0 0 300 140" width="100%" height="150" aria-hidden="true"><circle cx="150" cy="70" r="26" fill="#9B2BFF"/><line x1="70.0" y1="69.99999999999999" x2="120.0" y2="70.0" stroke="#fff" stroke-width="2"/><circle cx="70" cy="70" r="12" fill="#fff"/><line x1="110.00000000000001" y1="18.03847577293368" x2="135.0" y2="57.875644347017854" stroke="#fff" stroke-width="2"/><circle cx="110" cy="18" r="12" fill="#fff"/><line x1="190.0" y1="18.038475772933687" x2="165.0" y2="57.87564434701786" stroke="#fff" stroke-width="2"/><circle cx="190" cy="18" r="12" fill="#fff"/><line x1="230.0" y1="70.0" x2="180.0" y2="70.0" stroke="#fff" stroke-width="2"/><circle cx="230" cy="70" r="12" fill="#fff"/><line x1="190.0" y1="121.96152422706632" x2="165.0" y2="82.12435565298215" stroke="#fff" stroke-width="2"/><circle cx="190" cy="122" r="12" fill="#fff"/><line x1="110.00000000000001" y1="121.96152422706632" x2="135.0" y2="82.12435565298215" stroke="#fff" stroke-width="2"/><circle cx="110" cy="122" r="12" fill="#fff"/></svg>
-        <div><h4 style="font-size:40px;line-height:1.05">Autoridade com escuta</h4><p>Alguém decide depois de ouvir.</p><p style="margin-top:12px;color:#fff">Custa: só é legítima se a escuta for de verdade.</p></div>
-      </div>
-      
-    </div>
-    <p class="a" data-f="2" style="left:120px;top:960px;font-size:30px;font-weight:300;margin:0;color:#fff">Como se decide vale tanto quanto o que se decide.</p>
+    <div class="a" style="left:120px;top:380px;width:1680px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px"><div class="card" data-f="1" style="height:540px;padding:26px 26px;display:flex;flex-direction:column;justify-content:flex-start;gap:18px">
+        <svg viewBox="0 0 300 140" width="100%" height="140" aria-hidden="true"><circle cx="40" cy="70" r="14" fill="#7A4DFF"/><circle cx="80" cy="70" r="14" fill="#7A4DFF"/><circle cx="120" cy="70" r="14" fill="#7A4DFF"/><circle cx="160" cy="70" r="14" fill="#7A4DFF"/><circle cx="200" cy="70" r="14" fill="#7A4DFF"/><circle cx="240" cy="70" r="14" fill="#7A4DFF"/><circle cx="280" cy="70" r="14" fill="#7A4DFF"/></svg>
+        <div><h4 style="font-size:38px;line-height:1.05">Consenso</h4>
+        <p style="margin-top:14px"><span class="mono v">Ganha</span><br>Legitimidade alta.</p>
+        <p style="margin-top:12px"><span class="mono" style="color:#8d8799">Perde</span><br>Velocidade; risco de paralisia.</p></div>
+      </div><div class="card" data-f="1" style="height:540px;padding:26px 26px;display:flex;flex-direction:column;justify-content:flex-start;gap:18px">
+        <svg viewBox="0 0 300 140" width="100%" height="140" aria-hidden="true"><circle cx="40" cy="70" r="14" fill="#7A4DFF"/><circle cx="80" cy="70" r="14" fill="#7A4DFF"/><circle cx="120" cy="70" r="14" fill="#7A4DFF"/><circle cx="160" cy="70" r="14" fill="#7A4DFF"/><circle cx="200" cy="70" r="14" fill="#7A4DFF"/><circle cx="240" cy="70" r="14" fill="#7A4DFF"/><circle cx="280" cy="70" r="14" fill="none" stroke="#6b6578" stroke-width="3" stroke-dasharray="5 5"/></svg>
+        <div><h4 style="font-size:38px;line-height:1.05">Consentimento</h4>
+        <p style="margin-top:14px"><span class="mono v">Ganha</span><br>Rapidez; ninguém com objeção grave.</p>
+        <p style="margin-top:12px"><span class="mono" style="color:#8d8799">Perde</span><br>Adesão morna.</p></div>
+      </div><div class="card" data-f="1" style="height:540px;padding:26px 26px;display:flex;flex-direction:column;justify-content:flex-start;gap:18px">
+        <svg viewBox="0 0 300 140" width="100%" height="140" aria-hidden="true"><circle cx="40" cy="70" r="14" fill="#7A4DFF"/><circle cx="80" cy="70" r="14" fill="#7A4DFF"/><circle cx="120" cy="70" r="14" fill="#7A4DFF"/><circle cx="160" cy="70" r="14" fill="#7A4DFF"/><circle cx="200" cy="70" r="14" fill="#7A4DFF"/><circle cx="240" cy="70" r="14" fill="#2b2734"/><circle cx="280" cy="70" r="14" fill="#2b2734"/></svg>
+        <div><h4 style="font-size:38px;line-height:1.05">Maioria</h4>
+        <p style="margin-top:14px"><span class="mono v">Ganha</span><br>Clareza e rapidez.</p>
+        <p style="margin-top:12px"><span class="mono" style="color:#8d8799">Perde</span><br>Quem ficou na minoria.</p></div>
+      </div><div class="card" data-f="1" style="height:540px;padding:26px 26px;display:flex;flex-direction:column;justify-content:flex-start;gap:18px">
+        <svg viewBox="0 0 300 140" width="100%" height="140" aria-hidden="true"><circle cx="150" cy="70" r="26" fill="#7A4DFF"/><line x1="70.0" y1="69.99999999999999" x2="120.0" y2="70.0" stroke="#fff" stroke-width="2"/><circle cx="70" cy="70" r="12" fill="#fff"/><line x1="110.00000000000001" y1="18.03847577293368" x2="135.0" y2="57.875644347017854" stroke="#fff" stroke-width="2"/><circle cx="110" cy="18" r="12" fill="#fff"/><line x1="190.0" y1="18.038475772933687" x2="165.0" y2="57.87564434701786" stroke="#fff" stroke-width="2"/><circle cx="190" cy="18" r="12" fill="#fff"/><line x1="230.0" y1="70.0" x2="180.0" y2="70.0" stroke="#fff" stroke-width="2"/><circle cx="230" cy="70" r="12" fill="#fff"/><line x1="190.0" y1="121.96152422706632" x2="165.0" y2="82.12435565298215" stroke="#fff" stroke-width="2"/><circle cx="190" cy="122" r="12" fill="#fff"/><line x1="110.00000000000001" y1="121.96152422706632" x2="135.0" y2="82.12435565298215" stroke="#fff" stroke-width="2"/><circle cx="110" cy="122" r="12" fill="#fff"/></svg>
+        <div><h4 style="font-size:38px;line-height:1.05">Autoridade com escuta</h4>
+        <p style="margin-top:14px"><span class="mono v">Ganha</span><br>Decisão no Estado, com realismo.</p>
+        <p style="margin-top:12px"><span class="mono" style="color:#8d8799">Perde</span><br>Legitimidade, se a escuta for só formal.</p></div>
+      </div></div>
   </section>
   <section class="slide" data-b="b6" data-min="1" data-notes="Legitimidade vem de como decidimos. Demore na dimensão de legitimidade, que está em destaque." data-content="Legitimidade é desenhada, não herdada (deck, slide 56). Dimensões de valor público (deck, slide 53): experiência do cidadão, resultados sociais, eficiência e custo, legitimidade, aprendizado institucional. Bason (2014, cap. 11): projetar legitimidade a partir do MindLab. Valor público é descoberto e construído com as pessoas.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Legitimidade é desenhada,<br><span class="g">não herdada.</span></h2></div>
@@ -701,15 +744,25 @@ button{font-family:inherit;cursor:pointer}
     <div class="a" data-f="2" style="left:1280px;top:440px;width:560px"><h4 class="v" style="font-size:72px;font-weight:300;margin:0">Legitimidade</h4><p class="lead" style="margin-top:20px;font-size:30px">Vem de como decidimos: transparência, inclusão e aprendizado. Nasce da negociação de valores, não do consenso.</p></div>
     <p class="a" data-f="3" style="left:1280px;top:800px;width:560px;font-size:30px;font-weight:300;margin:0;color:#fff">Valor público é descoberto e construído com as pessoas.</p>
   </section>
+  <section class="slide" data-b="b6" data-min="0" data-notes="Diga a frase inteira em voz alta. Uma política honesta não tem medo de dizer o que sacrificou." data-content="Frase do material-base (seção 8.2): a diferença entre uma política honesta e uma ingênua é que a honesta consegue dizer em voz alta o que sacrificou. Deck, slide 48.">
+    <div class="ht"></div>
+    <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono">Política honesta</div><h2 class="hm" style="margin-top:14px">Diz em voz alta<br><span class="g">o que sacrificou.</span></h2></div>
+    <div class="a" style="left:120px;top:520px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:26px">
+      <div class="card" data-f="1"><h4>O que ganha</h4><p>Rapidez na entrega e um problema definido por quem decide.</p></div>
+      <div class="card vb" data-f="2"><h4>O que sacrifica</h4><p>A escuta de quem vai usar. Dizer isso em voz alta é o que torna a decisão defensável.</p></div>
+    </div>
+  </section>
   <section class="slide" data-b="b6" data-min="1" data-content="Pergunta do deck (slide 48). Toda decisão pública sacrifica algo; a honesta consegue dizer o que sacrificou (material-base, seção 8.2)." data-notes="Pausa de 10 segundos. Pergunte e espere. Não responda por eles.">
-    <div class="pz" style="top:200px"><div class="mono">Pausa para pensar</div><h2 class="q">O que a sua decisão mais recente sacrificou? Alguém consegue dizer isso em voz alta?</h2></div>
-    <div class="ring-box r" style="--d:2" data-tot="10" data-rem="10">
+    <div class="ht"></div>
+        <div class="pz" style="top:200px"><div class="mono">Pausa para pensar</div><h2 class="q">O que a sua decisão mais recente sacrificou? Alguém consegue dizer isso em voz alta?</h2></div>
+    <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
       <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Toda decisão sacrifica algo.</span></div>
     </div>
   </section>
   <section class="slide" data-b="b6" data-min="2" data-content="Ceará, PAIC: 14 de 184 municípios no nível desejável em 2007 e 141 em 2014 (PUC-Rio). Em 2025, 85,3% das crianças do 2º ano alfabetizadas, maior proporção do país, segundo o Indicador Criança Alfabetizada (Band, 15/08/2025). Repasse de ICMS ligado a resultados (CartaCapital). Não é teste causal." data-notes="Mostre os números por etapa. Os 85,3% são de outro indicador: diga isso. Não diga que a colaboração causou o resultado sozinha.">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2007</b> · Ceará, PAIC</div><h2 class="hm" style="margin-top:14px">Colaborar entre entes<br><span class="g">deu resultado mensurável.</span></h2></div>
+    <div class="ht"></div>
+        <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2007</b> · Ceará, PAIC</div><h2 class="hm" style="margin-top:14px">Colaborar entre entes<br><span class="g">deu resultado mensurável.</span></h2></div>
     <div class="a" style="left:120px;top:440px;width:1000px">
       <div class="lbl" style="margin-bottom:14px">Municípios no nível desejável</div>
       <div style="display:flex;align-items:center;gap:20px;margin-bottom:18px"><span class="mono" style="width:110px">2007</span><div style="width:470px;height:50px;background:#2b2734;border-radius:4px;position:relative;overflow:hidden"><i style="position:absolute;left:0;top:0;bottom:0;width:7.6%;background:#9B2BFF"></i></div><span class="body" style="font-size:26px">14 de 184</span></div>
@@ -738,11 +791,11 @@ button{font-family:inherit;cursor:pointer}
     <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono">Para levar</div><h2 class="hm" style="margin-top:14px">Antes da sua próxima política.</h2></div>
     <div class="a" style="left:120px;top:440px;width:1680px" >
       <div class="checklist">
-        <button class="cq" data-c="1"><span class="n">01</span><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Formule o problema antes da resposta.</b></button>
-        <button class="cq" data-c="2"><span class="n">02</span><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Liste o que se relaciona, mesmo o irrelevante.</b></button>
-        <button class="cq" data-c="3"><span class="n">03</span><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Pergunte quem não está na mesa.</b></button>
-        <button class="cq" data-c="4"><span class="n">04</span><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Diga em voz alta o que a decisão sacrifica.</b></button>
-        <button class="cq" data-c="5"><span class="n">05</span><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Teste pequeno e ajuste antes de escalar.</b></button>
+        <button class="cq" data-f="1"><span class="n">01</span><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Formule o problema antes da resposta.</b></button>
+        <button class="cq" data-f="2"><span class="n">02</span><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Liste o que se relaciona, mesmo o irrelevante.</b></button>
+        <button class="cq" data-f="3"><span class="n">03</span><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Pergunte quem não está na mesa.</b></button>
+        <button class="cq" data-f="4"><span class="n">04</span><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Diga em voz alta o que a decisão sacrifica.</b></button>
+        <button class="cq" data-f="5"><span class="n">05</span><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Teste pequeno e ajuste antes de escalar.</b></button>
       </div>
     </div>
   </section>
@@ -821,7 +874,7 @@ BLOCK_IDS.forEach(id => {
   if (!BL_MIN[id]) return;
   const d = document.createElement('button');
   d.className = 'bk'; d.style.flex = BL_MIN[id]; d.style.border = 0; d.style.padding = 0; d.style.cursor = 'pointer';
-  d.innerHTML = `<i></i><span>${SHORT[id]} ${BL_MIN[id] ? BL_MIN[id] : ''}</span>`;
+  d.innerHTML = `<i></i><span>${SHORT[id]}</span><em>${fmt(bStart(id))}</em>`;
   d.onclick = () => show(S.findIndex(s => s.dataset.b === id), 'start');
   ruler.appendChild(d); segs.push({id, el:d});
 });
@@ -831,6 +884,9 @@ S.forEach(() => { const i = document.createElement('i'); steps.appendChild(i); }
 let cur = 0, step = 0;
 function apply(){
   S[cur].querySelectorAll('[data-f]').forEach(e => e.classList.toggle('show', +e.dataset.f <= step));
+  S[cur].querySelectorAll('[data-tot][data-f]').forEach(el => {
+    if (+el.dataset.f <= step && !el.dataset.started) { el.dataset.started = 1; setTimer(el, true); }
+  });
 }
 function onEnter(s){
   s.querySelectorAll('.swap').forEach(sw => { sw.classList.remove('rev'); setTimeout(() => sw.classList.add('rev'), 900); });
@@ -897,25 +953,6 @@ let tx = null;
 addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
 addEventListener('touchend', e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null; if (dx < -50) next(); else if (dx > 50) prev(); }, {passive:true});
 
-/* interações */
-document.addEventListener('click', e => {
-  const v = e.target.closest('.vopt');
-  if (v) {
-    v.dataset.c = +v.dataset.c + 1;
-    const os = [...v.closest('.vote').querySelectorAll('.vopt')];
-    const tot = os.reduce((a,o) => a + +o.dataset.c, 0) || 1;
-    os.forEach(o => { o.querySelector('.vn').textContent = o.dataset.c; o.querySelector('.vbar i').style.width = (o.dataset.c/tot*100)+'%'; });
-    return;
-  }
-  const q = e.target.closest('.qd'); if (q) { q.parentElement.querySelectorAll('.qd').forEach(x => x.classList.remove('on')); q.classList.add('on'); return; }
-  const d = e.target.closest('.dec'); if (d) { d.parentElement.querySelectorAll('.dec').forEach(x => x.classList.remove('on')); d.classList.add('on'); return; }
-  const c = e.target.closest('.cq'); if (c) { c.classList.toggle('done'); return; }
-  const f = e.target.closest('.flip'); if (f) { f.classList.toggle('show'); return; }
-  const sw = e.target.closest('.swap'); if (sw) { sw.classList.toggle('rev'); return; }
-  const rbx = e.target.closest('.ring-box[data-tot]'); if (rbx) { if (!rbx.dataset.rem || +rbx.dataset.rem <= 0) rbx.dataset.rem = rbx.dataset.tot; setTimer(rbx, !rbx.classList.contains('run')); return; }
-});
-document.addEventListener('keydown', e => { if ((e.key==='Enter'||e.key===' ') && e.target.matches('.flip,.swap')) { e.preventDefault(); e.target.click(); } });
-
 /* cronômetros */
 function setTimer(el, run){
   el.classList.toggle('run', run);
@@ -952,10 +989,10 @@ setInterval(() => {
         }
       }
     }
-    for (let i=from;i<to;i++){ const c = document.createElementNS(NS,'circle'); c.setAttribute('cx',pts[i][0]); c.setAttribute('cy',pts[i][1]); c.setAttribute('r', i < 6 ? 16 : 9); c.setAttribute('fill', i < 6 ? '#9B2BFF' : '#fff'); g.appendChild(c); }
+    for (let i=from;i<to;i++){ const c = document.createElementNS(NS,'circle'); c.setAttribute('cx',pts[i][0]); c.setAttribute('cy',pts[i][1]); c.setAttribute('r', i < 6 ? 16 : 9); c.setAttribute('fill', '#fff'); g.appendChild(c); }
     svg.appendChild(g);
   };
-  group('',0,6,1); group('',6,18,2); group('',18,46,3);
+  group('',0,6,1); group('',6,18,2); group('',18,46,3); const pg=document.createElementNS(NS,'g'); pg.setAttribute('data-f','4'); for(let i=0;i<6;i++){const c=document.createElementNS(NS,'circle'); c.setAttribute('cx',pts[i][0]); c.setAttribute('cy',pts[i][1]); c.setAttribute('r',16); c.setAttribute('fill','#7A4DFF'); pg.appendChild(c);} svg.appendChild(pg);
   
 
 })();
