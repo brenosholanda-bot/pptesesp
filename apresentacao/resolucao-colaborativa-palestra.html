@@ -80,6 +80,10 @@ button{font-family:inherit;cursor:pointer}
 .lv:has(.t7.show) .t6.show,.lv:has(.t7.show) .w6.show{opacity:0}
 .lv:has(.t7.show) .t6.show,.lv:has(.t7.show) .w6.show{opacity:0}
 .lz[data-f]{filter:none;transform:none}
+@keyframes dimo{to{opacity:.3}}
+[data-f] .dimout.x{}
+.dimout{animation:none}
+[data-f].show .dimout{animation:dimo 1s 2s forwards}
 [data-f].cut{filter:none;transform:none;transition:opacity .1s}
 .rv:has(.t3.show) .river{d:path("M1300 400 C 1460 470, 1260 540, 1380 600 C 1480 660, 1300 760, 1410 850 C 1500 920, 1360 960, 1400 1010")}
 .rv .river{transition:stroke-dashoffset var(--dd,.7s) var(--ease) var(--td,0s),d 3s var(--ease)}
@@ -604,39 +608,39 @@ button{font-family:inherit;cursor:pointer}
       <div class="timer" style="cursor:pointer"><span class="tt">0:10</span><span class="hint2">Uma lógica. Em voz alta.</span></div>
     </div>
   </section>
-  <section class="slide" data-b="b2" data-min="1" data-content="Dialética na leitura popular de Hegel: tese, antítese, síntese. O conceito central em Hegel é a superação (Aufhebung). Dialógica: Morin. Confirme edição e página de Morin antes de citar (material-base, seção 4.5)." data-notes="Retome as lógicas: elas vão discordar. Dialética popular: a contradição vira síntese. Dialógica (Morin): dois princípios necessários e antagônicos que permanecem juntos. Troque o ou pelo e. Ponte: vamos ver isso acontecer num caso real: as cisternas.">
+  <section class="slide" data-b="b2" data-min="1" data-content="Dialética: tradição ampla; a leitura popular é a tríade tese–antítese–síntese, em geral associada a Fichte e difundida por Chalybäus (1837); Hegel raramente usou esses termos, e seu conceito central é a superação (Aufhebung) (Wikipedia: Chalybäus; Thesis, antithesis, synthesis; fontes secundárias; conferir Mueller, 1958). Origem antiga da dialética (Platão e outros): não verificada. Dialógica: Morin (confirmar edição e página antes de citar). Material-base, seção 4.5." data-notes="Retome as lógicas: elas vão discordar. Dialética, na leitura popular: dois opostos, o “ou”, e a tensão se resolve numa síntese. Dialógica (Morin): os dois permanecem juntos, o “e”. Troque o ou pelo e. A dialética é bem mais ampla que Hegel; a tríade tese, antítese, síntese é a leitura popular. Ponte: vamos ver isso acontecer num caso real: as cisternas.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Quando duas lógicas legítimas discordam,<br><span class="g2">há duas saídas.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
-      <defs><marker id="arD" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10" fill="none" stroke="#fff" stroke-width="2"/></marker><marker id="arD2" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10" fill="none" stroke="#9B2BFF" stroke-width="3"/></marker></defs>
-      <g data-f="1">
-        <circle cx="260" cy="520" r="12" fill="#fff"/><circle cx="560" cy="520" r="12" fill="#fff"/><circle cx="410" cy="700" r="16" fill="#9B2BFF"/>
-        <line x1="260" y1="520" x2="394" y2="688" stroke="#fff" stroke-width="3"/>
-        <line x1="560" y1="520" x2="426" y2="688" stroke="#fff" stroke-width="3"/>
-        <text x="260" y="478" fill="#CFCAD9" font-family="IBM Plex Mono" font-size="20" text-anchor="middle">TESE</text>
-        <text x="560" y="478" fill="#CFCAD9" font-family="IBM Plex Mono" font-size="20" text-anchor="middle">ANTÍTESE</text>
-        <text x="410" y="752" fill="#fff" font-family="IBM Plex Mono" font-size="20" text-anchor="middle">SÍNTESE</text>
-      </g>
-      <g data-f="2">
-        <circle cx="1180" cy="500" r="110" fill="none" stroke="#fff" stroke-width="3"/>
-        <circle cx="1560" cy="500" r="110" fill="none" stroke="#9B2BFF" stroke-width="3"/>
-        <line x1="1296" y1="500" x2="1444" y2="500" stroke="#9B2BFF" stroke-width="6"/>
-        <text x="1370" y="470" fill="#9B2BFF" font-family="Anton" font-size="64" text-anchor="middle">E</text>
-        <text x="1180" y="650" fill="#CFCAD9" font-family="IBM Plex Mono" font-size="20" text-anchor="middle">PRINCÍPIO A</text>
-        <text x="1560" y="650" fill="#CFCAD9" font-family="IBM Plex Mono" font-size="20" text-anchor="middle">PRINCÍPIO B</text>
-      </g>
+      <defs><marker id="dm" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto"><path d="M0,0 L10,6 L0,12" fill="none" stroke="#9B2BFF" stroke-width="2.5"/></marker></defs>
+      <rect x="120" y="400" width="760" height="280" rx="26" fill="none" stroke="#3a3646" stroke-width="2"/>
+      <rect x="1040" y="400" width="760" height="280" rx="26" fill="none" stroke="#3a3646" stroke-width="2"/>
+      <text x="152" y="446" fill="#A09CB0" font-family="IBM Plex Mono" font-size="22" letter-spacing="2">DIALÉTICA · LEITURA POPULAR</text>
+      <text x="1072" y="446" fill="#A58BFF" font-family="IBM Plex Mono" font-size="22" letter-spacing="2">DIALÓGICA · MORIN</text>
+      <!-- dialética: A ou B, depois síntese -->
+      <g data-f="1"><circle class="dimout" cx="300" cy="530" r="44" fill="none" stroke="#fff" stroke-width="3"/><text class="dimout" x="300" y="548" fill="#fff" font-family="Anton" font-size="48" text-anchor="middle">A</text>
+      <circle class="dimout" cx="700" cy="530" r="44" fill="none" stroke="#fff" stroke-width="3"/><text class="dimout" x="700" y="548" fill="#fff" font-family="Anton" font-size="48" text-anchor="middle">B</text>
+      <text x="500" y="552" fill="#CDBDFF" font-family="Anton" font-size="64" text-anchor="middle">OU</text></g>
+      <path class="draw" data-f="1" pathLength="1" style="--td:.9s" d="M330 568 Q 400 640 470 640" fill="none" stroke="#9B2BFF" stroke-width="3"/>
+      <path class="draw" data-f="1" pathLength="1" style="--td:.9s" d="M670 568 Q 600 640 530 640" fill="none" stroke="#9B2BFF" stroke-width="3"/>
+      <g data-f="1" style="transition-delay:1.6s"><circle cx="500" cy="640" r="26" fill="#7A4DFF"/><text x="548" y="648" fill="#fff" font-family="IBM Plex Mono" font-size="20">SÍNTESE</text></g>
+      <!-- dialógica: A e B juntos -->
+      <g data-f="2"><circle cx="1210" cy="540" r="44" fill="none" stroke="#fff" stroke-width="3"/><text x="1210" y="558" fill="#fff" font-family="Anton" font-size="48" text-anchor="middle">A</text>
+      <circle cx="1630" cy="540" r="44" fill="none" stroke="#fff" stroke-width="3"/><text x="1630" y="558" fill="#fff" font-family="Anton" font-size="48" text-anchor="middle">B</text>
+      <text x="1420" y="562" fill="#A58BFF" font-family="Anton" font-size="64" text-anchor="middle">E</text></g>
+      <path class="draw" data-f="2" pathLength="1" style="--td:.6s" d="M1250 505 Q 1420 430 1590 505" fill="none" stroke="#9B2BFF" stroke-width="3" marker-end="url(#dm)"/>
+      <path class="draw" data-f="2" pathLength="1" style="--td:1.1s" d="M1590 575 Q 1420 650 1250 575" fill="none" stroke="#9B2BFF" stroke-width="3" marker-end="url(#dm)"/>
     </svg>
-    <div class="a" data-f="1" style="left:120px;top:800px;width:700px"><p class="body" style="font-size:26px">Dialética, leitura popular: a contradição se resolve num terceiro termo.</p></div>
-    <div class="a" data-f="2" style="left:960px;top:760px;width:800px"><p class="body" style="font-size:26px">Dialógica (Morin): dois princípios necessários e antagônicos, que permanecem juntos sem se dissolver numa síntese.</p></div>
-    <p class="a" data-f="3" style="left:120px;top:940px;width:1680px;font-size:32px;font-weight:300;margin:0;color:#fff">Muitas más políticas nascem de resolver cedo um <span class="v">“e” lido como “ou”.</span></p>
+    <div class="a" data-f="1" style="left:120px;top:715px;width:760px"><div style="font-size:44px;font-weight:300;color:#fff;letter-spacing:-.02em">Dialética</div><div class="body" style="font-size:29px;color:#D6D2E0;margin-top:10px;line-height:1.3">A tensão entre os opostos se resolve num terceiro termo: a síntese.</div></div>
+    <div class="a" data-f="2" style="left:1040px;top:715px;width:760px"><div style="font-size:44px;font-weight:300;color:#CDBDFF;letter-spacing:-.02em">Dialógica</div><div class="body" style="font-size:29px;color:#D6D2E0;margin-top:10px;line-height:1.3">Os dois princípios, necessários e antagônicos, permanecem juntos, sem se dissolver numa síntese.</div></div>
+    <p class="a" data-f="3" style="left:120px;top:900px;width:1680px;font-size:38px;font-weight:300;margin:0;color:#fff">Muitas más políticas nascem de resolver cedo um <span class="v">“e” lido como “ou”.</span></p>
   </section>
   <section class="slide" data-b="b2" data-min="1" data-notes="Explique a mudança primeiro, com a linha do tempo: de placa para plástico. Depois, o conflito. Ponte: antes de contar o desfecho, peça que decidam." data-content="Placa: P1MC, da sociedade civil (ASA) com apoio do MDS; feita por pedreiros e famílias; ASA estima R$ 2,2 mil. Plástico: Água para Todos, do Ministério da Integração; instalada em cerca de um dia; ASA estima pouco mais de R$ 5 mil; meta de 300 mil até 2014 (Agência Brasil/IHU, 2012). Prêmio internacional de políticas em 2017, citado no deck (confirmar o nome exato).">
-    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2011–2017</b> · Semiárido</div><h2 class="hm" style="margin-top:14px">A mudança: de placa<br><span class="g2">para plástico.</span></h2></div>
+    <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2011–2014</b> · Semiárido</div><h2 class="hm" style="margin-top:14px">A mudança: de placa<br><span class="g2">para plástico.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
       <line x1="160" y1="800" x2="1760" y2="800" stroke="#3a3446" stroke-width="2"/>
       <g data-f="1"><circle cx="300" cy="800" r="14" fill="#fff"/><text x="300" y="850" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle">2011</text></g>
       <g data-f="2"><circle cx="700" cy="800" r="14" fill="#7A4DFF"/><text x="700" y="850" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle">2012</text></g>
       <g data-f="3"><circle cx="1140" cy="800" r="14" fill="#7A4DFF"/><text x="1140" y="850" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle">2014 · meta</text></g>
-      <g data-f="4"><circle cx="1580" cy="800" r="14" fill="#fff"/><text x="1580" y="850" fill="#fff" font-family="IBM Plex Mono" font-size="22" text-anchor="middle">2017 · prêmio</text></g>
     </svg>
     <div class="a" data-f="1" style="left:160px;top:460px;width:560px"><div class="card"><h4>Placa · P1MC</h4><p>Feita por pedreiros e famílias das comunidades. A ASA estima R$ 2,2 mil.</p></div></div>
     <div class="a" data-f="2" style="left:880px;top:460px;width:700px"><div class="card vb"><h4>Plástico · Água para Todos</h4><p>Instalada em cerca de um dia. A ASA estima pouco mais de R$ 5 mil.</p></div></div>
