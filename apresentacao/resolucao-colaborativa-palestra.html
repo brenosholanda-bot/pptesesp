@@ -72,6 +72,14 @@ button{font-family:inherit;cursor:pointer}
 .bk .ph[data-f]{transform:translate(-750px,280px) scale(1.667);transform-origin:0 0;filter:none;transition:opacity .1s,transform 1.3s var(--ease)}
 .bk .ph[data-f].show{transform:translate(-750px,280px) scale(1.667)}
 .bk:has(.t2.show) .ph[data-f].show{transform:none}
+.lv:has(.t2.show) .t1.show,.lv:has(.t2.show) .w1.show{opacity:0}
+.lv:has(.t3.show) .t2.show,.lv:has(.t3.show) .w2.show{opacity:0}
+.lv:has(.t4.show) .t3.show,.lv:has(.t4.show) .w3.show{opacity:0}
+.lv:has(.t5.show) .t4.show,.lv:has(.t5.show) .w4.show{opacity:0}
+.lv:has(.t6.show) .t5.show,.lv:has(.t6.show) .w5.show{opacity:0}
+.lv:has(.t7.show) .t6.show,.lv:has(.t7.show) .w6.show{opacity:0}
+.lv:has(.t7.show) .t6.show,.lv:has(.t7.show) .w6.show{opacity:0}
+.lz[data-f]{filter:none;transform:none}
 [data-f].cut{filter:none;transform:none;transition:opacity .1s}
 .rv:has(.t3.show) .river{d:path("M1300 400 C 1460 470, 1260 540, 1380 600 C 1480 660, 1300 760, 1410 850 C 1500 920, 1360 960, 1400 1010")}
 .rv .river{transition:stroke-dashoffset var(--dd,.7s) var(--ease) var(--td,0s),d 3s var(--ease)}
@@ -508,26 +516,42 @@ button{font-family:inherit;cursor:pointer}
     <div class="dvbig">02</div>
     <div class="a r" style="--d:0;left:120px;top:460px"><div class="mono v">Bloco 02</div><h2 class="anton" style="font-size:150px;margin:20px 0 0;color:#fff">Por que não<br>enxergamos o todo</h2></div>
   </section>
-  <section class="slide" data-b="b2" data-min="2" data-content="Bason (2014, cap. 5, impr. p. 75–78): cada disciplina tem uma lente com vieses e trabalha em silos; a paralaxe é o que aparece na combinação das lentes. Caso: evasão escolar vista por seis lentes (deck, slide 28)." data-notes="Mostre as seis lentes sobre a mesma evasão. Cada lente se liga ao centro. A combinação é o que aparece só quando as lentes se juntam.">
+  <section class="slide lv" data-b="b2" data-min="2" data-content="Bason (2014, cap. 5, impr. p. 75–78): cada disciplina tem uma lente com vieses e trabalha em silos; a combinação das lentes permite perceber o que está além de qualquer visão isolada. Caso: evasão escolar vista por seis lentes (deck, slide 28). O que cada lente vê é leitura ilustrativa do palestrante, não consta do material-base." data-notes="Acenda uma lente por vez. Cada área vê bem a sua parte e só ela. Na última, as seis acendem juntas: é a combinação que mostra o que nenhuma mostra sozinha.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Cada área vê bem a sua parte.<br><span class="g2">Ninguém vê o todo.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
-      <line x1="560" y1="650" x2="560" y2="390" stroke="#9B2BFF" stroke-width="3" data-f="1"/>
-      <line x1="560" y1="650" x2="776" y2="525" stroke="#9B2BFF" stroke-width="3" data-f="2"/>
-      <line x1="560" y1="650" x2="776" y2="775" stroke="#9B2BFF" stroke-width="3" data-f="3"/>
-      <line x1="560" y1="650" x2="560" y2="910" stroke="#9B2BFF" stroke-width="3" data-f="4"/>
-      <line x1="560" y1="650" x2="344" y2="775" stroke="#9B2BFF" stroke-width="3" data-f="5"/>
-      <line x1="560" y1="650" x2="344" y2="525" stroke="#9B2BFF" stroke-width="3" data-f="6"/>
-      <circle cx="560" cy="650" r="150" fill="#000" stroke="#fff" stroke-width="3"/>
-      <text x="560" y="662" fill="#fff" font-family="Anton" font-size="46" text-anchor="middle">EVASÃO</text>
-      <circle cx="560" cy="390" r="8" fill="#fff"/><circle cx="776" cy="525" r="8" fill="#fff"/><circle cx="776" cy="775" r="8" fill="#fff"/><circle cx="560" cy="910" r="8" fill="#fff"/><circle cx="344" cy="775" r="8" fill="#fff"/><circle cx="344" cy="525" r="8" fill="#fff"/>
+      <path d="M568.7 420.2 A250 250 0 0 1 772.0 537.5 L649.0 614.4 A105 105 0 0 0 563.7 565.1 Z" fill="#23202c" stroke="#3a3646" stroke-width="2"/>
+      <path d="M780.7 552.6 A250 250 0 0 1 780.7 787.4 L652.7 719.3 A105 105 0 0 0 652.7 620.7 Z" fill="#23202c" stroke="#3a3646" stroke-width="2"/>
+      <path d="M772.0 802.5 A250 250 0 0 1 568.7 919.8 L563.7 774.9 A105 105 0 0 0 649.0 725.6 Z" fill="#23202c" stroke="#3a3646" stroke-width="2"/>
+      <path d="M551.3 919.8 A250 250 0 0 1 348.0 802.5 L471.0 725.6 A105 105 0 0 0 556.3 774.9 Z" fill="#23202c" stroke="#3a3646" stroke-width="2"/>
+      <path d="M339.3 787.4 A250 250 0 0 1 339.3 552.6 L467.3 620.7 A105 105 0 0 0 467.3 719.3 Z" fill="#23202c" stroke="#3a3646" stroke-width="2"/>
+      <path d="M348.0 537.5 A250 250 0 0 1 551.3 420.2 L556.3 565.1 A105 105 0 0 0 471.0 614.4 Z" fill="#23202c" stroke="#3a3646" stroke-width="2"/>
+      <path class="lz w1" data-f="1" d="M568.7 420.2 A250 250 0 0 1 772.0 537.5 L649.0 614.4 A105 105 0 0 0 563.7 565.1 Z" fill="#7A4DFF"/>
+      <path class="lz w2" data-f="2" d="M780.7 552.6 A250 250 0 0 1 780.7 787.4 L652.7 719.3 A105 105 0 0 0 652.7 620.7 Z" fill="#7A4DFF"/>
+      <path class="lz w3" data-f="3" d="M772.0 802.5 A250 250 0 0 1 568.7 919.8 L563.7 774.9 A105 105 0 0 0 649.0 725.6 Z" fill="#7A4DFF"/>
+      <path class="lz w4" data-f="4" d="M551.3 919.8 A250 250 0 0 1 348.0 802.5 L471.0 725.6 A105 105 0 0 0 556.3 774.9 Z" fill="#7A4DFF"/>
+      <path class="lz w5" data-f="5" d="M339.3 787.4 A250 250 0 0 1 339.3 552.6 L467.3 620.7 A105 105 0 0 0 467.3 719.3 Z" fill="#7A4DFF"/>
+      <path class="lz w6" data-f="6" d="M348.0 537.5 A250 250 0 0 1 551.3 420.2 L556.3 565.1 A105 105 0 0 0 471.0 614.4 Z" fill="#7A4DFF"/>
+      <path class="lz" data-f="7" d="M568.7 420.2 A250 250 0 0 1 772.0 537.5 L649.0 614.4 A105 105 0 0 0 563.7 565.1 Z" fill="#7A4DFF"/>
+      <path class="lz" data-f="7" d="M780.7 552.6 A250 250 0 0 1 780.7 787.4 L652.7 719.3 A105 105 0 0 0 652.7 620.7 Z" fill="#7A4DFF"/>
+      <path class="lz" data-f="7" d="M772.0 802.5 A250 250 0 0 1 568.7 919.8 L563.7 774.9 A105 105 0 0 0 649.0 725.6 Z" fill="#7A4DFF"/>
+      <path class="lz" data-f="7" d="M551.3 919.8 A250 250 0 0 1 348.0 802.5 L471.0 725.6 A105 105 0 0 0 556.3 774.9 Z" fill="#7A4DFF"/>
+      <path class="lz" data-f="7" d="M339.3 787.4 A250 250 0 0 1 339.3 552.6 L467.3 620.7 A105 105 0 0 0 467.3 719.3 Z" fill="#7A4DFF"/>
+      <path class="lz" data-f="7" d="M348.0 537.5 A250 250 0 0 1 551.3 420.2 L556.3 565.1 A105 105 0 0 0 471.0 614.4 Z" fill="#7A4DFF"/>
+      <text x="560" y="686" fill="#fff" font-family="Anton" font-size="46" text-anchor="middle">EVASÃO</text>
     </svg>
-    <div class="a" data-f="1" style="left:430px;top:340px;width:260px;text-align:center"><div class="body w" style="font-size:26px">Educação</div></div>
-    <div class="a" data-f="2" style="left:806px;top:486px;width:300px"><div class="body w" style="font-size:26px">Assistência social</div></div>
-    <div class="a" data-f="3" style="left:806px;top:736px;width:260px"><div class="body w" style="font-size:26px">Saúde</div></div>
-    <div class="a" data-f="4" style="left:430px;top:868px;width:260px;text-align:center"><div class="body w" style="font-size:26px">Gestão</div></div>
-    <div class="a" data-f="5" style="left:120px;top:736px;width:200px;text-align:right"><div class="body w" style="font-size:26px">Família</div></div>
-    <div class="a" data-f="6" style="left:120px;top:486px;width:200px;text-align:right"><div class="body w" style="font-size:26px">O próprio jovem</div></div>
-    <p class="a" data-f="7" style="left:1080px;top:700px;width:700px;font-size:36px;font-weight:300;margin:0;color:#fff">A combinação das lentes mostra o que nenhuma mostra sozinha.</p>
+    <div class="a" style="left:702px;top:406px;width:320px;text-align:left;font-size:28px;font-weight:300;color:#D6D2E0">Educação</div>
+    <div class="a" style="left:844px;top:652px;width:320px;text-align:left;font-size:28px;font-weight:300;color:#D6D2E0">Assistência social</div>
+    <div class="a" style="left:702px;top:898px;width:320px;text-align:left;font-size:28px;font-weight:300;color:#D6D2E0">Saúde</div>
+    <div class="a" style="left:98px;top:898px;width:320px;text-align:right;font-size:28px;font-weight:300;color:#D6D2E0">Gestão</div>
+    <div class="a" style="left:-44px;top:652px;width:320px;text-align:right;font-size:28px;font-weight:300;color:#D6D2E0">Família</div>
+    <div class="a" style="left:98px;top:406px;width:320px;text-align:right;font-size:28px;font-weight:300;color:#D6D2E0">O próprio jovem</div>
+    <div class="a tx t1" data-f="1" style="left:1120px;top:520px;width:680px"><div class="mono v" style="font-size:24px">Lente · Educação</div><div style="font-size:60px;font-weight:300;color:#fff;line-height:1.08;margin-top:14px;letter-spacing:-.02em">Vê a matrícula.</div><div class="body" style="font-size:32px;color:#D6D2E0;margin-top:18px;line-height:1.3">Faltas, notas e a vaga na escola.</div></div>
+    <div class="a tx t2" data-f="2" style="left:1120px;top:520px;width:680px"><div class="mono v" style="font-size:24px">Lente · Assistência social</div><div style="font-size:60px;font-weight:300;color:#fff;line-height:1.08;margin-top:14px;letter-spacing:-.02em">Vê a vulnerabilidade.</div><div class="body" style="font-size:32px;color:#D6D2E0;margin-top:18px;line-height:1.3">Renda, benefícios e a situação da família.</div></div>
+    <div class="a tx t3" data-f="3" style="left:1120px;top:520px;width:680px"><div class="mono v" style="font-size:24px">Lente · Saúde</div><div style="font-size:60px;font-weight:300;color:#fff;line-height:1.08;margin-top:14px;letter-spacing:-.02em">Vê o corpo e a mente.</div><div class="body" style="font-size:32px;color:#D6D2E0;margin-top:18px;line-height:1.3">Cuidado, doença, gravidez e sofrimento.</div></div>
+    <div class="a tx t4" data-f="4" style="left:1120px;top:520px;width:680px"><div class="mono v" style="font-size:24px">Lente · Gestão</div><div style="font-size:60px;font-weight:300;color:#fff;line-height:1.08;margin-top:14px;letter-spacing:-.02em">Vê o sistema.</div><div class="body" style="font-size:32px;color:#D6D2E0;margin-top:18px;line-height:1.3">Orçamento, vagas, transporte e prazos.</div></div>
+    <div class="a tx t5" data-f="5" style="left:1120px;top:520px;width:680px"><div class="mono v" style="font-size:24px">Lente · Família</div><div style="font-size:60px;font-weight:300;color:#fff;line-height:1.08;margin-top:14px;letter-spacing:-.02em">Vê a casa.</div><div class="body" style="font-size:32px;color:#D6D2E0;margin-top:18px;line-height:1.3">Trabalho, cuidado com os irmãos e o que a renda permite.</div></div>
+    <div class="a tx t6" data-f="6" style="left:1120px;top:520px;width:680px"><div class="mono v" style="font-size:24px">Lente · O próprio jovem</div><div style="font-size:60px;font-weight:300;color:#fff;line-height:1.08;margin-top:14px;letter-spacing:-.02em">Vê o sentido.</div><div class="body" style="font-size:32px;color:#D6D2E0;margin-top:18px;line-height:1.3">Pertencimento, futuro e o que a escola significa para ele.</div></div>
+    <div class="a t7" data-f="7" style="left:1120px;top:520px;width:680px"><div style="font-size:54px;font-weight:300;color:#fff;line-height:1.12;letter-spacing:-.02em">Juntas, mostram o que <span class="v">nenhuma mostra sozinha.</span></div></div>
   </section>
   <section class="slide" data-b="b2" data-min="2" data-notes="Conte as oito lógicas. Pergunte qual delas esteve em jogo na última reunião. Nenhuma é dispensável; nenhuma dá conta sozinha." data-content="Oito lógicas: técnica, política, jurídica, orçamentária, social, territorial, operacional e simbólica. É uma lista de trabalho do deck (slide 29), não uma taxonomia consagrada: use como ferramenta de leitura. Idea-força: o desafio é construir um processo que as faça conversar.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Oito lógicas legítimas<br><span class="g2">disputam a mesma decisão.</span></h2></div>
