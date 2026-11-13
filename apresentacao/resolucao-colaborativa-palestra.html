@@ -151,13 +151,15 @@ button{font-family:inherit;cursor:pointer}
 .topline::before,.topline::after{content:"";position:absolute;top:-3px;width:7px;height:7px;border-radius:50%;background:#fff}
 .topline::before{left:-3px}.topline::after{right:-3px}
 #sec{position:absolute;left:960px;top:78px;transform:translate(-50%,-50%);z-index:6}
-#ruler{position:absolute;left:60px;right:60px;bottom:96px;height:22px;z-index:5;cursor:pointer;display:flex;align-items:stretch;gap:4px}
-#ruler .bk{position:relative;height:100%;background:repeating-#7A4DFF;border-left:1px solid rgba(255,255,255,.6);overflow:visible}
-#ruler .bk i{position:absolute;left:0;top:0;height:100%;width:0;background:#7A4DFF;transition:width .6s var(--ease)}
-#ruler .bk span{position:absolute;left:8px;top:-30px;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#CFCAD9;white-space:nowrap;z-index:2;text-transform:uppercase}
-#ruler .bk em{position:absolute;left:0;bottom:-30px;font-family:'IBM Plex Mono',monospace;font-size:16px;color:#8d8799;font-style:normal}
+#ruler{position:absolute;left:60px;right:60px;bottom:96px;height:26px;z-index:5;cursor:pointer;display:flex;align-items:stretch;gap:4px}
+#ruler .bk{position:relative;height:100%;background:#d9d6e3;border-right:1px solid #d9d6e3;overflow:visible}
+#ruler .bk:nth-child(even){background:#3a3646}
+#ruler .bk:nth-child(even) span{color:#EDEBF5}
+#ruler .bk i{position:absolute;left:0;top:0;height:100%;width:0;background:#7A4DFF;opacity:.9;transition:width .6s var(--ease)}
+#ruler .bk span{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:18px;color:#17171d;white-space:nowrap;z-index:2;text-transform:uppercase}
+#ruler .bk em{position:absolute;left:0;top:-30px;font-family:'IBM Plex Mono',monospace;font-size:16px;color:#A09CB0;font-style:normal}
 #ruler .bk.cur span{color:#fff}
-#clock{position:absolute;left:60px;bottom:138px;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#B9B5C6;letter-spacing:.05em}
+#clock{position:absolute;left:60px;bottom:172px;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#B9B5C6;letter-spacing:.05em}
 #nav{position:absolute;right:60px;bottom:30px;display:flex;align-items:center;gap:14px;z-index:6}
 #steps{display:flex;gap:6px;margin-right:6px}
 #steps i{width:7px;height:7px;border-radius:50%;background:#2e2a37;transition:background .3s}
@@ -185,7 +187,6 @@ button{font-family:inherit;cursor:pointer}
 .opt-tag{position:absolute;top:150px;right:120px;font-family:'IBM Plex Mono',monospace;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--vi2);border:1px dashed #5b4a70;border-radius:999px;padding:6px 14px}
 .kcase{font-family:'Anton',Impact,sans-serif;font-size:60px;line-height:1;text-transform:uppercase;color:#fff;letter-spacing:.01em}
 .kcase b{color:#A58BFF;font-weight:400}
-.ht{position:absolute;right:0;top:0;width:820px;height:100%;background-image:radial-gradient(circle,rgba(122,77,255,.9) 2px,transparent 2.6px);background-size:20px 20px;-webkit-mask-image:#7A4DFF;mask-image:#7A4DFF;opacity:.55;pointer-events:none}
 .cq.show{background:var(--vi);border-color:var(--vi)}
 .cq.show .ck{background:#fff;border-color:#fff}
 .cq.show .ck svg{opacity:1}
@@ -215,7 +216,6 @@ button{font-family:inherit;cursor:pointer}
     </svg>
   </section>
   <section class="slide" data-b="ab" data-min="1" data-notes="Conte a história sem pressa. Mostre só os fatos. A pergunta vem depois." data-content="Recanto das Emas, DF. 300 bicicletas em 2011 para estudantes de dois centros de ensino médio que moravam a até 7 km da escola (Web: Agência Vermelho/Agência Brasil, 2011; material-base, bloco 1).">
-    <div class="ht"></div>
         <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2011</b> · Recanto das Emas, DF</div><h2 class="hm" style="margin-top:14px">O governo distribuiu bicicletas<br><span class="g">para ir à escola.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
       <line x1="200" y1="600" x2="1720" y2="600" stroke="#2a2633" stroke-width="2"/>
@@ -228,7 +228,6 @@ button{font-family:inherit;cursor:pointer}
     <div class="a" data-f="3" style="left:1220px;top:650px;width:460px"><div class="body">Quase ninguém usou.</div></div>
   </section>
   <section class="slide" data-b="ab" data-min="1" data-notes="Pausa de 10 segundos. Não comente as respostas: a palestra volta a esta pergunta.">
-    <div class="ht"></div>
         <div class="a r mono" style="--d:0;left:120px;top:170px">Pausa para pensar</div>
     <div class="pz" style="top:230px"><h2 class="q r" style="--d:1">Por que quase ninguém pedalou?</h2></div>
     <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
@@ -264,7 +263,6 @@ button{font-family:inherit;cursor:pointer}
     </div>
   </section>
   <section class="slide" data-b="ab" data-min="1" data-opt="1" data-content="Lei de 31/10/1904 com multa e comprovante para emprego e matrícula. Regulamento vazou em 9/11. Revolta de 10 a 16/11, estado de sítio em 16/11 e suspensão da obrigatoriedade (A Gazeta/BBC; O Povo+). Havia reforma urbana autoritária, carestia e disputa política; a vacina foi o pretexto (A Gazeta/BBC). Em 1908, epidemia de varíola matou quase 6,4 mil no Rio. Material-base, ficha C4." data-notes="Use se a sala ainda não viu o caso. A vacina era eficaz; a revolta foi contra a forma como a política foi imposta.">
-    <div class="ht"></div>
         <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>1904</b> · Rio de Janeiro</div><h2 class="hm" style="margin-top:14px">A vacina funcionava.<br><span class="g">A política falhou.</span></h2></div>
     <p class="a lead" data-f="6" style="left:120px;top:900px;width:1680px">Pense: o que faria essa lei ser recebida como ameaça, e não como proteção?</p>
     <svg class="a" style="left:120px;top:640px" width="1680" height="240" aria-hidden="true">
@@ -305,12 +303,10 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="3" style="left:120px;top:940px;font-size:26px;font-weight:300;margin:0;color:#fff">O complexo não é o complicado com mais variáveis. É outra natureza de problema.</p>
   </section>
   <section class="slide" data-b="b1" data-min="1" data-notes="Apresente o caso com os dois lados, sem votação. Depois faça a pergunta." data-content="Licitação de serviços de nuvem no governo federal, com a AWS. Um lado é o edital e as normas; o outro é soberania, governança de dados e confiança pública (deck, slides 18–19). Confirme detalhes de datas e valores com a fonte antes de citar.">
-    <div class="ht"></div>
         <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>Governo federal</b> · licitação de nuvem</div><h2 class="hm" style="margin-top:14px">Uma contratação de nuvem,<br><span class="g">com a AWS.</span></h2></div>
     <p class="a body" style="left:120px;top:470px;width:1680px;font-size:30px">Contrato de nuvem com a AWS. O TCU viu risco de acesso estrangeiro a dados do governo e mandou o Serpro rever o contrato.</p>
   </section>
   <section class="slide" data-b="b1" data-min="1" data-notes="Pausa de 10 segundos. Deixe a sala pensar antes de ver a resposta." data-content="Pergunta para pensar. Não há resposta única: a sala deve escolher o lado onde a equipe gasta mais tempo.">
-    <div class="ht"></div>
         <div class="pz" style="top:170px"><div class="mono">Pausa para pensar</div><p class="lead" style="margin-top:20px;font-size:30px">Em jogo: quem pode acessar os dados do governo.</p><h2 class="q" style="font-size:80px;margin-top:20px">Na sua equipe, quanto tempo vai para o lado complicado, e quanto para o complexo?</h2></div>
     <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
@@ -364,7 +360,6 @@ button{font-family:inherit;cursor:pointer}
   </section>
   
   <section class="slide" data-b="b1" data-min="1" data-opt="1" data-content="Dúvida sem resposta imediata. Contrapeso: Alford e Head (2017) distinguem problemas mais e menos perversos; Bannink, Sancino e Sorrentino (2024) deslocam o foco para a constelação de atores; Termeer, Dewulf e Biesbroek (2019) avaliam criticamente o conceito." data-notes="Pergunta de dúvida: não responda. Deixe a sala dividir. Depois diga que a dificuldade pode estar nos atores mais do que no problema.">
-    <div class="ht"></div>
         <div class="pz" style="top:170px"><div class="mono">Dúvida para a sala</div><h2 class="q" style="font-size:88px;margin-top:20px">Qual dos dois é complicado, e qual é complexo?</h2></div>
     <div class="a" style="left:120px;top:540px;width:1680px" >
       <div class="vote">
@@ -418,7 +413,6 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="3" style="left:0;right:0;top:1000px;text-align:center;font-size:28px;font-weight:300;margin:0;color:#fff">Nenhuma é dispensável. Nenhuma dá conta sozinha.</p>
   </section>
   <section class="slide" data-b="b2" data-min="1" data-content="Pergunta para a sala sobre a última reunião difícil. Escute as respostas sem avaliar (material-base, seção 4.7)." data-notes="Deixe a pergunta respirar. A sala deve pensar numa lógica que faltou e dizer em voz alta.">
-    <div class="ht"></div>
         <div class="pz" style="top:200px"><div class="mono">Pausa para pensar</div><h2 class="q">Qual lógica esteve ausente na última reunião difícil da sua unidade?</h2></div>
     <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
@@ -450,7 +444,6 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="4" style="left:120px;top:880px;font-size:30px;font-weight:300;margin:0;color:#fff">Um sistema perfeitamente eficiente é perfeitamente frágil.</p>
   </section>
   <section class="slide" data-b="b2" data-min="1" data-notes="Explique a mudança primeiro, com a linha do tempo: de placa para plástico. Depois, o conflito." data-content="Placa: P1MC, da sociedade civil (ASA) com apoio do MDS; feita por pedreiros e famílias; ASA estima R$ 2,2 mil. Plástico: Água para Todos, do Ministério da Integração; instalada em cerca de um dia; ASA estima pouco mais de R$ 5 mil; meta de 300 mil até 2014 (Agência Brasil/IHU, 2012). Prêmio internacional de políticas em 2017, citado no deck (confirmar o nome exato).">
-    <div class="ht"></div>
     <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2011–2017</b> · Semiárido</div><h2 class="hm" style="margin-top:14px">A mudança: de placa<br><span class="g">para plástico.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
       <line x1="160" y1="800" x2="1760" y2="800" stroke="#3a3446" stroke-width="2"/>
@@ -470,7 +463,6 @@ button{font-family:inherit;cursor:pointer}
     <div class="a" data-f="3" style="left:120px;top:720px;width:1680px"><div class="card vb"><h4>O que resultou</h4><p>O governo recuou parcialmente. A placa, feita pela comunidade, ganhou espaço. A política foi reconhecida com um prêmio em 2017.</p></div></div>
   </section>
   <section class="slide" data-b="b2" data-min="1" data-notes="Pausa de 10 segundos. Peça o critério antes da escolha." data-content="Pergunta para pensar. Plástico instala em um dia; placa leva cerca de cinco dias e é feita pela comunidade (material-base, ficha C2). Não há resposta única: a escolha da sala mostra o critério que usa.">
-    <div class="ht"></div>
         <div class="pz" style="top:170px"><div class="mono">Pausa para pensar</div><h2 class="q" style="font-size:88px;margin-top:20px">Estiagem cada vez maior, 300 mil cisternas para entregar. Qual você escolhe?</h2></div>
     <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
@@ -524,7 +516,6 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="5" style="left:120px;top:960px;width:1680px;font-size:28px;font-weight:300;margin:0;color:#fff">Simplificar o problema não simplifica a realidade. Transfere o custo para quem implementa.</p>
   </section>
   <section class="slide" data-b="b3" data-min="1" data-content="Minha Casa Minha Vida, Faixa 1 (desde 2009). A ideia: moradia em escala com subsídio alto e conjuntos padronizados. Pesquisas em 22 municípios (deck, slide 32; fonte a identificar): conjuntos sem transporte, serviço ou emprego; taxas acima da renda; planta de dois quartos sem espaço para família grande ou comércio." data-notes="Mostre as duas barras. A unidade foi entregue; o acesso à cidade não. Pesquisas em 22 municípios descreveram os conjuntos afastados e sem serviços.">
-    <div class="ht"></div>
         <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2009</b> · Minha Casa Minha Vida, Faixa 1</div><h2 class="hm" style="margin-top:14px">Casa entregue é política entregue?</h2></div>
     <div class="a" style="left:120px;top:460px;width:1680px">
       <div class="lbl" style="margin-bottom:14px">Unidade entregue</div>
@@ -535,7 +526,6 @@ button{font-family:inherit;cursor:pointer}
     <div class="a" data-f="2" style="left:120px;top:790px;width:1680px"><p class="body" style="font-size:28px">Pesquisas em 22 municípios: conjuntos rurais antigos, taxas acima da renda, planta de dois quartos que não comporta família grande.</p></div>
   </section>
   <section class="slide" data-b="b3" data-min="1" data-content="Pergunta do caso, sem resposta única. O critério é a definição do problema: unidade entregue ou acesso à cidade (material-base, seção 9.2, C3)." data-notes="Pausa de 10 segundos. A pergunta não tem resposta fácil. Deixe a sala se dividir.">
-    <div class="ht"></div>
         <div class="pz" style="top:200px"><div class="mono">Pausa para pensar · caso</div><h2 class="q">Uma família saiu do aluguel em área de risco e ganhou casa própria a 2 horas do trabalho. Deu certo ou errado?</h2></div>
     <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
@@ -547,7 +537,6 @@ button{font-family:inherit;cursor:pointer}
     <div class="a r" style="--d:0;left:120px;top:460px"><div class="mono v">Bloco 04</div><h2 class="anton" style="font-size:150px;margin:20px 0 0;color:#fff">A resposta:<br>resolução colaborativa</h2></div>
   </section>
   <section class="slide" data-b="b4" data-min="2" data-notes="Comece largo: muitos futuros possíveis. Cada teste pequeno, em um lugar diferente, estreita o cone. Termine com as três frases." data-content="Inovação pública: organiza múltiplas lógicas num processo produtivo de aprendizagem e decisão (material-base, seção 6.1; deck, slides 34–35). Leitura do palestrante: o cone de futuros se estreita com testes pequenos, onde o erro é barato. Nota de enquadramento: aqui design não é estética e inovação não é criatividade.">
-    <div class="ht"></div>
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Inovação pública é uma forma<br><span class="g">de governar a incerteza.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
       <polygon points="160,560 1700,250 1700,850" fill="rgba(122,77,255,.10)" stroke="#7A4DFF" stroke-width="2" data-f="1"/>
@@ -583,7 +572,6 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="5" style="left:120px;top:960px;font-size:22px;font-weight:300;margin:0;color:#8d8799">Sevaldson (2013; 2022). Mapas com cerca de 300 entidades ou mais.</p>
   </section>
   <section class="slide" data-b="b4" data-min="2" data-content="Exercício de dois minutos em duplas: quem não está na mesa (material-base, seção 6.5)." data-notes="Peça duplas. Inicie o cronômetro e espere os dois minutos inteiros. Depois peça que uma dupla diga quem anotou.">
-    <div class="ht"></div>
         <div class="pz" style="top:170px"><div class="mono">Exercício · duplas</div><h2 class="q" style="font-size:96px;margin-top:20px">Quem não está na mesa?</h2><p class="lead" style="margin-top:36px;max-width:1100px">Pense num problema que você enfrenta hoje. Anote uma pessoa ou grupo que não está nessa conversa.</p></div>
     <div class="ring-box r" style="--d:2" data-f="1" data-tot="120">
       <div class="timer" id="exTimer"><svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg><span><span class="tt" style="display:block">2:00</span><span class="hint2" style="display:block">Aperte para iniciar</span></span></div>
@@ -606,7 +594,6 @@ button{font-family:inherit;cursor:pointer}
     <div class="a" data-f="3" style="left:1160px;top:790px;width:720px"><div class="card vb"><h4>Afetado</h4><p>Quem vive o problema. Quase nunca tem cadeira, e é quem mais depende do resultado.</p></div></div>
   </section>
   <section class="slide" data-b="b4" data-min="2" data-notes="Passe um passo de cada vez. Mostre a mudança de pergunta, não a solução. O caso não diz que o posto de justiça não servia; diz que a pergunta estava mal formulada." data-content="Sá et al. (2020), The TQM Journal, DOI 10.1108/tqm-12-2019-0300. O governo central formulou a pergunta de cima para baixo: quais serviços de justiça levar a uma comunidade pequena e de baixa densidade. A escuta de moradores e atores locais mostrou restrições de mobilidade e falta de oportunidades econômicas. Limite: o estudo cobre identificação e conceituação, sem medir resultado.">
-    <div class="ht"></div>
         <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2020</b> · Penela, Portugal</div><h2 class="hm" style="margin-top:14px">A pergunta estava mal formulada.</h2></div>
     <div class="a" style="left:120px;top:400px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:24px">
       <div class="card" data-f="1"><div class="mono v2">Passo 1</div><h4 style="margin-top:12px">Pergunta do diagnóstico</h4><p>Quais serviços de justiça levar à comunidade?</p></div>
@@ -617,7 +604,6 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="5" style="left:120px;top:960px;width:1680px;font-size:28px;font-weight:300;margin:0;color:#fff">Não é o posto de justiça que não servia. É a pergunta que estava errada.</p>
   </section>
   <section class="slide" data-b="b4" data-min="1" data-notes="Explique as três zonas. Z: onde falta informação. P: o que já funciona e vale aprender. I: a intervenção pequena, que se testa." data-content="Análise ZIP (Sevaldson, 2013, p. 1781–1782): Zoom (onde falta informação, aprofunde), Potencial (problema evidente ou algo que funciona e vale aprender), Intervenção (algo novo a fazer ou relação nova a criar). Testar pequeno, onde o erro é barato; ajustar antes de escalar (deck, slide 34).">
-    <div class="ht"></div>
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Localize o ponto de intervenção.<br><span class="g">Teste pequeno.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
       <defs><marker id="zar" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto"><path d="M0,0 L10,6 L0,12" fill="none" stroke="#fff" stroke-width="2.5"/></marker></defs>
@@ -638,7 +624,6 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="4" style="left:120px;top:880px;width:1680px;font-size:32px;font-weight:300;margin:0;color:#fff">Testar pequeno, onde o erro é barato. <span class="v">Ajustar antes de escalar.</span></p>
   </section>
   <section class="slide" data-b="b4" data-min="1" data-opt="1" data-content="Forrester & Body (2014), cap. 8 de Design for Policy, citado por Bason (2014), impr. p. 113–114. Uma mãe de duas crianças teve negada a lista prioritária de habitação por 1,50 dólar acima do limite de renda. Não cite o nome. O capítulo não apresenta impacto medido." data-notes="Conte a história de uma mãe de duas crianças, sem nome. A regra de renda decidiu, por 1,50 dólar.">
-    <div class="ht"></div>
         <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>Canberra</b> · Austrália</div><h2 class="hm" style="margin-top:14px">Uma regra de renda<br><span class="g">decidiu por 1,50 dólar.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
       <line x1="120" y1="560" x2="1800" y2="560" stroke="#2a2633" stroke-width="2"/>
@@ -652,7 +637,6 @@ button{font-family:inherit;cursor:pointer}
     </div>
   </section>
   <section class="slide" data-b="b4" data-min="1" data-opt="1" data-content="Pergunta para pensar. A regra de renda funcionou para quem? Sem resposta única." data-notes="Pausa de 10 segundos. Deixe a sala dividir antes de mostrar as ideias.">
-    <div class="ht"></div>
         <div class="pz" style="top:170px"><div class="mono">Pausa para pensar · caso opcional</div><h2 class="q" style="font-size:86px;margin-top:20px">Se a renda passa do limite por 1,50 dólar, o sistema funcionou?</h2></div>
     <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
@@ -669,7 +653,6 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="4" style="left:120px;top:880px;font-size:28px;font-weight:300;margin:0;color:#fff">Um protótipo, testado com as famílias antes de escalar.</p>
   </section>
   <section class="slide" data-b="b4" data-min="2" data-opt="1" data-content="Oslo (2012), Sevaldson (2013, p. 1770–1773): equipe de atendimento a vítimas de violência sexual, pronto-socorro e polícia; GIGA-map validado; intervenções de produto, espaço e informação. Limite: feedback incompleto (p. 1783). Tema sensível: tom sóbrio." data-notes="Caso sensível. Tom sóbrio, só o essencial. O mapa foi feito com a equipe, não para ela.">
-    <div class="ht"></div>
         <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2012</b> · Oslo, Noruega</div><h2 class="hm" style="margin-top:14px">Mapear o sistema junto com<br><span class="g">quem trabalha nele.</span></h2></div>
     <div class="a" style="left:120px;top:460px;width:1680px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px">
       <div class="card" data-f="1"><h4>Mapa do sistema</h4><p>Prevenção e resposta, validado com especialistas.</p></div>
@@ -691,13 +674,11 @@ button{font-family:inherit;cursor:pointer}
     </div>
   </section>
   <section class="slide" data-b="b5" data-min="1" data-content="Repactuação da reparação de Mariana, assinada em 25/10/2024: 49 municípios, 11 no Espírito Santo (Agência Pública, 24/10/2024; Agência Minas). Antecedente: o TAC-Gov previa comissões de atingidos (Agência Brasil/acessa, 09/2024)." data-notes="Apresente o acordo com os fatos. Tom descritivo. Depois, a pergunta.">
-    <div class="ht"></div>
         <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2015–2024</b> · Rio Doce</div><h2 class="hm" style="margin-top:14px">Repactuação assinada<br><span class="g">em 25/10/2024.</span></h2></div>
     <div class="a" data-f="1" style="left:120px;top:520px;width:1680px"><p class="lead w" style="font-size:36px">49 municípios, 11 deles no Espírito Santo. A repactuação da reparação de Mariana.</p></div>
     <div class="a" data-f="2" style="left:120px;top:720px;width:1680px"><p class="body" style="font-size:28px">Antes dela, o TAC-Gov previa comissões de atingidos, consolidadas só anos depois, com obstáculos judiciais.</p></div>
   </section>
   <section class="slide" data-b="b5" data-min="1" data-content="Atingidos e movimentos denunciaram não participação na negociação (Agência Pública, 24/10/2024). O MAB reconhece avanços e aponta insuficiências (MAB, 24/10/2024). O MPF destaca o anexo 6 e o Conselho Federal de Participação Social (MPF). Minas criou a IMPS/Doce, consultiva (Agência Minas, 22/10/2025). Tom descritivo." data-notes="Pausa de 10 segundos. Depois, as duas posições na mesma tela, sem adjetivos. Tom descritivo; não tome partido.">
-    <div class="ht"></div>
         <div class="pz" style="top:170px"><div class="mono">Caso · Rio Doce · pausa para pensar</div><h2 class="q" style="font-size:88px;margin-top:20px">Participar do acompanhamento de um acordo equivale a ter participado da sua construção?</h2></div>
     <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
@@ -751,7 +732,6 @@ button{font-family:inherit;cursor:pointer}
     <p class="a" data-f="3" style="left:1280px;top:800px;width:560px;font-size:30px;font-weight:300;margin:0;color:#fff">Valor público é descoberto e construído com as pessoas.</p>
   </section>
   <section class="slide" data-b="b6" data-min="0" data-notes="Diga a frase inteira em voz alta. Uma política honesta não tem medo de dizer o que sacrificou." data-content="Frase do material-base (seção 8.2): a diferença entre uma política honesta e uma ingênua é que a honesta consegue dizer em voz alta o que sacrificou. Deck, slide 48.">
-    <div class="ht"></div>
     <div class="a r" style="--d:0;left:120px;top:170px"><div class="mono">Política honesta</div><h2 class="hm" style="margin-top:14px">Diz em voz alta<br><span class="g">o que sacrificou.</span></h2></div>
     <div class="a" style="left:120px;top:520px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:26px">
       <div class="card" data-f="1"><h4>O que ganha</h4><p>Rapidez na entrega e um problema definido por quem decide.</p></div>
@@ -759,7 +739,6 @@ button{font-family:inherit;cursor:pointer}
     </div>
   </section>
   <section class="slide" data-b="b6" data-min="1" data-content="Pergunta do deck (slide 48). Toda decisão pública sacrifica algo; a honesta consegue dizer o que sacrificou (material-base, seção 8.2)." data-notes="Pausa de 10 segundos. Pergunte e espere. Não responda por eles.">
-    <div class="ht"></div>
         <div class="pz" style="top:200px"><div class="mono">Pausa para pensar</div><h2 class="q">O que a sua decisão mais recente sacrificou? Alguém consegue dizer isso em voz alta?</h2></div>
     <div class="ring-box r" style="--d:2" data-f="1" data-tot="10" data-rem="10">
       <svg class="ring" viewBox="0 0 150 150"><circle class="tr" cx="75" cy="75" r="65"/><circle class="tp" cx="75" cy="75" r="65"/></svg>
@@ -767,7 +746,6 @@ button{font-family:inherit;cursor:pointer}
     </div>
   </section>
   <section class="slide" data-b="b6" data-min="2" data-content="Ceará, PAIC: 14 de 184 municípios no nível desejável em 2007 e 141 em 2014 (PUC-Rio). Em 2025, 85,3% das crianças do 2º ano alfabetizadas, maior proporção do país, segundo o Indicador Criança Alfabetizada (Band, 15/08/2025). Repasse de ICMS ligado a resultados (CartaCapital). Não é teste causal." data-notes="Mostre os números por etapa. Os 85,3% são de outro indicador: diga isso. Não diga que a colaboração causou o resultado sozinha.">
-    <div class="ht"></div>
         <div class="a r" style="--d:0;left:120px;top:170px"><div class="kcase"><b>2007</b> · Ceará, PAIC</div><h2 class="hm" style="margin-top:14px">Colaborar entre entes<br><span class="g">deu resultado mensurável.</span></h2></div>
     <div class="a" style="left:120px;top:440px;width:1000px">
       <div class="lbl" style="margin-bottom:14px">Municípios no nível desejável</div>
