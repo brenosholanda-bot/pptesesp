@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resolução colaborativa de problemas</title>
+<meta name="description" content="Palestra para servidores e gestores públicos sobre formulação de problemas complexos e resolução colaborativa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Figtree:wght@400..900&display=swap" rel="stylesheet">
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --stage-bg:#0E0B18;--paper:#EFEDF5;--card:#FFFFFF;--ink:#17122B;--ink2:#4E4866;--line:#D4D0E2;--night:#15102A;
+  --teal:#00C4CC;--blue:#4F6BF5;--violet:#7D2AE8;--pink:#E44DB5;--gold:#F2B300;--bad:#E5484D;--good:#11A15A;
+  --grad:linear-gradient(118deg,#00C4CC 0%,#4F6BF5 48%,#7D2AE8 100%);
+  --grad-soft:linear-gradient(118deg,#D6F7F8 0%,#E2E6FE 50%,#EEE2FC 100%);
+  --ease:cubic-bezier(.2,.75,.2,1);
+  --chrome-bg:#0E0B18;--chrome-fg:#F4F2FA;--chrome-mute:#9C97B3;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--chrome-bg:#0A0812;--chrome-fg:#F4F2FA;--chrome-mute:#8E88A8}}
+:root[data-theme="dark"]{--chrome-bg:#0A0812;--chrome-fg:#F4F2FA;--chrome-mute:#8E88A8}
+
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0E0B18;background:var(--chrome-bg);color:var(--chrome-fg);font-family:Figtree,system-ui,sans-serif;overflow:hidden}
+button{font:inherit;color:inherit}
+
+/* ---------- chrome ---------- */
+.app{height:100vh;height:100dvh;display:flex;flex-direction:column}
+.view{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 16px 8px;gap:12px}
+.stage{position:relative;width:min(100%,calc((100dvh - 132px - var(--nh,0px)) * 16 / 9));aspect-ratio:16/9;container-type:inline-size;background:var(--paper);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+.notes-pane{display:none;width:min(100%,calc((100dvh - 330px) * 16 / 9));min-width:280px;background:#15102A;color:#EDEAF6;border-radius:12px;padding:12px 20px;max-height:170px;overflow:auto}
+.app.notes-on .notes-pane{display:block}
+.app.notes-on{--nh:200px}
+.notes-pane .nh{font:500 13px 'DM Mono',monospace;letter-spacing:.04em;text-transform:uppercase;color:#4FE3E8;margin-bottom:6px}
+.notes-pane p{font:400 17px/1.5 Figtree,sans-serif;margin:0 0 6px}
+.notes-pane .nx{font:400 13px 'DM Mono',monospace;color:#9C97B3}
+.ctrl{width:min(100%,1100px);display:flex;align-items:center;gap:10px;height:50px}
+.ctrl button{background:rgba(255,255,255,.08);border:0;border-radius:99px;height:36px;min-width:36px;padding:0 14px;cursor:pointer;font:500 14px 'DM Mono',monospace;color:#F4F2FA;white-space:nowrap}
+.ctrl button:hover{background:rgba(255,255,255,.16)}
+.ctrl button:focus-visible,.stage button:focus-visible,.index button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+#cnt,#clock{font:500 13px 'DM Mono',monospace;color:#C9C4DE;white-space:nowrap}
+.bar{flex:1;display:flex;gap:3px;height:12px;min-width:120px}
+.seg{border:0;padding:0;margin:0;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden;cursor:pointer;height:12px;min-width:10px;height:12px}
+.seg i{display:block;height:100%;width:0;background:var(--grad);transition:width .6s var(--ease)}
+.seg:hover{background:rgba(255,255,255,.26)}
+.hint{position:fixed;right:18px;bottom:72px;font:400 13px 'DM Mono',monospace;color:#9C97B3;background:rgba(14,11,24,.8);padding:8px 12px;border-radius:99px;transition:opacity .8s}
+.hint.off{opacity:0}
+.index{position:fixed;inset:0;background:rgba(10,8,18,.96);z-index:20;overflow:auto;padding:36px 5vw}
+.index[hidden]{display:none}
+.ix-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;font:500 15px 'DM Mono',monospace}
+.ix-h button{background:rgba(255,255,255,.1);border:0;border-radius:99px;padding:8px 16px;color:#fff;cursor:pointer;font:500 13px 'DM Mono',monospace}
+.ix-b{margin-bottom:22px}
+.ix-b h4{font:700 16px Figtree,sans-serif;color:#4FE3E8;margin:0 0 10px;display:flex;gap:12px;align-items:baseline}
+.ix-b h4 span{font:400 13px 'DM Mono',monospace;color:#9C97B3}
+.ix-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.ix-g button{text-align:left;background:rgba(255,255,255,.06);border:0;border-radius:10px;padding:10px 12px;cursor:pointer;color:#F4F2FA;font:500 14px Figtree,sans-serif;display:flex;gap:10px}
+.ix-g button span{font:500 12px 'DM Mono',monospace;color:#9C97B3;padding-top:2px}
+.ix-g button:hover{background:rgba(255,255,255,.14)}
+.sr{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ---------- slide base ---------- */
+.slide{position:absolute;inset:0;padding:6.4cqw 5cqw 6.2cqw;display:flex;flex-direction:column;background:var(--paper);color:var(--ink);opacity:0;visibility:hidden;transform:translateX(0);transition:opacity .7s var(--ease),transform .9s var(--ease),visibility .9s;overflow:hidden}
+.slide.on{opacity:1;visibility:visible;transform:none}
+.slide.past{opacity:0;visibility:hidden;transform:translateX(-1.2cqw)}
+.slide.dark{background:var(--night);color:#fff}
+.slide.white{background:#fff}
+.slide.grad{background:var(--grad);color:#fff}
+.slide.cover{padding:0;background:radial-gradient(70cqw 60cqw at 78% 42%,#E7E1FF 0%,var(--paper) 62%)}
+.slide.cover.dark{background:radial-gradient(70cqw 60cqw at 78% 42%,#2A1E4D 0%,var(--night) 65%)}
+.meta{position:absolute;left:5cqw;right:5cqw;bottom:2cqw;display:flex;justify-content:space-between;font:500 1.25cqw 'DM Mono',monospace;color:var(--ink2);letter-spacing:.03em;text-transform:uppercase}
+.meta b{color:var(--ink);font-weight:500}
+.dark .meta,.grad .meta{color:#A9A3C4}
+.dark .meta b,.grad .meta b{color:#fff}
+
+.kick{font:500 1.3cqw 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--violet);margin-bottom:1.4cqw}
+.dark .kick{color:var(--teal)}
+.grad .kick{color:#fff}
+.t{font:800 3.8cqw/1.1 Figtree,sans-serif;letter-spacing:-.03em;margin:0 0 2.2cqw;color:inherit;text-wrap:balance;max-width:88cqw}
+.lead{font:400 1.9cqw/1.45 Figtree,sans-serif;color:var(--ink2);margin:0 0 2.6cqw;max-width:72ch;text-wrap:pretty}
+.dark .lead{color:#C9C4DE}
+.grad .lead{color:#F4F2FA}
+.micro{font:400 1.3cqw 'DM Mono',monospace;color:var(--ink2);margin:1.6cqw 0 0;letter-spacing:.02em}
+.dark .micro{color:#A9A3C4}
+.foot{font:400 1.3cqw 'DM Mono',monospace;color:var(--ink2);margin:auto 0 0;letter-spacing:.02em}
+.dark .foot{color:#A9A3C4}
+.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad .gt{background:none;-webkit-text-fill-color:#fff;color:#fff}
+
+/* split de palavras */
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .05em .16em;margin:0 -.05em -.16em}
+.w>span{display:inline-block;transform:translateY(105%);transition:transform .85s var(--ease) calc(var(--i)*.07s + .1s)}
+.on .w>span{transform:none}
+
+/* marca-texto */
+.hl{position:relative;isolation:isolate;display:inline}
+.hl::before{content:"";position:absolute;left:-.2em;right:-.2em;bottom:.14em;height:.5em;background:rgba(0,196,204,.42);z-index:-1;border-radius:.15em;transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease) var(--d,0s)}
+.hl.v::before{background:rgba(125,42,232,.3)}
+.hl.y::before{background:rgba(242,179,0,.55)}
+.on .hl::before{transform:scaleX(1)}
+
+/* entrada e fragmentos */
+.enter{opacity:0;transform:translateY(2cqw);transition:opacity .7s var(--ease) calc(var(--i,0)*.12s + .15s),transform .8s var(--ease) calc(var(--i,0)*.12s + .15s)}
+.on .enter{opacity:1;transform:none}
+.frag{opacity:0;transform:translateY(1.2cqw);transition:opacity .6s var(--ease),transform .7s var(--ease)}
+.frag.show{opacity:1;transform:none}
+
+/* layout */
+.grid{display:grid;gap:1.8cqw}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.row{display:flex;gap:2.4cqw;align-items:stretch}
+.col{flex:1;min-width:0}
+.card{background:#fff;border-radius:1.2cqw;padding:1.9cqw 2.1cqw;color:var(--ink);position:relative}
+.card h3{font:800 2.2cqw/1.15 Figtree,sans-serif;letter-spacing:-.02em;margin:0 0 1.1cqw}
+.card p{font:400 1.5cqw/1.45 Figtree,sans-serif;color:var(--ink2);margin:0;text-wrap:pretty}
+.card p+p{margin-top:.9cqw}
+.card b{color:var(--ink);font-weight:700}
+.card.dk{background:var(--night);color:#fff}
+.card.dk p{color:#CFCAE3}
+.card.dk h3{color:#fff}
+.card.gt-bg{background:var(--grad-soft)}
+.ico{width:3.6cqw;height:3.6cqw;border-radius:50%;background:var(--grad-soft);display:grid;place-items:center;font:800 1.7cqw Figtree,sans-serif;color:var(--ink);margin-bottom:.9cqw}
+.chip{display:inline-block;font:500 1.35cqw 'DM Mono',monospace;padding:.5cqw 1.2cqw;border-radius:99px;background:var(--grad-soft);color:var(--ink);margin-top:1.4cqw}
+.pill{display:inline-block;border-radius:99px;padding:.45cqw 1.3cqw;font:500 1.35cqw 'DM Mono',monospace;background:var(--ink);color:#fff;white-space:nowrap}
+.pill.g{background:var(--grad)}
+.pill.o{background:var(--gold);color:var(--ink)}
+.quote{font:800 2.7cqw/1.2 Figtree,sans-serif;letter-spacing:-.025em;color:var(--ink);margin:0;text-wrap:balance}
+.dark .quote{color:#fff}
+.bigq{font:800 4.6cqw/1.12 Figtree,sans-serif;letter-spacing:-.035em;margin:0;text-wrap:balance}
+.dark .bigq,.grad .bigq{color:#fff}
+.pergunta{background:#fff;border-radius:1.2cqw;padding:2.2cqw 2.6cqw;font:700 2.2cqw/1.3 Figtree,sans-serif;color:var(--ink);letter-spacing:-.01em}
+.pergunta::before{content:"Pergunta";display:block;font:500 1.3cqw 'DM Mono',monospace;color:var(--violet);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1cqw}
+.dark .pergunta{background:rgba(255,255,255,.07);color:#fff}
+.dark .pergunta::before{color:var(--teal)}
+.trow{display:grid;grid-template-columns:19cqw 1fr 1fr;gap:2.4cqw;background:#fff;border-radius:1.2cqw;padding:1.1cqw 2.2cqw;align-items:center}
+.trow b{font:800 2.1cqw Figtree,sans-serif;color:var(--ink);letter-spacing:-.01em}
+.trow span{font:400 1.5cqw/1.35 Figtree,sans-serif;color:var(--ink2)}
+.trow span em{font-style:normal;color:var(--ink);font-weight:600}
+
+/* block cover */
+.bc{position:absolute;left:5cqw;top:0;bottom:0;right:5cqw;display:flex;flex-direction:column;justify-content:center}
+.bc-n{font:500 14cqw/1 'DM Mono',monospace;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.02em;margin-bottom:2cqw}
+.bc .t1{font:800 6cqw/1.05 Figtree,sans-serif;letter-spacing:-.035em;color:#fff;margin:0 0 2.6cqw;max-width:60cqw;text-wrap:balance}
+.bc-p{display:flex;align-items:center;gap:1.6cqw}
+.bc-s{font:400 1.5cqw Figtree,sans-serif;color:#C9C4DE}
+.bmeta{font:500 1.3cqw 'DM Mono',monospace;color:#A9A3C4;margin-top:2.6cqw;letter-spacing:.04em;text-transform:uppercase}
+.rings{position:absolute;right:6cqw;top:50%;transform:translateY(-50%);width:20cqw;height:20cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:2.4cqw}
+.rings .r{border-radius:50%;border:.3cqw solid rgba(255,255,255,.3);aspect-ratio:1}
+.rings .r.f{background:var(--grad);border:0}
+.rings .r.t{border:.3cqw solid var(--teal)}
+.bc .t1,.bc-p,.bmeta{opacity:1}
+
+/* cover */
+.cv{position:absolute;inset:0}
+.cv-t{position:absolute;left:6cqw;top:0;bottom:0;width:50cqw;display:flex;flex-direction:column;justify-content:center;z-index:2}
+.kick-line{display:flex;align-items:center;gap:1.2cqw}
+.kick-line::before{content:"";width:4cqw;height:.22cqw;background:var(--grad);border-radius:2px}
+.cv-h{font:800 7.2cqw/1.02 Figtree,sans-serif;letter-spacing:-.04em;margin:0 0 2.6cqw;color:var(--ink)}
+.dark .cv-h{color:#fff}
+.cv-s{font:300 2.3cqw/1.35 Figtree,sans-serif;color:var(--ink2);margin:0 0 4cqw;max-width:34cqw}
+.cv-s b{font-weight:700;color:var(--ink)}
+.cv-f{font:500 1.3cqw 'DM Mono',monospace;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+.scene{position:absolute;right:0;top:0;width:52cqw;height:100%;perspective:90cqw;z-index:1}
+.dp{position:absolute;transition:transform .5s var(--ease);will-change:transform}
+.fl{animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-1.4cqw)}}
+.sph{width:13cqw;height:13cqw;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff 0%,#9FF3F6 14%,#00C4CC 42%,#4F6BF5 75%,#7D2AE8 100%);box-shadow:inset -1.2cqw -1.4cqw 2.4cqw rgba(60,20,120,.35),0 2cqw 3cqw rgba(60,20,120,.15)}
+.ring{width:11cqw;height:11cqw;border-radius:50%;border:2.6cqw solid transparent;background:linear-gradient(#EFEDF5,#EFEDF5) padding-box,var(--grad) border-box;box-shadow:0 1.2cqw 2cqw rgba(60,20,120,.15)}
+.cube{width:8.5cqw;height:8.5cqw;border-radius:1.6cqw;transform:rotate(18deg);background:linear-gradient(140deg,#E44DB5,#7D2AE8 60%,#4F6BF5);box-shadow:inset 0 .6cqw 1.6cqw rgba(255,255,255,.5),0 2cqw 3cqw rgba(125,42,232,.3)}
+.sheet{width:19cqw;background:#fff;border-radius:1.2cqw;padding:1.6cqw;box-shadow:0 2cqw 4cqw rgba(23,18,43,.14);transform:rotate(-6deg)}
+.sheet i{display:block;height:1.3cqw;border-radius:99px;background:var(--line);margin-bottom:1cqw}
+.sheet i.g{background:var(--grad);width:62%}
+.sheet i.s{width:78%}
+.chipx{background:#fff;border-radius:99px;padding:.9cqw 1.6cqw;font:500 1.5cqw 'DM Mono',monospace;color:var(--ink);box-shadow:0 1.2cqw 2.4cqw rgba(23,18,43,.12);white-space:nowrap}
+.chipx b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sh{position:absolute;left:50%;bottom:4cqw;width:44cqw;height:3cqw;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(23,18,43,.18),transparent)}
+
+/* closing */
+.sig{font:700 11cqw/1 Caveat,cursive;color:var(--violet);margin:auto 0 2cqw;opacity:0;transform:translateY(2cqw);transition:opacity 1.2s var(--ease) .3s,transform 1.2s var(--ease) .3s}
+.on .sig{opacity:1;transform:none}
+.orb{position:absolute;border-radius:50%;filter:blur(3cqw);opacity:.55}
+.checklist{display:grid;grid-template-columns:repeat(5,1fr);gap:1.6cqw;margin-top:1cqw}
+.ctile{all:unset;box-sizing:border-box;cursor:pointer;background:#fff;border-radius:1.2cqw;padding:2.2cqw 1.8cqw;min-height:21cqw;display:flex;flex-direction:column;gap:1.3cqw;position:relative;transition:background .5s var(--ease),color .5s var(--ease)}
+.ctile:focus-visible{outline:.3cqw solid var(--teal);outline-offset:.4cqw}
+.ctile .n{font:500 1.4cqw 'DM Mono',monospace;color:var(--violet)}
+.ctile b{font:800 2.1cqw/1.2 Figtree,sans-serif;letter-spacing:-.01em;padding-right:3cqw;color:var(--ink)}
+.ctile .ck{position:absolute;top:1.8cqw;right:1.8cqw;width:3.2cqw;height:3.2cqw;border-radius:50%;border:.25cqw solid var(--line);display:grid;place-items:center;transition:transform .5s var(--ease),background .4s,border-color .4s}
+.ctile .ck svg{width:1.8cqw;height:1.8cqw;opacity:0;transition:opacity .3s}
+.ctile.done{background:var(--night)}
+.ctile.done b{color:#fff}
+.ctile.done .n{color:var(--teal)}
+.ctile.done .ck{background:var(--good);border-color:var(--good);transform:scale(1.12)}
+.ctile.done .ck svg{opacity:1}
+.ctile.done .ck svg path{stroke:#fff}
+
+/* vote */
+.vote{display:grid;grid-template-columns:1fr 1fr;gap:2cqw;margin-top:1cqw}
+.vopt{cursor:pointer;background:#fff;border:0;border-radius:1.2cqw;padding:2.2cqw 2.4cqw;color:var(--ink);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:1.4cqw;min-height:20cqw;text-align:left;text-wrap:pretty}
+.vopt:focus-visible{outline:.3cqw solid var(--teal);outline-offset:.4cqw}
+.vopt b{font:700 2.1cqw/1.3 Figtree,sans-serif;letter-spacing:-.01em;padding-right:1cqw}
+.vopt .vn{font:800 4.6cqw/1 Figtree,sans-serif;color:var(--violet);transition:transform .3s var(--ease);display:inline-block;margin-top:auto}
+.vopt .vn.bump{transform:scale(1.25)}
+.vopt .vb{position:absolute;left:0;bottom:0;height:1.1cqw;width:100%;background:var(--grad-soft)}
+.vopt .vb i{display:block;height:100%;width:0;background:var(--grad);transition:width .6s var(--ease)}
+
+/* timer */
+.timer{display:flex;align-items:center;gap:2cqw;margin-top:2.4cqw}
+.tbtn{cursor:pointer;background:var(--ink);border:0;color:#fff;border-radius:99px;padding:1cqw 2.4cqw 1cqw 1.2cqw;display:flex;align-items:center;gap:1.4cqw;font:500 1.7cqw 'DM Mono',monospace;min-width:14cqw}
+.tbtn:focus-visible{outline:.3cqw solid var(--teal);outline-offset:.4cqw}
+.tbtn svg{width:4.6cqw;height:4.6cqw;transform:rotate(-90deg);flex:none}
+.tr{fill:none;stroke:rgba(255,255,255,.2);stroke-width:4}
+.tp{fill:none;stroke:url(#gr);stroke-width:4;stroke-linecap:round;stroke-dasharray:106.81;stroke-dashoffset:0;transition:stroke-dashoffset .9s linear}
+.timer.run .tbtn{background:var(--violet)}
+.timer.done .tbtn{animation:blink .45s steps(2) 3}
+@keyframes blink{50%{opacity:.15}}
+.tl{font:400 1.7cqw/1.4 Figtree,sans-serif;color:var(--ink2)}
+.dark .tl{color:#C9C4DE}
+
+/* flip */
+.flipg{display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;margin-top:1cqw}
+.flip{perspective:90cqw;height:19cqw;cursor:pointer}
+.flip:focus-visible{outline:.3cqw solid var(--teal);outline-offset:.4cqw}
+.fi{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .9s var(--ease)}
+.flip.show .fi{transform:rotateY(180deg)}
+.ff,.fb{position:absolute;inset:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;border-radius:1.2cqw;padding:2.2cqw 2.4cqw;display:flex;flex-direction:column;justify-content:center}
+.ff{background:#fff;color:var(--ink)}
+.ff b{font:800 2.5cqw/1.2 Figtree,sans-serif;letter-spacing:-.02em}
+.ff span{font:500 1.3cqw 'DM Mono',monospace;color:var(--violet);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.2cqw}
+.fb{background:var(--grad);color:#fff;transform:rotateY(180deg)}
+.fb b{font:800 2.3cqw/1.25 Figtree,sans-serif;letter-spacing:-.01em}
+
+/* swap */
+.swap{position:relative;height:19cqw;border-radius:1.2cqw;overflow:hidden;cursor:pointer;margin-top:1cqw}
+.swap:focus-visible{outline:.3cqw solid var(--teal);outline-offset:.4cqw}
+.sw{position:absolute;inset:0;padding:2.2cqw 2.8cqw;display:flex;flex-direction:column;justify-content:center;gap:1cqw}
+.sw-a{background:#fff;color:var(--ink);z-index:0}
+.sw-b{background:var(--grad);color:#fff;z-index:1;clip-path:inset(0 100% 0 0);transition:clip-path 1.4s var(--ease)}
+.swap.rev .sw-b{clip-path:inset(0 0 0 0)}
+.sw b{font:800 2.5cqw/1.2 Figtree,sans-serif;letter-spacing:-.02em}
+.sw span.k{font:500 1.3cqw 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;opacity:.85}
+.sweep{position:absolute;top:-10%;bottom:-10%;width:7cqw;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-12deg);z-index:2;left:-10%;pointer-events:none}
+.swap.rev .sweep{animation:sw 1.4s var(--ease) forwards}
+@keyframes sw{from{left:-10%}to{left:104%}}
+.lab{position:absolute;top:1.8cqw;right:2cqw;z-index:3;font:500 1.3cqw 'DM Mono',monospace;color:#fff;border-radius:99px;padding:.4cqw 1.2cqw;letter-spacing:.04em;text-transform:uppercase}
+.lab.l1{background:var(--bad)}
+.lab.l2{background:var(--good)}
+.swap .lab.l2{display:none}
+.swap.rev .lab.l1{display:none}
+.swap.rev .lab.l2{display:inline-block}
+
+/* circles (mov 2) */
+.circ{position:relative;width:31cqw;height:31cqw;flex:none}
+.circ i{position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%)}
+.c1{width:100%;height:100%;background:var(--grad-soft)}
+.c2{width:66%;height:66%;background:linear-gradient(118deg,#B9E9F9,#C9D2FA)}
+.c3{width:34%;height:34%;background:var(--grad)}
+.dot{position:absolute;width:3.4cqw;height:3.4cqw;border-radius:50%;background:var(--ink);color:#fff;font:700 1.5cqw Figtree,sans-serif;display:grid;place-items:center;transform:translate(-50%,-50%)}
+.legend{display:flex;flex-direction:column;gap:1cqw;justify-content:center;flex:1}
+.legend .card{padding:1cqw 1.8cqw}
+.legend .card h3{font-size:1.8cqw;margin-bottom:.4cqw}
+.legend .card p{font-size:1.4cqw}
+
+/* flow (ciclo) */
+.flow{display:grid;grid-template-columns:1fr 3cqw 1fr 3cqw 1fr 3cqw 1fr;align-items:stretch}
+.flow .card{display:flex;flex-direction:column;justify-content:center;min-height:14cqw}
+.flow .card b{font:800 2.2cqw/1.2 Figtree,sans-serif;letter-spacing:-.015em}
+.flow .arr{display:flex;align-items:center;justify-content:center;font:800 3.4cqw Figtree,sans-serif;color:var(--violet)}
+
+/* ZIP */
+.zip .card{min-height:20cqw}
+.zip .zl{font:800 6cqw/1 Figtree,sans-serif;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:1.6cqw}
+
+/* agenda */
+.ag{display:grid;grid-template-columns:9cqw 1fr 8cqw;align-items:center;padding:1.1cqw 0;border-bottom:.15cqw solid var(--line);opacity:0;transform:translateX(-2cqw);transition:opacity .6s var(--ease) calc(var(--i)*.09s + .1s),transform .7s var(--ease) calc(var(--i)*.09s + .1s)}
+.on .ag{opacity:1;transform:none}
+.ag .agt{font:500 1.4cqw 'DM Mono',monospace;color:var(--violet)}
+.ag .agn{font:700 2.2cqw Figtree,sans-serif;letter-spacing:-.01em}
+.ag .agm{font:500 1.3cqw 'DM Mono',monospace;color:var(--ink2);text-align:right}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;transition-delay:0s!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gr" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#00C4CC"/><stop offset="1" stop-color="#7D2AE8"/></linearGradient></defs></svg>
+
+<div class="app" id="app">
+  <div class="view">
+    <main class="stage" id="stage" aria-live="polite"></main>
+    <div class="notes-pane" id="notes" aria-label="Notas da facilitadora"></div>
+    <nav class="ctrl" aria-label="Controles da apresentação">
+      <button id="bp" aria-label="Slide anterior">←</button>
+      <span id="cnt">1 / 1</span>
+      <button id="bn" aria-label="Próximo slide">→</button>
+      <div class="bar" id="bar" aria-label="Progresso por bloco"></div>
+      <span id="clock"></span>
+      <button id="bNotes" aria-label="Mostrar ou ocultar notas (N)">Notas N</button>
+      <button id="bIdx" aria-label="Índice (G)">Índice G</button>
+      <button id="bFs" aria-label="Tela cheia (F)">⤢</button>
+    </nav>
+  </div>
+</div>
+<div class="hint" id="hint">← → navegam · N notas · G índice · F tela cheia</div>
+<div class="index" id="index" hidden></div>
+
+<script>
+/* ============ BLOCOS (duração total = 50 min) ============ */
+const BLOCKS = [
+  {id:'ab', n:'01', nome:'Abertura: a política que não andou', min:5},
+  {id:'b2', n:'02', nome:'Que tipo de problema é esse?', min:8},
+  {id:'b3', n:'03', nome:'Por que não enxergamos o problema inteiro', min:10},
+  {id:'b4', n:'04', nome:'O erro padrão', min:4},
+  {id:'b5', n:'05', nome:'A resposta: resolução colaborativa', min:12},
+  {id:'b6', n:'06', nome:'Objeções que você vai ouvir', min:4},
+  {id:'b7', n:'07', nome:'Decidir, sustentar e o papel do gestor', min:7}
+];
+const B = id => BLOCKS.find(b => b.id === id);
+const bStart = id => { let a = 0; for (const b of BLOCKS) { if (b.id === id) return a; a += b.min; } return 0; };
+const fmt = m => `${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
+
+/* ============ HELPERS ============ */
+const su = t => t.split(' ').map((w,i) => `<span class="w"><span style="--i:${i}">${w}</span></span>`).join(' ');
+const head = (k, t) => `<div class="kick">${k}</div><h2 class="t">${su(t)}</h2>`;
+const hl = (t, c='', d='0s') => `<span class="hl ${c}" style="--d:${d}">${t}</span>`;
+const bcov = (id, title, pat, sub) => {
+  const b = B(id), s = bStart(id), e = s + b.min;
+  const rings = pat.split('').map(c => `<i class="r ${c==='f'?'f':c==='t'?'t':''}"></i>`).join('');
+  return `<div class="bc"><div class="bc-n">${b.n}</div><h1 class="t1">${su(title)}</h1><div class="bc-p"><span class="pill g">${b.min} min</span><span class="bc-s">${sub}</span></div><div class="bmeta">Bloco ${b.n} · ${fmt(s)} a ${fmt(e)}</div><div class="rings" aria-hidden="true">${rings}</div></div>`;
+};
+const agendaHTML = () => BLOCKS.map((b,i) => `<div class="ag" style="--i:${i}"><span class="agt">${fmt(bStart(b.id))}</span><span class="agn">${b.nome}</span><span class="agm">${b.min} min</span></div>`).join('');
+
+/* ============ SLIDES ============ */
+const S = [
+/* ---- 01 Abertura ---- */
+{ b:'ab', min:1, t:'Capa', cls:'cover', meta:false, notes:'Abra em silêncio. Deixe a tela aparecer por alguns segundos antes da primeira fala.',
+  html:`<div class="cv">
+    <div class="cv-t">
+      <div class="kick kick-line">Palestra · servidores e gestores públicos</div>
+      <h1 class="cv-h">${su('Resolução colaborativa')}<br>${su('de problemas')}</h1>
+      <p class="cv-s">Redesenhando o <span class="gt">valor público</span> em meio ao conflito</p>
+      <div class="cv-f">[data] · [órgão] · [facilitadora]</div>
+    </div>
+    <div class="scene" aria-hidden="true">
+      <div class="sh"></div>
+      <div class="dp" data-depth="1.4" style="left:24%;top:24%"><div class="fl sph"></div></div>
+      <div class="dp" data-depth="2.6" style="left:10%;top:58%"><div class="fl ring"></div></div>
+      <div class="dp" data-depth="1.0" style="left:66%;top:60%"><div class="fl cube"></div></div>
+      <div class="dp" data-depth="0.8" style="left:44%;top:40%"><div class="fl sheet"><i class="g"></i><i></i><i class="s"></i><i></i></div></div>
+      <div class="dp" data-depth="3.0" style="left:6%;top:16%"><div class="fl chipx">Problema <b>complexo</b></div></div>
+      <div class="dp" data-depth="2.1" style="left:56%;top:14%"><div class="fl chipx">Lógicas <b>legítimas</b></div></div>
+      <div class="dp" data-depth="3.2" style="left:30%;top:80%"><div class="fl chipx">Escuta <b>qualificada</b></div></div>
+    </div>
+  </div>` },
+
+{ b:'ab', min:2, t:'Revolta da Vacina', cls:'', notes:'Conte o caso sem pressa. Diga que a vacina era eficaz e que a revolta não foi só sobre a vacina: a reforma urbana autoritária e a carestia já estavam no ar. Em 1908, a epidemia de varíola matou quase 6,4 mil pessoas no Rio (A Gazeta/BBC).',
+  html:`${head('Caso · Rio de Janeiro, 1904', 'A vacina funcionava. A política falhou.')}
+  <div class="grid g4" style="margin-top:.5cqw">
+    <div class="card enter" style="--i:0"><h3>31 out</h3><p>Lei de vacinação obrigatória aprovada. Previa multa e comprovante para emprego e matrícula.</p></div>
+    <div class="card enter" style="--i:1"><h3>9 nov</h3><p>O projeto de regulamentação vaza para a imprensa.</p></div>
+    <div class="card enter" style="--i:2"><h3>10 a 16 nov</h3><p>A revolta paralisa a cidade.</p></div>
+    <div class="card enter" style="--i:3"><h3>16 nov</h3><p>Estado de sítio decretado. A obrigatoriedade é suspensa.</p></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:4.4cqw;font-size:2.9cqw">A vacina foi o pretexto que faltava. O conflito já existia, e a política não o tinha ouvido.</p>` },
+
+{ b:'ab', min:1, t:'Pergunta para a sala', cls:'', notes:'Faça a pergunta e espere. Não comente as respostas: a palestra devolve a pergunta no final.',
+  html:`${head('Pergunta para a sala', 'Quem já viu uma política bem desenhada que não pegou?')}
+  <div class="pergunta enter" style="--i:0;max-width:70cqw;font-size:2.6cqw;margin-top:2cqw">O que faltou?</div>
+  <p class="micro enter" style="--i:1">Trinta segundos. Responda de cabeça, sem anotar.</p>` },
+
+{ b:'ab', min:1, t:'Tese', cls:'dark', notes:'Diga a tese em uma frase e repita a segunda frase devagar. É a frase que a plateia deve levar.',
+  html:`${head('Tese', 'Políticas fracassam menos por falta de execução e mais por problemas mal formulados.')}
+  <p class="lead frag" data-f="1" style="font-size:2.6cqw;color:#fff;margin-top:3cqw;max-width:60ch">Formular bem um problema complexo é algo que ninguém consegue fazer sozinho.</p>` },
+
+{ b:'ab', min:0, t:'Roteiro do dia', cls:'', notes:'Mostre o roteiro em trinta segundos. Diga que as objeções e as perguntas ficam para o fim, e que quem quiser anotar a pergunta do início pode anotar agora.',
+  html:`${head('Roteiro', 'Como vamos chegar lá')}<div style="margin-top:1cqw">${agendaHTML()}</div>` },
+
+/* ---- 02 Que tipo de problema ---- */
+{ b:'b2', min:0, t:'Bloco 02 · Que tipo de problema é esse?', cls:'dark', meta:false, notes:'Anuncie o bloco em uma frase: vamos separar dois tipos de problema que parecem iguais.',
+  html:bcov('b2','Que tipo de problema é esse?','oftoooooo','Diferenciar complicado de complexo')},
+
+{ b:'b2', min:2, t:'Complicado × complexo', cls:'', notes:'Dê o exemplo da ponte e da folha de pagamento. Depois, leia a definição de complexo devagar e pare na frase de efeito: não é mais variável, é outra natureza.',
+  html:`${head('Dois tipos de problema', 'Complicado é difícil. Complexo muda quando você age.')}
+  <div class="grid g2">
+    <div class="card enter" style="--i:0"><h3>Complicado</h3><p>Difícil, mas estável. Dá para decompor, planejar, calcular e executar.</p><p><b>Exemplos:</b> construir uma ponte; calcular a folha de pagamento.</p><span class="chip">Pede especialização</span></div>
+    <div class="card enter" style="--i:1"><h3>Complexo</h3><p>Muda conforme você age sobre ele. Envolve comportamento, instituições, incentivos, disputa de valores e efeitos não previstos.</p><span class="chip">Pede aprendizagem coletiva</span></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:2.6cqw;font-size:2.5cqw">O complexo não é o complicado com mais variáveis. É <span class="gt">outra natureza de problema.</span></p>` },
+
+{ b:'b2', min:2, t:'Teste da nuvem', cls:'', notes:'Projete a pergunta e deixe a sala votar antes de comentar. Depois diga que a mesma contratação tem os dois lados, e pergunte em qual deles o tempo da equipe vai.',
+  html:`${head('Teste da plateia', 'Uma contratação de nuvem tem dois lados. Qual pesa mais na sua equipe?')}
+  <div class="vote" id="vote1">
+    <button class="vopt enter" style="--i:0" data-c="0"><b>Elaborar e executar o edital, seguir normas e boas práticas.</b><span class="vn">0</span><span class="vb"><i></i></span></button>
+    <button class="vopt enter" style="--i:1" data-c="0"><b>Soberania, governança de dados e confiança pública.</b><span class="vn">0</span><span class="vb"><i></i></span></button>
+  </div>
+  <p class="micro">Clique em uma opção para votar. Cada clique soma um voto.</p>
+  <p class="quote frag" data-f="1" style="font-size:2.3cqw;margin-top:1.8cqw">A mesma contratação tem os dois lados. O tempo da sua equipe vai para qual deles?</p>` },
+
+{ b:'b2', min:2, t:'Problemas perversos', cls:'', notes:'Rittel e Webber, em 1973, descrevem problemas sem formulação definitiva, em que cada tentativa de solução muda o problema. Bason (2010, p. 9) fala de problemas abertos a interpretação, que provavelmente nunca serão totalmente resolvidos. Não diga que tudo é perverso; isso é contestado (ver as perguntas).',
+  html:`${head('Problemas perversos', 'Problemas complexos não se fecham de uma vez.')}
+  <div class="grid g2" style="margin-top:.5cqw">
+    <div class="card dk enter" style="--i:0;padding:3.2cqw 3cqw"><h3 style="font-size:2.9cqw;color:#fff">“Cada tentativa de solução reformula o problema.”</h3><p>Rittel e Webber (1973) descrevem problemas sem formulação definitiva.</p></div>
+    <div class="card enter" style="--i:1;padding:3.2cqw 3cqw"><h3>Bason (2010)</h3><p>Problemas complexos, abertos a interpretação, com opções de solução concorrentes ou conflitantes, que provavelmente nunca serão totalmente resolvidos.</p></div>
+  </div>
+  <p class="foot frag" data-f="1" style="margin-top:3cqw">Fontes: Rittel & Webber (1973); Bason (2010, impr. p. 9).</p>` },
+
+{ b:'b2', min:2, t:'Duplo desafio', cls:'', notes:'Leia as quatro forças externas: produtividade, expectativa dos cidadãos, globalização e pressão da mídia. Bason, citando Osborne e Brown (2005), diz que as forças externas são as que exigem inovação mais radical. Leitura do palestrante: o governo costuma responder às reformas internas quando o problema vem de fora.',
+  html:`${head('O duplo desafio', 'O setor público enfrenta dois tipos de mudança.')}
+  <div class="grid g2">
+    <div class="card enter" style="--i:0"><h3>Planejadas e internas</h3><p>Reformas e objetivos já em curso. Adaptar-se a eles é o trabalho de rotina.</p></div>
+    <div class="card dk enter" style="--i:1"><h3>Emergentes e externas</h3><p>Forças socioeconômicas turbulentas: exigência de produtividade, expectativas dos cidadãos, globalização, pressão da mídia.</p></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:3.4cqw;font-size:2.8cqw">Política pública tenta tornar governável a complexidade. Mas ainda a tratamos como <span class="gt">decisão racional.</span></p>` },
+
+/* ---- 03 Por que não enxergamos ---- */
+{ b:'b3', min:0, t:'Bloco 03 · Por que não enxergamos o problema inteiro', cls:'dark', meta:false, notes:'Anuncie o bloco: cada área vê uma parte e vê bem a sua. O problema está na combinação.',
+  html:bcov('b3','Por que não enxergamos o problema inteiro','oooftoooo','Lentes, fronteiras e conflito')},
+
+{ b:'b3', min:2, t:'Paralaxe disciplinar', cls:'', notes:'Mostre a evasão escolar com as seis lentes e pergunte qual delas a sala costuma usar. Bason chama de paralaxe a combinação das lentes: o que está além de qualquer visão isolada.',
+  html:`${head('Paralaxe disciplinar', 'Cada área enxerga bem a sua parte. Ninguém enxerga o todo.')}
+  <p class="lead enter" style="--i:0;margin-bottom:2cqw">Evasão escolar, vista por seis lentes:</p>
+  <div class="grid g3">
+    <div class="card enter" style="--i:1"><h3>Educação</h3></div>
+    <div class="card enter" style="--i:2"><h3>Assistência social</h3></div>
+    <div class="card enter" style="--i:3"><h3>Saúde</h3></div>
+    <div class="card enter" style="--i:4"><h3>Gestão</h3></div>
+    <div class="card enter" style="--i:5"><h3>Família</h3></div>
+    <div class="card enter" style="--i:6"><h3>O próprio jovem</h3></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:3cqw;font-size:2.7cqw">Cada lente tem vieses. A combinação delas mostra o que nenhuma mostra sozinha.</p>` },
+
+{ b:'b3', min:2, t:'Oito lógicas', cls:'', notes:'Liste as oito lógicas e pergunte qual delas esteve em jogo na última reunião difícil da sala. Diga que a lista é uma ferramenta de leitura, não uma taxonomia consagrada na literatura.',
+  html:`${head('Múltiplas racionalidades', 'Oito lógicas legítimas disputam a mesma decisão.')}
+  <div class="grid g4" style="gap:1.4cqw">
+    <div class="card frag" data-f="1" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Técnica</h3></div>
+    <div class="card frag" data-f="1" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Política</h3></div>
+    <div class="card frag" data-f="1" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Jurídica</h3></div>
+    <div class="card frag" data-f="1" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Orçamentária</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Social</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Territorial</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Operacional</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Simbólica</h3></div>
+  </div>
+  <p class="quote frag" data-f="3" style="margin-top:3.2cqw;font-size:2.8cqw">Nenhuma é dispensável. Nenhuma dá conta sozinha. <span class="gt">O desafio é fazê-las conversar.</span></p>` },
+
+{ b:'b3', min:1, t:'Crítica de fronteira', cls:'', notes:'Exemplo de Sevaldson (2022): o investidor, o gerente e o operário de uma mesma empresa veem o sistema de formas diferentes e desenham fronteiras diferentes. Termine com a regra de método: as fronteiras devem poder ser redesenhadas.',
+  html:`${head('Fronteiras', 'Todo problema tem uma fronteira, e alguém a desenhou.')}
+  <div class="row">
+    <div class="col" style="flex:1.1"><p class="lead enter" style="--i:0;font-size:2.1cqw">Definir um problema é traçar o que está dentro e o que está fora. Quem fica de fora costuma ser invisível para quem está dentro.</p>
+    <p class="quote frag" data-f="1" style="margin-top:2.6cqw;font-size:2.4cqw">Regra de método: mapeie muito além do que parece relevante. As fronteiras devem poder ser redesenhadas.</p></div>
+    <div class="col" style="flex:1"><div class="grid" style="gap:1.4cqw">
+      <div class="card enter" style="--i:1;padding:1.8cqw 2.2cqw"><h3 style="margin:0">Investidor</h3><p>Desenha uma fronteira.</p></div>
+      <div class="card enter" style="--i:2;padding:1.8cqw 2.2cqw"><h3 style="margin:0">Gerente</h3><p>Desenha outra.</p></div>
+      <div class="card enter" style="--i:3;padding:1.8cqw 2.2cqw"><h3 style="margin:0">Operário</h3><p>Desenha uma terceira, do mesmo sistema.</p></div>
+    </div></div>
+  </div>
+` },
+
+{ b:'b3', min:2, t:'Conflito como sinal', cls:'', notes:'Vire os cartões um a um (clique ou →). Pergunte qual das três leituras se aplica à sala. Depois, diga que um sistema perfeitamente eficiente é perfeitamente frágil.',
+  html:`${head('Conflito como sinal', 'A ausência de conflito é um alarme, não um resultado.')}
+  <p class="micro" style="margin:0 0 1.6cqw">Por que ninguém discorda? Clique ou aperte → para virar cada cartão.</p>
+  <div class="flipg">
+    <div class="flip" data-f="1" tabindex="0"><div class="fi"><div class="ff"><span>Leitura 1</span><b>Por que ninguém discorda?</b></div><div class="fb"><b>Todos pensam igual.</b></div></div></div>
+    <div class="flip" data-f="2" tabindex="0"><div class="fi"><div class="ff"><span>Leitura 2</span><b>Por que ninguém discorda?</b></div><div class="fb"><b>Quem pensa diferente não foi convidado.</b></div></div></div>
+    <div class="flip" data-f="3" tabindex="0"><div class="fi"><div class="ff"><span>Leitura 3</span><b>Por que ninguém discorda?</b></div><div class="fb bad"><b>Já aprendeu que falar não muda nada.</b></div></div></div>
+  </div>
+  <p class="quote frag" data-f="4" style="margin-top:3cqw;font-size:2.7cqw">Um sistema perfeitamente eficiente é <span class="gt">perfeitamente frágil.</span></p>` },
+
+{ b:'b3', min:2, t:'Cisternas', cls:'', notes:'Mostre os dois lados com o mesmo peso. Não cite o número "134 casos": não foi confirmado nas fontes. Não insinue vínculos políticos locais. Termine com a pergunta e espere a resposta da sala.',
+  html:`${head('Caso · Semiárido, 2011–2012', 'Cisterna de placa ou de plástico?')}
+  <div class="grid g2" style="gap:1.8cqw">
+    <div class="card enter" style="--i:0"><h3>Placa</h3><p>Feita por pedreiros e famílias das próprias comunidades, no Programa Um Milhão de Cisternas (sociedade civil, com apoio do MDS). A ASA estima R$ 2,2 mil.</p></div>
+    <div class="card enter" style="--i:1"><h3>Plástico</h3><p>Compra industrial, instalada em cerca de um dia, no programa Água para Todos (Ministério da Integração). A ASA estima pouco mais de R$ 5 mil.</p></div>
+  </div>
+  <div class="grid g2" style="gap:1.8cqw;margin-top:1.8cqw">
+    <div class="card dk enter" style="--i:2;padding:1.8cqw 2.2cqw"><p style="color:#E7E3F4">ASA: 15 mil pessoas protestaram em Petrolina. Queixas de deformações e furos.</p></div>
+    <div class="card dk enter" style="--i:3;padding:1.8cqw 2.2cqw"><p style="color:#E7E3F4">Ministério: problema em 0 a 1% das 17,8 mil instaladas. O programa reúne tecnologias diferentes.</p></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:1.8cqw;font-size:2.2cqw">Em estiagens cada vez maiores, você precisa entregar 300 mil cisternas. Qual escolhe?</p>` },
+
+{ b:'b3', min:1, t:'Dialógica', cls:'', notes:'Na leitura popular de Hegel, a contradição vira tese, antítese e síntese. Diga "na leitura popular" e cite a superação (Aufhebung) se alguém perguntar. Para Morin, os dois princípios permanecem juntos. Confira a edição e a página de Morin antes de citar: nenhum dos livros do material traz a referência.',
+  html:`${head('Dialética × dialógica', 'Troque o “ou” pelo “e”.')}
+  <div class="grid g2">
+    <div class="card enter" style="--i:0"><h3>Leitura popular de Hegel</h3><p>Tese, antítese, síntese. A contradição se resolve num terceiro termo.</p></div>
+    <div class="card dk enter" style="--i:1"><h3>Dialógica (Edgar Morin)</h3><p>Dois princípios necessários e antagônicos, que permanecem juntos sem se dissolver numa síntese.</p></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:3.4cqw;font-size:2.8cqw">Boa parte das más políticas nasce de resolver cedo demais um “e” que foi lido como “ou”.</p>` },
+
+/* ---- 04 Erro padrão ---- */
+{ b:'b4', min:0, t:'Bloco 04 · O erro padrão', cls:'dark', meta:false, notes:'Anuncie o bloco em uma frase: o erro mais comum é tratar o complexo como complicado.',
+  html:bcov('b4','O erro padrão','oftoooooo','Tratar o complexo como complicado')},
+
+{ b:'b4', min:2, t:'Ciclo do erro', cls:'', notes:'Leia as quatro etapas em sequência e pare em "faltou execução". Pergunte: alguém checou se o problema estava bem formulado? Sevaldson (2013) lembra que simplificação precoce pode levar a conclusões e suposições totalmente erradas.',
+  html:`${head('O ciclo do erro', 'A explicação mais comum é “faltou execução”.')}
+  <div class="flow">
+    <div class="card enter" style="--i:0"><b>Diagnóstico fechado</b></div><div class="arr enter" style="--i:1">→</div>
+    <div class="card enter" style="--i:2"><b>Solução única</b></div><div class="arr enter" style="--i:3">→</div>
+    <div class="card enter" style="--i:4"><b>Implementação linear</b></div><div class="arr enter" style="--i:5">→</div>
+    <div class="card dk enter" style="--i:6"><b style="color:#fff">Faltou execução</b></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:4cqw;font-size:2.8cqw">Simplificar o problema não simplifica a realidade. <span class="gt">Só transfere o custo</span> para a implementação e para quem depende dela.</p>` },
+
+{ b:'b4', min:2, t:'Minha Casa Minha Vida', cls:'', notes:'Esta é a leitura do deck, e a fonte das pesquisas em 22 municípios ainda não foi confirmada: não cite o número no palco. O subsídio alto e os conjuntos padronizados são a ideia; o que as pesquisas registraram é o efeito. Termine com a pergunta e espere.',
+  html:`${head('Caso · Minha Casa Minha Vida, Faixa 1', 'Casa entregue é política entregue?')}
+  <div class="grid g2">
+    <div class="card enter" style="--i:0"><h3>A ideia</h3><p>Produzir moradia em escala para famílias de baixíssima renda, com subsídio alto, em conjuntos padronizados e terrenos baratos.</p></div>
+    <div class="card enter" style="--i:1"><h3>O que as pesquisas registraram</h3><p>Conjuntos em áreas afastadas, sem transporte, serviço ou emprego por perto. Condomínios com taxas fora da renda. Planta de dois quartos que não comporta famílias grandes nem pequeno comércio.</p></div>
+  </div>
+  <div class="pergunta frag" data-f="1" style="margin-top:2.8cqw;font-size:2.2cqw">Uma família saiu do aluguel em área de risco e ganhou casa própria a 2 horas do trabalho. A política deu certo ou errado?</div>` },
+
+/* ---- 05 A resposta ---- */
+{ b:'b5', min:0, t:'Bloco 05 · A resposta: resolução colaborativa', cls:'dark', meta:false, notes:'Anuncie o bloco: não é a resposta mágica, é um método para formular melhor antes de decidir.',
+  html:bcov('b5','A resposta: resolução colaborativa como método','ofofoooft','Um método, não um slogan')},
+
+{ b:'b5', min:2, t:'Inovação como mediação', cls:'', notes:'Leia as seis capacidades e diga que inovação pública não é o setor das ideias novas. Diga também a nota de enquadramento: aqui design não é estética e inovação não é criatividade.',
+  html:`${head('Ideia central', 'Inovação pública é uma forma de governar a incerteza.')}
+  <p class="lead enter" style="--i:0">Não é o setor das ideias novas. É o que organiza múltiplas lógicas num processo de aprendizagem e decisão.</p>
+  <div class="grid g3" style="gap:1.4cqw">
+    <div class="card enter" style="--i:1;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Formular melhor o problema antes de escolher a resposta</p></div>
+    <div class="card enter" style="--i:2;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Tornar hipóteses explícitas e testáveis</p></div>
+    <div class="card enter" style="--i:3;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Aprender com evidência e experiência</p></div>
+    <div class="card enter" style="--i:4;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Envolver atores além dos que já estão na sala</p></div>
+    <div class="card enter" style="--i:5;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Testar pequeno, onde o erro é barato</p></div>
+    <div class="card enter" style="--i:6;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Ajustar antes de escalar</p></div>
+  </div>
+  <p class="foot">Aqui, design não é estética e inovação não é criatividade. São modos de pensar e agir na formulação de políticas.</p>` },
+
+{ b:'b5', min:1, t:'Modos de conhecer', cls:'', notes:'Diga que a maior parte da literatura de pensamento sistêmico privilegia o conhecimento proposicional, o de dados e conceitos. Escuta qualificada é conhecimento experiencial. Fundamento: Rajagopalan e Midgley (2020), a partir de Heron e Reason (1997).',
+  html:`${head('Modos de conhecer', 'Há quatro formas de conhecer, e não só a dos dados.')}
+  <div class="grid g2" style="gap:1.6cqw">
+    <div class="card enter" style="--i:0;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">Proposicional</h3><p>Conceitos e dados.</p></div>
+    <div class="card enter" style="--i:1;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">Experiencial</h3><p>Vivência direta.</p></div>
+    <div class="card enter" style="--i:2;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">Presentacional</h3><p>Expressão criativa: arte e narrativa.</p></div>
+    <div class="card enter" style="--i:3;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">Prática</h3><p>Saber-fazer.</p></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:3cqw;font-size:2.7cqw">Escuta qualificada é uma forma de conhecimento. <span class="gt">Não é achismo.</span></p>` },
+
+{ b:'b5', min:2, t:'Movimento 1: expandir', cls:'', notes:'Leia a frase de abertura devagar. Mostre o GIGA-mapping como ideia, não como exigência: Sevaldson fala em no mínimo cerca de 300 entidades para mapas que servem para entender e gerar. Diga que a tradução para a gestão pública é do palestrante.',
+  html:`${head('Movimento 1', 'Expandir antes de simplificar.')}
+  <div class="row">
+    <div class="col" style="flex:1"><p class="quote enter" style="--i:0;font-size:2.9cqw">Antes de definir o problema, liste tudo o que se relaciona a ele, <span class="gt">mesmo o que parece irrelevante.</span></p></div>
+    <div class="col" style="flex:1"><div class="grid" style="gap:1.2cqw">
+      <div class="card enter" style="--i:1;padding:1.6cqw 2cqw"><p>Mapeie o que já se sabe, para tornar visíveis os pressupostos herdados.</p></div>
+      <div class="card enter" style="--i:2;padding:1.6cqw 2cqw"><p>Olhe as relações. A complexidade mora nelas, não só nos objetos.</p></div>
+      <div class="card enter" style="--i:3;padding:1.6cqw 2cqw"><p>Mapas de grande porte servem para entender e gerar, não só para descrever.</p></div>
+      <div class="card enter" style="--i:4;padding:1.6cqw 2cqw"><p>Não sobre-desenhe o mapa. Ele tem de continuar aberto, não virar molde.</p></div>
+    </div></div>
+  </div>
+  <p class="foot">Adaptado do Systems Oriented Design (Sevaldson). A tradução para a gestão pública é do palestrante.</p>` },
+
+{ b:'b5', min:2, t:'Exercício em duplas', cls:'', notes:'Peça duplas e inicie o cronômetro. Espere os dois minutos inteiros; não encurte. Depois, peça que uma pessoa de cada dupla diga em voz alta quem anotou.',
+  html:`${head('Exercício · duplas · 2 minutos', 'Quem não está na mesa?')}
+  <p class="lead enter" style="--i:0;max-width:60ch">Pense num problema que você enfrenta hoje. Anote uma pessoa ou grupo que não está nessa conversa.</p>
+  <div class="timer enter" data-tot="120" data-rem="120" style="--i:1">
+    <button class="tbtn" aria-label="Iniciar ou pausar o cronômetro de dois minutos"><svg viewBox="0 0 40 40" aria-hidden="true"><circle class="tr" cx="20" cy="20" r="17"/><circle class="tp" cx="20" cy="20" r="17"/></svg><span class="tt">2:00</span></button>
+    <span class="tl">Aperte para iniciar. Depois, o cronômetro zera sozinho.</span>
+  </div>` },
+
+{ b:'b5', min:1, t:'Movimento 2: convocar', cls:'', notes:'Desenhe os três círculos: quem decide, quem é consultado, quem é afetado. Leia a frase de efeito. Pergunte quem, no problema da sala, está no círculo mais externo.',
+  html:`${head('Movimento 2', 'Convoque quem não está na mesa.')}
+  <div class="row" style="align-items:center;gap:4cqw">
+    <div class="circ enter" style="--i:0">
+      <i class="c1"></i><i class="c2"></i><i class="c3"></i>
+      <span class="dot" style="left:50%;top:6%">1</span>
+      <span class="dot" style="left:50%;top:26%">2</span>
+      <span class="dot" style="left:50%;top:50%;background:#fff;color:var(--ink)">3</span>
+    </div>
+    <div class="legend">
+      <div class="card enter" style="--i:1"><h3>1 · Quem é afetado</h3><p>Quem vive o problema. Quase nunca está na sala, e é quem mais depende de a política dar certo.</p></div>
+      <div class="card enter" style="--i:2"><h3>2 · Quem é consultado</h3><p>Sociedade civil organizada. Às vezes está na sala.</p></div>
+      <div class="card enter" style="--i:3"><h3>3 · Quem decide</h3><p>Técnicos e políticos. Sempre estão na sala.</p></div>
+      <div class="card dk frag" data-f="1" style="padding:1.2cqw 1.8cqw"><p style="color:#fff;font:700 1.75cqw/1.3 Figtree,sans-serif;margin:0">A participação não falha só quando alguém é ignorado. <span class="gt">Falha quando alguém sequer é convidado.</span></p></div>
+    </div>
+  </div>
+` },
+
+{ b:'b5', min:1, t:'Carta do ator ausente', cls:'', notes:'Leia em voz alta, devagar, sem comentar. Mostre cada linha com um clique. Se você apresentar isso como personagem ilustrativo, diga isso antes de ler. Não atribua a história a uma pessoa real.',
+  html:`${head('Carta do ator ausente', 'A pessoa que dorme no prédio há dois anos.')}
+  <div class="grid g2" style="gap:1.6cqw">
+    <div class="card frag" data-f="1"><span class="kick" style="margin:0 0 .8cqw;display:block">Interesse</span><h3 style="margin:0">Ter um lugar seguro.</h3></div>
+    <div class="card frag" data-f="2"><span class="kick" style="margin:0 0 .8cqw;display:block">Medo</span><h3 style="margin:0">Virar “questão de segurança”.</h3></div>
+    <div class="card frag" data-f="3"><span class="kick" style="margin:0 0 .8cqw;display:block">Moeda de troca</span><h3 style="margin:0">Nenhuma.</h3></div>
+    <div class="card dk frag" data-f="4"><span class="kick" style="margin:0 0 .8cqw;display:block">Situação</span><h3 style="margin:0;color:#fff">Não foi convidada.</h3></div>
+  </div>` },
+
+{ b:'b5', min:2, t:'Caso Penela', cls:'', notes:'Clique no cartão, ou espere a cortina, para mostrar a troca. Não diga que o posto de justiça "não servia": diga que o diagnóstico mudou. O estudo cobre a identificação e a conceituação; não mede resultado.',
+  html:`${head('Caso · Penela, Portugal', 'O problema estava na formulação.')}
+  <div class="swap" id="swap1" tabindex="0" aria-label="Antes e depois: clique para alternar">
+    <div class="sw sw-a"><span class="k">Pergunta do diagnóstico</span><b>Quais serviços de justiça levar à comunidade?</b></div>
+    <div class="sw sw-b"><span class="k">Problema reformulado</span><b>Restrições de mobilidade e falta de oportunidades econômicas explicavam a baixa demanda.</b></div>
+    <span class="sweep"></span>
+    <span class="lab l1">Antes</span><span class="lab l2">Depois</span>
+  </div>
+  <div class="grid g2" style="margin-top:2.2cqw;gap:1.6cqw">
+    <p class="micro" style="font-size:1.45cqw;font-family:Figtree,sans-serif;color:var(--ink2)">Por que a abordagem tradicional falha, segundo o estudo: fragmenta o problema em microproblemas, supõe que poucos especialistas bastam e pode apontar o problema errado.</p>
+    <p class="micro" style="font-size:1.45cqw;font-family:Figtree,sans-serif;color:var(--ink2)">A escuta de baixo para cima mudou a pergunta e permitiu propor um conceito novo para testar.</p>
+  </div>
+  <p class="foot">Sá et al. (2020), The TQM Journal. Cobre identificação e conceituação; não mede resultado.</p>` },
+
+{ b:'b5', min:1, t:'Movimento 3: testar pequeno', cls:'zip', notes:'Explique os três critérios da análise ZIP. Se houver tempo, cite Canberra: nove famílias, três ideias e um protótipo de profissional de referência (Forrester & Body, 2014). Feche com o teste pequeno.',
+  html:`${head('Movimento 3', 'Localize o ponto de intervenção e teste pequeno.')}
+  <div class="grid g3">
+    <div class="card enter" style="--i:0"><div class="zl">Z</div><h3>Zoom</h3><p>Onde falta informação. Aprofunde ali.</p></div>
+    <div class="card enter" style="--i:1"><div class="zl">P</div><h3>Potencial</h3><p>Um problema evidente, ou algo que funciona e vale aprender.</p></div>
+    <div class="card enter" style="--i:2"><div class="zl">I</div><h3>Intervenção</h3><p>Algo novo que se pode fazer, ou uma relação nova que se pode criar.</p></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:3cqw;font-size:2.7cqw">Teste em pequena escala, onde o erro é barato. <span class="gt">Ajuste antes de escalar.</span></p>
+  <p class="foot">Análise ZIP: Sevaldson (2013).</p>` },
+
+/* ---- 06 Objeções ---- */
+{ b:'b6', min:0, t:'Bloco 06 · Objeções que você vai ouvir', cls:'dark', meta:false, notes:'Anuncie o bloco: as objeções que você vai ouvir de gestores e servidores são legítimas, e têm resposta.',
+  html:bcov('b6','Objeções que você vai ouvir','oftoooooo','Três objeções e um caso')},
+
+{ b:'b6', min:2, t:'Três objeções', cls:'', notes:'Leia cada objeção antes da resposta. Para a segunda resposta, diga que uma unidade britânica de customer insight usava a pergunta: se conhecer o cliente é caro, quanto custa não conhecê-lo? Respostas paráfrases de Bason (2010), cap. 9.',
+  html:`${head('Objeções', 'Três objeções que você vai ouvir, e o que responder.')}
+  <div class="trow enter" style="--i:0"><b>“Vira ditadura do cidadão.”</b><span>Não. O cidadão contribui para descobrir o que vai funcionar. <em>Quem decide continua sendo a instância política.</em></span><span></span></div>
+  <div class="trow enter" style="--i:1;margin-top:1.4cqw"><b>“Custa caro e demora.”</b><span>Mais caro é descobrir tarde que a solução desenhada na mesa <em>não funciona.</em></span><span></span></div>
+  <div class="trow enter" style="--i:2;margin-top:1.4cqw"><b>“Cria expectativa.”</b><span>É uma objeção válida. <em>Seja transparente</em> sobre o que será feito e o que não será.</span><span></span></div>
+  <p class="foot">Paráfrase de Bason (2010), cap. 9, impr. p. 196–198.</p>` },
+
+{ b:'b6', min:2, t:'Caso Rio Doce', cls:'', notes:'Caso sensível. Tom descritivo: as duas posições na mesma tela, sem adjetivos e sem tomar partido. Antecedente, se perguntarem: o TAC-Gov (anterior) previa comissões de atingidos e assessorias técnicas, consolidadas só anos depois, com obstáculos judiciais (Agência Brasil, 2024). Se alguém perguntar sobre o lado político, volte à pergunta: participar do acompanhamento equivale a ter participado da construção?',
+  html:`${head('Caso · Rio Doce, 2015–2024', 'Acompanhar um acordo é o mesmo que construí-lo?')}
+  <p class="micro" style="font-family:Figtree,sans-serif;font-size:1.7cqw;color:var(--ink2);margin:0 0 2.2cqw">Repactuação da reparação do rompimento da barragem de Fundão. Assinada em 25/10/2024, atinge 49 municípios, 11 deles no Espírito Santo.</p>
+  <div class="grid g2" style="gap:1.8cqw">
+    <div class="card enter" style="--i:0"><h3>Atingidos e movimentos</h3><p>Denunciaram que não participaram da negociação. O MAB reconhece avanços e aponta insuficiências.</p></div>
+    <div class="card enter" style="--i:1"><h3>Instituições</h3><p>O MPF destaca o anexo 6, com espaços de diálogo e o Conselho Federal de Participação Social da Bacia do Rio Doce. Minas criou a IMPS/Doce (2025), de caráter consultivo.</p></div>
+  </div>
+  <div class="pergunta frag" data-f="1" style="margin-top:2.6cqw;font-size:2.1cqw">Participar do acompanhamento equivale a ter participado da construção?</div>` },
+
+/* ---- 07 Decidir ---- */
+{ b:'b7', min:0, t:'Bloco 07 · Decidir, sustentar e o papel do gestor', cls:'dark', meta:false, notes:'Anuncie o bloco: como decidimos vale tanto quanto o que decidimos.',
+  html:bcov('b7','Decidir, sustentar e o papel do gestor','ftoooofoo','Decisão acordada, legitimidade desenhada')},
+
+{ b:'b7', min:2, t:'Como decidir', cls:'', notes:'Leia os quatro modos. Pergunte à sala: em qual desses modos a última decisão da equipe foi tomada? Não aponte culpados: a autoridade com escuta é o modo realista no Estado.',
+  html:`${head('Como decidir', 'Decidir é acordar, não descobrir.')}
+  <div class="trow enter" style="--i:0;padding:1.2cqw 2.4cqw;background:transparent;color:var(--ink2)"><span style="font:500 1.3cqw 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em">Modo</span><span style="font:500 1.3cqw 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em">O que é</span><span style="font:500 1.3cqw 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em">O que custa</span></div>
+  <div class="trow enter" style="--i:1"><b>Consenso</b><span>Todos precisam concordar.</span><span>Alta legitimidade; risco de paralisia e de “vencer o teimoso”.</span></div>
+  <div class="trow enter" style="--i:2;margin-top:1cqw"><b>Consentimento</b><span>Ninguém tem objeção grave.</span><span>Mais rápido; aceita adesão morna.</span></div>
+  <div class="trow enter" style="--i:3;margin-top:1cqw"><b>Maioria</b><span>Vota-se e decide-se.</span><span>Rápido e claro; produz perdedores.</span></div>
+  <div class="trow enter" style="--i:4;margin-top:1cqw"><b>Autoridade com escuta</b><span>Alguém decide depois de ouvir.</span><span>Realista no Estado; legítima se a escuta for de verdade.</span></div>` },
+
+{ b:'b7', min:1, t:'Legitimidade é desenhada', cls:'', notes:'Diga que legitimidade vem de como decidimos: transparência, inclusão e aprendizado. Percorra as cinco dimensões de valor público rapidamente e demore em legitimidade.',
+  html:`${head('Legitimidade', 'Legitimidade é desenhada, não herdada.')}
+  <p class="lead enter" style="--i:0;font-size:2.2cqw">Ela vem de como decidimos: transparência, inclusão e aprendizado. Nasce da negociação de valores, não do consenso.</p>
+  <div class="grid g3" style="gap:1.4cqw;margin-top:1cqw">
+    <div class="card frag" data-f="1" style="padding:1.6cqw 2cqw"><h3 style="margin:0;font-size:2.1cqw">Experiência do cidadão</h3></div>
+    <div class="card frag" data-f="1" style="padding:1.6cqw 2cqw"><h3 style="margin:0;font-size:2.1cqw">Resultados sociais</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.6cqw 2cqw"><h3 style="margin:0;font-size:2.1cqw">Eficiência e custo</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.6cqw 2cqw;background:var(--grad);color:#fff"><h3 style="margin:0;font-size:2.1cqw;color:#fff">Legitimidade</h3></div>
+    <div class="card frag" data-f="3" style="padding:1.6cqw 2cqw"><h3 style="margin:0;font-size:2.1cqw">Aprendizado institucional</h3></div>
+  </div>
+  <p class="quote frag" data-f="4" style="margin-top:3cqw;font-size:2.6cqw">Valor público não é dado. <span class="gt">É descoberto e construído com as pessoas.</span></p>` },
+
+{ b:'b7', min:1, t:'O que toda decisão sacrifica', cls:'dark', notes:'Leia a frase inteira. Faça a pergunta final e espere. Não responda por eles.',
+  html:`${head('Toda decisão sacrifica algo', 'A diferença entre uma política honesta e uma ingênua é o que ela consegue dizer em voz alta.')}
+  <p class="bigq enter" style="--i:0;margin-top:1cqw;font-size:3.6cqw;max-width:80cqw">Toda decisão pública sacrifica algo.</p>
+  <div class="pergunta frag" data-f="1" style="margin-top:3.6cqw;font-size:2.2cqw;max-width:72cqw">O que a sua decisão mais recente sacrificou? Alguém consegue dizer isso em voz alta?</div>` },
+
+{ b:'b7', min:2, t:'Caso PAIC, Ceará', cls:'', notes:'Diga o que o Ceará fez que um decreto não faz: formação continuada, materiais, avaliação anual e apoio aos municípios com piores resultados. Os 85,3% vêm de reportagem (Band, 2025): cite a fonte. Não diga que a colaboração causou o resultado sozinha.',
+  html:`${head('Caso · Ceará, desde 2007', 'Colaborar entre entes deu resultado mensurável.')}
+  <div class="grid g3" style="gap:1.6cqw">
+    <div class="card enter" style="--i:0;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">2007</h3><p>14 de 184 municípios no nível desejável.</p></div>
+    <div class="card enter" style="--i:1;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">2014</h3><p>141 municípios no nível desejável.</p></div>
+    <div class="card dk enter" style="--i:2;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw;color:#fff">2025</h3><p style="color:#E7E3F4">85,3% das crianças do 2º ano alfabetizadas, a maior proporção do país.</p></div>
+  </div>
+  <div class="grid g3" style="gap:1.6cqw;margin-top:1.8cqw">
+    <p class="micro frag" data-f="1" style="font-family:Figtree,sans-serif;font-size:1.6cqw;color:var(--ink2);margin:0">Repasse de ICMS vinculado aos resultados: incentivo e colaboração andam juntos.</p>
+    <p class="micro frag" data-f="1" style="font-family:Figtree,sans-serif;font-size:1.6cqw;color:var(--ink2);margin:0">Não é teste causal. Quem analisa atribui o avanço mais à colaboração, mas isso é opinião.</p>
+    <p class="micro frag" data-f="1" style="font-family:Figtree,sans-serif;font-size:1.6cqw;color:var(--ink2);margin:0">É colaboração entre estado e municípios, não cocriação com cidadãos.</p>
+  </div>
+  <p class="quote frag" data-f="2" style="margin-top:2.8cqw;font-size:2.6cqw">Colaborar é sempre melhor, ou às vezes é apenas mais lento?</p>
+  <p class="foot">Indicador Criança Alfabetizada, segundo a Band (2025); PUC-Rio; CartaCapital.</p>` },
+
+{ b:'b7', min:1, t:'Gestor como curador', cls:'', notes:'Diga que o gestor é menos controlador e mais curador do processo de sentido. Se houver tempo, liste as seis práticas: questionar suposições; empatizar com cidadãos e servidores; lidar com divergência; prototipar antes de implementar; aprender com erros; criar valor público compartilhado.',
+  html:`${head('Papel do gestor', 'O gestor cuida do sentido, não controla o processo.')}
+  <div class="grid g2" style="gap:1.6cqw">
+    <div class="card enter" style="--i:0"><div class="ico">1</div><h3>Protege o propósito</h3><p>Para quem é o problema e para que serve a política.</p></div>
+    <div class="card enter" style="--i:1"><div class="ico">2</div><h3>Cria espaço para experimentar</h3><p>Autoriza aprender com o erro, em vez de punir o teste.</p></div>
+    <div class="card enter" style="--i:2"><div class="ico">3</div><h3>Media conflitos</h3><p>A divergência vira insumo, não ameaça.</p></div>
+    <div class="card enter" style="--i:3"><div class="ico">4</div><h3>Conecta aprendizado à decisão</h3><p>Fecha o ciclo: o que foi aprendido muda o que se decide.</p></div>
+  </div>` },
+
+{ b:'b7', min:0, t:'Checklist', cls:'', notes:'Deixe que a sala leia. Peça que marquem, mentalmente, a item que mais vão fazer na próxima semana. Clique nos itens se quiser marcá-los ao vivo.',
+  html:`${head('Para levar', 'Antes da sua próxima política')}
+  <div class="checklist">
+    <button class="ctile enter" style="--i:0"><span class="n">01</span><b>Formule o problema antes da resposta.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+    <button class="ctile enter" style="--i:1"><span class="n">02</span><b>Liste o que se relaciona ao problema, mesmo o que parece irrelevante.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+    <button class="ctile enter" style="--i:2"><span class="n">03</span><b>Pergunte quem não está na mesa.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+    <button class="ctile enter" style="--i:3"><span class="n">04</span><b>Diga em voz alta o que a decisão sacrifica.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+    <button class="ctile enter" style="--i:4"><span class="n">05</span><b>Teste pequeno e ajuste antes de escalar.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+  </div>
+  <p class="micro">Clique em cada item para marcá-lo.</p>` },
+
+{ b:'b7', min:0, t:'Quatro Cs', cls:'', notes:'Diga que Bason propõe quatro dimensões mutuamente dependentes. Leitura do palestrante: coragem é o C que depende de quem decide começar, e é por aí que a conversa termina.',
+  html:`${head('Bason (2010)', 'Quatro Cs sustentam a inovação pública.')}
+  <div class="grid g4" style="gap:1.6cqw;margin-top:1cqw">
+    <div class="card enter" style="--i:0"><div class="ico">C</div><h3>Consciência</h3><p>O panorama da inovação.</p></div>
+    <div class="card enter" style="--i:1"><div class="ico">C</div><h3>Capacidade</h3><p>As estruturas.</p></div>
+    <div class="card enter" style="--i:2"><div class="ico">C</div><h3>Cocriação</h3><p>Os processos.</p></div>
+    <div class="card dk enter" style="--i:3"><div class="ico">C</div><h3 style="color:#fff">Coragem</h3><p>A liderança.</p></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:3.4cqw;font-size:2.6cqw">Líderes precisam tratar os quatro para acender e sustentar o poder de inovar.</p>` },
+
+{ b:'b7', min:0, t:'Frase final', cls:'dark', notes:'Repita a frase final devagar. Depois, passe para Dúvidas.',
+  html:`${head('Fechamento', 'Conduzir pelo design é mediar, não controlar.')}
+  <p class="bigq enter" style="--i:0;font-size:3.4cqw;margin-top:2cqw;max-width:72cqw">O conflito não é o defeito do processo. <span class="hl" style="--d:.8s">É a prova de que o problema está sendo enfrentado de verdade.</span></p>` },
+
+{ b:'b7', min:0, t:'Dúvidas', cls:'grad', notes:'Abra para perguntas. Se alguém disser que tudo é complexo, cite Alford e Head (2017): há problemas mais e menos perversos, e colaboração em formato único não serve para todos. Termine com Termeer, Dewulf e Biesbroek (2019), que avaliam criticamente o conceito.',
+  html:`<div class="kick">Perguntas e contrapontos</div><h2 class="t" style="font-size:7cqw;margin-top:auto">${su('Dúvidas?')}</h2><p class="lead enter" style="--i:2;color:#fff;margin-bottom:auto">Casos, contrapontos e o que você quer levar daqui.</p>` },
+
+{ b:'b7', min:0, t:'Obrigada', cls:'cover', meta:false, notes:'Agradeça, mostre o contato da facilitadora e encerre.',
+  html:`<div class="cv" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 6cqw">
+    <div class="kick kick-line">Obrigada</div>
+    <h2 class="t" style="font-size:5.4cqw;margin-bottom:0">${su('Conduzir pelo design é mediar.')}</h2>
+    <div class="sig">Obrigada!</div>
+    <div class="cv-f">[nome da facilitadora] · [contato]</div>
+  </div>` }
+];
+
+/* ============ MOTOR ============ */
+const stage = document.getElementById('stage');
+const app = document.getElementById('app');
+const TOTAL = BLOCKS.reduce((a,b) => a + b.min, 0);
+let acc = 0; S.forEach(s => { s.start = acc; acc += s.min; });
+const metaHTML = (s,i) => `<div class="meta"><span>Bloco ${B(s.b).n} · <b>${B(s.b).nome}</b></span><span>${String(i+1).padStart(2,'0')} / ${S.length}</span></div>`;
+
+S.forEach((s,i) => {
+  const el = document.createElement('section');
+  el.className = `slide ${s.cls || ''}`;
+  el.dataset.i = i;
+  el.setAttribute('aria-roledescription','slide');
+  el.setAttribute('aria-label', `${i+1}. ${s.t}`);
+  el.innerHTML = s.html + (s.meta === false ? '' : metaHTML(s,i));
+  stage.appendChild(el);
+  s.el = el;
+  s.max = Math.max(0, ...[...el.querySelectorAll('[data-f]')].map(x => +x.dataset.f));
+});
+
+/* barra de progresso */
+const bar = document.getElementById('bar');
+BLOCKS.forEach(b => {
+  const d = document.createElement('button');
+  d.className = 'seg';
+  d.style.flex = b.min;
+  d.title = `${b.n} · ${b.nome}`;
+  d.setAttribute('aria-label', `Ir para o bloco ${b.n}: ${b.nome}`);
+  d.innerHTML = '<i></i>';
+  d.onclick = () => show(S.findIndex(s => s.b === b.id), 'start');
+  bar.appendChild(d);
+});
+
+let cur = 0, step = 0, swapT = null;
+const $ = id => document.getElementById(id);
+
+function apply(){
+  S[cur].el.querySelectorAll('[data-f]').forEach(e => {
+    const f = +e.dataset.f;
+    e.classList.toggle('show', f <= step);
+    e.classList.toggle('act', f === step);
+  });
+}
+
+function onEnter(s){
+  clearTimeout(swapT);
+  s.el.querySelectorAll('.swap').forEach(sw => {
+    sw.classList.remove('rev');
+    swapT = setTimeout(() => sw.classList.add('rev'), 900);
+  });
+}
+
+function show(i, where){
+  i = Math.max(0, Math.min(S.length - 1, i));
+  S.forEach((s,k) => {
+    if (k !== i) { s.el.classList.remove('on'); s.el.classList.toggle('past', k < i); }
+  });
+  const sl = S[i];
+  sl.el.classList.remove('past');
+  void sl.el.offsetWidth;
+  sl.el.classList.add('on');
+  cur = i;
+  step = where === 'end' ? sl.max : 0;
+  apply(); onEnter(sl); ui();
+  try { history.replaceState(null, '', '#' + (i + 1)); } catch(e) {}
+}
+
+function next(){
+  const sl = S[cur];
+  if (step < sl.max) { step++; apply(); ui(); }
+  else if (cur < S.length - 1) show(cur + 1, 'start');
+}
+function prev(){
+  if (step > 0) { step--; apply(); ui(); }
+  else if (cur > 0) show(cur - 1, 'end');
+}
+
+function ui(){
+  const s = S[cur];
+  $('cnt').textContent = `${cur+1} / ${S.length}`;
+  const el = s.start + (s.max ? s.min * step / (s.max + 1) : 0);
+  let bs = 0;
+  BLOCKS.forEach((b,bi) => {
+    const f = Math.min(1, Math.max(0, (el - bs) / b.min));
+    bar.children[bi].firstChild.style.width = (f * 100) + '%';
+    bs += b.min;
+  });
+  $('clock').textContent = `${fmt(Math.floor(el))} de ${fmt(TOTAL)} · ${s.min ? s.min + ' min' : 'agora'}`;
+  if (app.classList.contains('notes-on')) {
+    const nx = S[cur+1] ? S[cur+1].t : 'fim da apresentação';
+    $('notes').innerHTML = `<div class="nh">Notas · ${cur+1}. ${s.t} · ${step}/${s.max} revelações</div><p>${s.notes}</p><div class="nx">Próximo: ${nx}</div>`;
+  }
+}
+
+function toggleNotes(){ app.classList.toggle('notes-on'); ui(); }
+function openIndex(){ $('index').hidden = false; }
+function closeIndex(){ $('index').hidden = true; }
+function toggleIndex(){ $('index').hidden ? openIndex() : closeIndex(); }
+function fs(){ if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
+
+/* índice */
+const ix = $('index');
+ix.innerHTML = `<div class="ix-h"><b>Índice · ${S.length} slides · ${fmt(TOTAL)}</b><button id="ixClose">Fechar (Esc)</button></div>` +
+  BLOCKS.map(b => `<div class="ix-b"><h4>${b.n} · ${b.nome} <span>${b.min} min</span></h4><div class="ix-g">` +
+    S.map((s,i) => ({s,i})).filter(o => o.s.b === b.id).map(o => `<button data-go="${o.i}"><span>${String(o.i+1).padStart(2,'0')}</span>${o.s.t}</button>`).join('') +
+    `</div></div>`).join('');
+ix.addEventListener('click', e => {
+  if (e.target.id === 'ixClose') return closeIndex();
+  const b = e.target.closest('[data-go]');
+  if (b) { closeIndex(); show(+b.dataset.go, 'start'); }
+});
+
+/* controles */
+$('bp').onclick = prev;
+$('bn').onclick = next;
+$('bNotes').onclick = toggleNotes;
+$('bIdx').onclick = toggleIndex;
+$('bFs').onclick = fs;
+
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea,select,[contenteditable]')) return;
+  const k = e.key;
+  if ((k === ' ' || k === 'Enter') && e.target.closest('button,[tabindex]')) return;
+  if (['ArrowRight','PageDown',' '].includes(k)) { e.preventDefault(); next(); }
+  else if (['ArrowLeft','PageUp','Backspace'].includes(k)) { e.preventDefault(); prev(); }
+  else if (k === 'ArrowDown') { e.preventDefault(); show(cur + 1, 'start'); }
+  else if (k === 'ArrowUp') { e.preventDefault(); show(cur - 1, 'start'); }
+  else if (k === 'Home') show(0, 'start');
+  else if (k === 'End') show(S.length - 1, 'start');
+  else if (k === 'n' || k === 'N') toggleNotes();
+  else if (k === 'g' || k === 'G') toggleIndex();
+  else if (k === 'f' || k === 'F') fs();
+  else if (k === 'Escape') closeIndex();
+});
+
+/* toque */
+let tx = null;
+stage.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+stage.addEventListener('touchend', e => {
+  if (tx === null) return;
+  const dx = e.changedTouches[0].clientX - tx; tx = null;
+  if (dx < -50) next(); else if (dx > 50) prev();
+}, {passive:true});
+
+/* interações: votação, cronômetro, checklist, cartões, antes/depois */
+document.addEventListener('click', e => {
+  const v = e.target.closest('.vopt');
+  if (v) {
+    v.dataset.c = +v.dataset.c + 1;
+    const box = v.closest('.vote');
+    const os = [...box.querySelectorAll('.vopt')];
+    const tot = os.reduce((a,o) => a + +o.dataset.c, 0) || 1;
+    os.forEach(o => {
+      const n = o.querySelector('.vn');
+      n.textContent = o.dataset.c;
+      o.querySelector('.vb i').style.width = (o.dataset.c / tot * 100) + '%';
+    });
+    const n = v.querySelector('.vn'); n.classList.add('bump'); setTimeout(() => n.classList.remove('bump'), 250);
+    return;
+  }
+  const tb = e.target.closest('.tbtn');
+  if (tb) {
+    const t = tb.closest('.timer');
+    let rem = +t.dataset.rem;
+    if (t.classList.contains('run')) { t.classList.remove('run'); }
+    else {
+      if (rem <= 0) { rem = +t.dataset.tot; t.dataset.rem = rem; }
+      t.classList.remove('done'); t.classList.add('run');
+    }
+    tupd(t); return;
+  }
+  const ct = e.target.closest('.ctile');
+  if (ct) { ct.classList.toggle('done'); return; }
+  const fl = e.target.closest('.flip');
+  if (fl) { fl.classList.toggle('show'); return; }
+  const sw = e.target.closest('.swap');
+  if (sw) { sw.classList.toggle('rev'); return; }
+});
+document.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.flip,.swap')) { e.preventDefault(); e.target.click(); }
+});
+function tupd(t){
+  const tot = +t.dataset.tot, r = +t.dataset.rem;
+  t.querySelector('.tt').textContent = r > 0 ? `${Math.floor(r/60)}:${String(r%60).padStart(2,'0')}` : 'Tempo!';
+  t.querySelector('.tp').style.strokeDashoffset = 106.81 * (1 - r / tot);
+}
+setInterval(() => {
+  document.querySelectorAll('.timer.run').forEach(t => {
+    let r = +t.dataset.rem - 1;
+    if (r <= 0) { r = 0; t.classList.remove('run'); t.classList.add('done'); }
+    t.dataset.rem = r; tupd(t);
+  });
+}, 1000);
+
+/* parallax da capa */
+document.addEventListener('mousemove', e => {
+  if (!S[cur] || !S[cur].el.classList.contains('cover')) return;
+  const r = stage.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+  S[cur].el.querySelectorAll('.dp').forEach(d => {
+    const k = +d.dataset.depth;
+    d.style.transform = `translate(${x * k * 2.2}cqw, ${y * k * 2.2}cqw)`;
+  });
+});
+
+/* dica que some */
+setTimeout(() => $('hint').classList.add('off'), 7000);
+
+/* início: hash ou primeiro slide */
+const h = parseInt(location.hash.slice(1), 10);
+show(isNaN(h) ? 0 : h - 1, 'start');
+</script>
+</body>
+</html>
