@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Figtree:wght@400..900&display=swap" rel="stylesheet">
 <style>
-/* ---------- tokens ---------- */
 :root{
   --stage-bg:#0E0B18;--paper:#EFEDF5;--card:#FFFFFF;--ink:#17122B;--ink2:#4E4866;--line:#D4D0E2;--night:#15102A;
   --teal:#00C4CC;--blue:#4F6BF5;--violet:#7D2AE8;--pink:#E44DB5;--gold:#F2B300;--bad:#E5484D;--good:#11A15A;
@@ -20,12 +19,11 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--chrome-bg:#0A0812;--chrome-fg:#F4F2FA;--chrome-mute:#8E88A8}}
 :root[data-theme="dark"]{--chrome-bg:#0A0812;--chrome-fg:#F4F2FA;--chrome-mute:#8E88A8}
-
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#0E0B18;background:var(--chrome-bg);color:var(--chrome-fg);font-family:Figtree,system-ui,sans-serif;overflow:hidden}
 button{font:inherit;color:inherit}
 
-/* ---------- chrome ---------- */
+/* chrome */
 .app{height:100vh;height:100dvh;display:flex;flex-direction:column}
 .view{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 16px 8px;gap:12px}
 .stage{position:relative;width:min(100%,calc((100dvh - 132px - var(--nh,0px)) * 16 / 9));aspect-ratio:16/9;container-type:inline-size;background:var(--paper);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.55)}
@@ -41,7 +39,7 @@ button{font:inherit;color:inherit}
 .ctrl button:focus-visible,.stage button:focus-visible,.index button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 #cnt,#clock{font:500 13px 'DM Mono',monospace;color:#C9C4DE;white-space:nowrap}
 .bar{flex:1;display:flex;gap:3px;height:12px;min-width:120px}
-.seg{border:0;padding:0;margin:0;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden;cursor:pointer;height:12px;min-width:10px;height:12px}
+.seg{border:0;padding:0;margin:0;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden;cursor:pointer;height:12px;min-width:10px}
 .seg i{display:block;height:100%;width:0;background:var(--grad);transition:width .6s var(--ease)}
 .seg:hover{background:rgba(255,255,255,.26)}
 .hint{position:fixed;right:18px;bottom:72px;font:400 13px 'DM Mono',monospace;color:#9C97B3;background:rgba(14,11,24,.8);padding:8px 12px;border-radius:99px;transition:opacity .8s}
@@ -56,10 +54,10 @@ button{font:inherit;color:inherit}
 .ix-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
 .ix-g button{text-align:left;background:rgba(255,255,255,.06);border:0;border-radius:10px;padding:10px 12px;cursor:pointer;color:#F4F2FA;font:500 14px Figtree,sans-serif;display:flex;gap:10px}
 .ix-g button span{font:500 12px 'DM Mono',monospace;color:#9C97B3;padding-top:2px}
+.ix-g button.opt{border:1px dashed rgba(242,179,0,.6)}
 .ix-g button:hover{background:rgba(255,255,255,.14)}
-.sr{position:absolute;width:0;height:0;overflow:hidden}
 
-/* ---------- slide base ---------- */
+/* slide base */
 .slide{position:absolute;inset:0;padding:6.4cqw 5cqw 6.2cqw;display:flex;flex-direction:column;background:var(--paper);color:var(--ink);opacity:0;visibility:hidden;transform:translateX(0);transition:opacity .7s var(--ease),transform .9s var(--ease),visibility .9s;overflow:hidden}
 .slide.on{opacity:1;visibility:visible;transform:none}
 .slide.past{opacity:0;visibility:hidden;transform:translateX(-1.2cqw)}
@@ -67,23 +65,21 @@ button{font:inherit;color:inherit}
 .slide.white{background:#fff}
 .slide.grad{background:var(--grad);color:#fff}
 .slide.cover{padding:0;background:radial-gradient(70cqw 60cqw at 78% 42%,#E7E1FF 0%,var(--paper) 62%)}
-.slide.cover.dark{background:radial-gradient(70cqw 60cqw at 78% 42%,#2A1E4D 0%,var(--night) 65%)}
 .meta{position:absolute;left:5cqw;right:5cqw;bottom:2cqw;display:flex;justify-content:space-between;font:500 1.25cqw 'DM Mono',monospace;color:var(--ink2);letter-spacing:.03em;text-transform:uppercase}
 .meta b{color:var(--ink);font-weight:500}
 .dark .meta,.grad .meta{color:#A9A3C4}
 .dark .meta b,.grad .meta b{color:#fff}
+.opt-tag{position:absolute;top:2.6cqw;right:5cqw;font:500 1.25cqw 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;background:var(--gold);color:var(--ink);border-radius:99px;padding:.4cqw 1.1cqw}
 
 .kick{font:500 1.3cqw 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--violet);margin-bottom:1.4cqw}
 .dark .kick{color:var(--teal)}
 .grad .kick{color:#fff}
 .t{font:800 3.8cqw/1.1 Figtree,sans-serif;letter-spacing:-.03em;margin:0 0 2.2cqw;color:inherit;text-wrap:balance;max-width:88cqw}
-.lead{font:400 1.9cqw/1.45 Figtree,sans-serif;color:var(--ink2);margin:0 0 2.6cqw;max-width:72ch;text-wrap:pretty}
+.lead{font:400 1.9cqw/1.45 Figtree,sans-serif;color:var(--ink2);margin:0 0 2.4cqw;max-width:72ch;text-wrap:pretty}
 .dark .lead{color:#C9C4DE}
 .grad .lead{color:#F4F2FA}
-.micro{font:400 1.3cqw 'DM Mono',monospace;color:var(--ink2);margin:1.6cqw 0 0;letter-spacing:.02em}
+.micro{font:400 1.3cqw 'DM Mono',monospace;color:var(--ink2);margin:1.4cqw 0 0;letter-spacing:.02em}
 .dark .micro{color:#A9A3C4}
-.foot{font:400 1.3cqw 'DM Mono',monospace;color:var(--ink2);margin:auto 0 0;letter-spacing:.02em}
-.dark .foot{color:#A9A3C4}
 .gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .grad .gt{background:none;-webkit-text-fill-color:#fff;color:#fff}
 
@@ -95,11 +91,9 @@ button{font:inherit;color:inherit}
 /* marca-texto */
 .hl{position:relative;isolation:isolate;display:inline}
 .hl::before{content:"";position:absolute;left:-.2em;right:-.2em;bottom:.14em;height:.5em;background:rgba(0,196,204,.42);z-index:-1;border-radius:.15em;transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease) var(--d,0s)}
-.hl.v::before{background:rgba(125,42,232,.3)}
-.hl.y::before{background:rgba(242,179,0,.55)}
 .on .hl::before{transform:scaleX(1)}
 
-/* entrada e fragmentos */
+/* entradas e fragmentos */
 .enter{opacity:0;transform:translateY(2cqw);transition:opacity .7s var(--ease) calc(var(--i,0)*.12s + .15s),transform .8s var(--ease) calc(var(--i,0)*.12s + .15s)}
 .on .enter{opacity:1;transform:none}
 .frag{opacity:0;transform:translateY(1.2cqw);transition:opacity .6s var(--ease),transform .7s var(--ease)}
@@ -113,33 +107,31 @@ button{font:inherit;color:inherit}
 .row{display:flex;gap:2.4cqw;align-items:stretch}
 .col{flex:1;min-width:0}
 .card{background:#fff;border-radius:1.2cqw;padding:1.9cqw 2.1cqw;color:var(--ink);position:relative}
-.card h3{font:800 2.2cqw/1.15 Figtree,sans-serif;letter-spacing:-.02em;margin:0 0 1.1cqw}
+.card h3{font:800 2.2cqw/1.15 Figtree,sans-serif;letter-spacing:-.02em;margin:0 0 1cqw}
 .card p{font:400 1.5cqw/1.45 Figtree,sans-serif;color:var(--ink2);margin:0;text-wrap:pretty}
-.card p+p{margin-top:.9cqw}
 .card b{color:var(--ink);font-weight:700}
 .card.dk{background:var(--night);color:#fff}
 .card.dk p{color:#CFCAE3}
 .card.dk h3{color:#fff}
-.card.gt-bg{background:var(--grad-soft)}
 .ico{width:3.6cqw;height:3.6cqw;border-radius:50%;background:var(--grad-soft);display:grid;place-items:center;font:800 1.7cqw Figtree,sans-serif;color:var(--ink);margin-bottom:.9cqw}
-.chip{display:inline-block;font:500 1.35cqw 'DM Mono',monospace;padding:.5cqw 1.2cqw;border-radius:99px;background:var(--grad-soft);color:var(--ink);margin-top:1.4cqw}
+.chip{display:inline-block;font:500 1.35cqw 'DM Mono',monospace;padding:.5cqw 1.2cqw;border-radius:99px;background:var(--grad-soft);color:var(--ink);margin-top:1.2cqw}
 .pill{display:inline-block;border-radius:99px;padding:.45cqw 1.3cqw;font:500 1.35cqw 'DM Mono',monospace;background:var(--ink);color:#fff;white-space:nowrap}
 .pill.g{background:var(--grad)}
-.pill.o{background:var(--gold);color:var(--ink)}
 .quote{font:800 2.7cqw/1.2 Figtree,sans-serif;letter-spacing:-.025em;color:var(--ink);margin:0;text-wrap:balance}
 .dark .quote{color:#fff}
 .bigq{font:800 4.6cqw/1.12 Figtree,sans-serif;letter-spacing:-.035em;margin:0;text-wrap:balance}
 .dark .bigq,.grad .bigq{color:#fff}
-.pergunta{background:#fff;border-radius:1.2cqw;padding:2.2cqw 2.6cqw;font:700 2.2cqw/1.3 Figtree,sans-serif;color:var(--ink);letter-spacing:-.01em}
-.pergunta::before{content:"Pergunta";display:block;font:500 1.3cqw 'DM Mono',monospace;color:var(--violet);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1cqw}
+.pergunta{background:#fff;border-radius:1.2cqw;padding:1.9cqw 2.3cqw;font:700 2.1cqw/1.3 Figtree,sans-serif;color:var(--ink);letter-spacing:-.01em}
+.pergunta::before{content:"Pergunta";display:block;font:500 1.3cqw 'DM Mono',monospace;color:var(--violet);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.8cqw}
 .dark .pergunta{background:rgba(255,255,255,.07);color:#fff}
 .dark .pergunta::before{color:var(--teal)}
 .trow{display:grid;grid-template-columns:19cqw 1fr 1fr;gap:2.4cqw;background:#fff;border-radius:1.2cqw;padding:1.1cqw 2.2cqw;align-items:center}
 .trow b{font:800 2.1cqw Figtree,sans-serif;color:var(--ink);letter-spacing:-.01em}
 .trow span{font:400 1.5cqw/1.35 Figtree,sans-serif;color:var(--ink2)}
 .trow span em{font-style:normal;color:var(--ink);font-weight:600}
+.lbl{font:500 1.3cqw 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
 
-/* block cover */
+/* capa de bloco */
 .bc{position:absolute;left:5cqw;top:0;bottom:0;right:5cqw;display:flex;flex-direction:column;justify-content:center}
 .bc-n{font:500 14cqw/1 'DM Mono',monospace;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.02em;margin-bottom:2cqw}
 .bc .t1{font:800 6cqw/1.05 Figtree,sans-serif;letter-spacing:-.035em;color:#fff;margin:0 0 2.6cqw;max-width:60cqw;text-wrap:balance}
@@ -150,15 +142,13 @@ button{font:inherit;color:inherit}
 .rings .r{border-radius:50%;border:.3cqw solid rgba(255,255,255,.3);aspect-ratio:1}
 .rings .r.f{background:var(--grad);border:0}
 .rings .r.t{border:.3cqw solid var(--teal)}
-.bc .t1,.bc-p,.bmeta{opacity:1}
 
-/* cover */
+/* capa */
 .cv{position:absolute;inset:0}
 .cv-t{position:absolute;left:6cqw;top:0;bottom:0;width:50cqw;display:flex;flex-direction:column;justify-content:center;z-index:2}
 .kick-line{display:flex;align-items:center;gap:1.2cqw}
 .kick-line::before{content:"";width:4cqw;height:.22cqw;background:var(--grad);border-radius:2px}
 .cv-h{font:800 7.2cqw/1.02 Figtree,sans-serif;letter-spacing:-.04em;margin:0 0 2.6cqw;color:var(--ink)}
-.dark .cv-h{color:#fff}
 .cv-s{font:300 2.3cqw/1.35 Figtree,sans-serif;color:var(--ink2);margin:0 0 4cqw;max-width:34cqw}
 .cv-s b{font-weight:700;color:var(--ink)}
 .cv-f{font:500 1.3cqw 'DM Mono',monospace;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
@@ -176,11 +166,10 @@ button{font:inherit;color:inherit}
 .chipx{background:#fff;border-radius:99px;padding:.9cqw 1.6cqw;font:500 1.5cqw 'DM Mono',monospace;color:var(--ink);box-shadow:0 1.2cqw 2.4cqw rgba(23,18,43,.12);white-space:nowrap}
 .chipx b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .sh{position:absolute;left:50%;bottom:4cqw;width:44cqw;height:3cqw;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(23,18,43,.18),transparent)}
-
-/* closing */
-.sig{font:700 11cqw/1 Caveat,cursive;color:var(--violet);margin:auto 0 2cqw;opacity:0;transform:translateY(2cqw);transition:opacity 1.2s var(--ease) .3s,transform 1.2s var(--ease) .3s}
+.sig{font:700 11cqw/1 Caveat,cursive;color:var(--violet);margin:0 0 2cqw;opacity:0;transform:translateY(2cqw);transition:opacity 1.2s var(--ease) .3s,transform 1.2s var(--ease) .3s}
 .on .sig{opacity:1;transform:none}
-.orb{position:absolute;border-radius:50%;filter:blur(3cqw);opacity:.55}
+
+/* checklist */
 .checklist{display:grid;grid-template-columns:repeat(5,1fr);gap:1.6cqw;margin-top:1cqw}
 .ctile{all:unset;box-sizing:border-box;cursor:pointer;background:#fff;border-radius:1.2cqw;padding:2.2cqw 1.8cqw;min-height:21cqw;display:flex;flex-direction:column;gap:1.3cqw;position:relative;transition:background .5s var(--ease),color .5s var(--ease)}
 .ctile:focus-visible{outline:.3cqw solid var(--teal);outline-offset:.4cqw}
@@ -195,7 +184,7 @@ button{font:inherit;color:inherit}
 .ctile.done .ck svg{opacity:1}
 .ctile.done .ck svg path{stroke:#fff}
 
-/* vote */
+/* votação */
 .vote{display:grid;grid-template-columns:1fr 1fr;gap:2cqw;margin-top:1cqw}
 .vopt{cursor:pointer;background:#fff;border:0;border-radius:1.2cqw;padding:2.2cqw 2.4cqw;color:var(--ink);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:1.4cqw;min-height:20cqw;text-align:left;text-wrap:pretty}
 .vopt:focus-visible{outline:.3cqw solid var(--teal);outline-offset:.4cqw}
@@ -205,7 +194,7 @@ button{font:inherit;color:inherit}
 .vopt .vb{position:absolute;left:0;bottom:0;height:1.1cqw;width:100%;background:var(--grad-soft)}
 .vopt .vb i{display:block;height:100%;width:0;background:var(--grad);transition:width .6s var(--ease)}
 
-/* timer */
+/* cronômetro */
 .timer{display:flex;align-items:center;gap:2cqw;margin-top:2.4cqw}
 .tbtn{cursor:pointer;background:var(--ink);border:0;color:#fff;border-radius:99px;padding:1cqw 2.4cqw 1cqw 1.2cqw;display:flex;align-items:center;gap:1.4cqw;font:500 1.7cqw 'DM Mono',monospace;min-width:14cqw}
 .tbtn:focus-visible{outline:.3cqw solid var(--teal);outline-offset:.4cqw}
@@ -218,7 +207,7 @@ button{font:inherit;color:inherit}
 .tl{font:400 1.7cqw/1.4 Figtree,sans-serif;color:var(--ink2)}
 .dark .tl{color:#C9C4DE}
 
-/* flip */
+/* cartões que viram */
 .flipg{display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;margin-top:1cqw}
 .flip{perspective:90cqw;height:19cqw;cursor:pointer}
 .flip:focus-visible{outline:.3cqw solid var(--teal);outline-offset:.4cqw}
@@ -229,9 +218,10 @@ button{font:inherit;color:inherit}
 .ff b{font:800 2.5cqw/1.2 Figtree,sans-serif;letter-spacing:-.02em}
 .ff span{font:500 1.3cqw 'DM Mono',monospace;color:var(--violet);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.2cqw}
 .fb{background:var(--grad);color:#fff;transform:rotateY(180deg)}
+.fb.bad{background:var(--bad)}
 .fb b{font:800 2.3cqw/1.25 Figtree,sans-serif;letter-spacing:-.01em}
 
-/* swap */
+/* antes/depois */
 .swap{position:relative;height:19cqw;border-radius:1.2cqw;overflow:hidden;cursor:pointer;margin-top:1cqw}
 .swap:focus-visible{outline:.3cqw solid var(--teal);outline-offset:.4cqw}
 .sw{position:absolute;inset:0;padding:2.2cqw 2.8cqw;display:flex;flex-direction:column;justify-content:center;gap:1cqw}
@@ -250,7 +240,7 @@ button{font:inherit;color:inherit}
 .swap.rev .lab.l1{display:none}
 .swap.rev .lab.l2{display:inline-block}
 
-/* circles (mov 2) */
+/* círculos (movimento 2) */
 .circ{position:relative;width:31cqw;height:31cqw;flex:none}
 .circ i{position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%)}
 .c1{width:100%;height:100%;background:var(--grad-soft)}
@@ -262,24 +252,18 @@ button{font:inherit;color:inherit}
 .legend .card h3{font-size:1.8cqw;margin-bottom:.4cqw}
 .legend .card p{font-size:1.4cqw}
 
-/* flow (ciclo) */
+/* fluxo, ZIP, agenda */
 .flow{display:grid;grid-template-columns:1fr 3cqw 1fr 3cqw 1fr 3cqw 1fr;align-items:stretch}
 .flow .card{display:flex;flex-direction:column;justify-content:center;min-height:14cqw}
 .flow .card b{font:800 2.2cqw/1.2 Figtree,sans-serif;letter-spacing:-.015em}
 .flow .arr{display:flex;align-items:center;justify-content:center;font:800 3.4cqw Figtree,sans-serif;color:var(--violet)}
-
-/* ZIP */
-.zip .card{min-height:20cqw}
-.zip .zl{font:800 6cqw/1 Figtree,sans-serif;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:1.6cqw}
-
-/* agenda */
+.zl{font:800 6cqw/1 Figtree,sans-serif;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:1.4cqw}
 .ag{display:grid;grid-template-columns:9cqw 1fr 8cqw;align-items:center;padding:1.1cqw 0;border-bottom:.15cqw solid var(--line);opacity:0;transform:translateX(-2cqw);transition:opacity .6s var(--ease) calc(var(--i)*.09s + .1s),transform .7s var(--ease) calc(var(--i)*.09s + .1s)}
 .on .ag{opacity:1;transform:none}
 .ag .agt{font:500 1.4cqw 'DM Mono',monospace;color:var(--violet)}
 .ag .agn{font:700 2.2cqw Figtree,sans-serif;letter-spacing:-.01em}
 .ag .agm{font:500 1.3cqw 'DM Mono',monospace;color:var(--ink2);text-align:right}
 
-/* reduced motion */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{transition-duration:.01ms!important;transition-delay:0s!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
 }
@@ -304,39 +288,40 @@ button{font:inherit;color:inherit}
     </nav>
   </div>
 </div>
-<div class="hint" id="hint">← → navegam · N notas · G índice · F tela cheia</div>
+<div class="hint" id="hint">← → navegam · N notas · G índice · F tela cheia · ?so-essenciais esconde os opcionais</div>
 <div class="index" id="index" hidden></div>
 
 <script>
-/* ============ BLOCOS (duração total = 50 min) ============ */
+/* ============ BLOCOS (minutos são calculados pelos slides incluídos) ============ */
 const BLOCKS = [
-  {id:'ab', n:'01', nome:'Abertura: a política que não andou', min:5},
-  {id:'b2', n:'02', nome:'Que tipo de problema é esse?', min:8},
-  {id:'b3', n:'03', nome:'Por que não enxergamos o problema inteiro', min:10},
-  {id:'b4', n:'04', nome:'O erro padrão', min:4},
-  {id:'b5', n:'05', nome:'A resposta: resolução colaborativa', min:12},
-  {id:'b6', n:'06', nome:'Objeções que você vai ouvir', min:4},
-  {id:'b7', n:'07', nome:'Decidir, sustentar e o papel do gestor', min:7}
+  {id:'ab', n:'01', nome:'Abertura: a política que não andou', min:0},
+  {id:'b2', n:'02', nome:'Que tipo de problema é esse?', min:0},
+  {id:'b3', n:'03', nome:'Por que não enxergamos o problema inteiro', min:0},
+  {id:'b4', n:'04', nome:'O erro padrão', min:0},
+  {id:'b5', n:'05', nome:'A resposta: resolução colaborativa', min:0},
+  {id:'b6', n:'06', nome:'Objeções que você vai ouvir', min:0},
+  {id:'b7', n:'07', nome:'Decidir, sustentar e o papel do gestor', min:0}
 ];
 const B = id => BLOCKS.find(b => b.id === id);
-const bStart = id => { let a = 0; for (const b of BLOCKS) { if (b.id === id) return a; a += b.min; } return 0; };
 const fmt = m => `${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
+const ESSENCIAIS = /so-essenciais/.test(location.search);
 
 /* ============ HELPERS ============ */
 const su = t => t.split(' ').map((w,i) => `<span class="w"><span style="--i:${i}">${w}</span></span>`).join(' ');
 const head = (k, t) => `<div class="kick">${k}</div><h2 class="t">${su(t)}</h2>`;
-const hl = (t, c='', d='0s') => `<span class="hl ${c}" style="--d:${d}">${t}</span>`;
 const bcov = (id, title, pat, sub) => {
-  const b = B(id), s = bStart(id), e = s + b.min;
   const rings = pat.split('').map(c => `<i class="r ${c==='f'?'f':c==='t'?'t':''}"></i>`).join('');
-  return `<div class="bc"><div class="bc-n">${b.n}</div><h1 class="t1">${su(title)}</h1><div class="bc-p"><span class="pill g">${b.min} min</span><span class="bc-s">${sub}</span></div><div class="bmeta">Bloco ${b.n} · ${fmt(s)} a ${fmt(e)}</div><div class="rings" aria-hidden="true">${rings}</div></div>`;
+  return `<div class="bc"><div class="bc-n">${B(id).n}</div><h1 class="t1">${su(title)}</h1><div class="bc-p"><span class="pill g"><span data-bmin="${id}"></span> min</span><span class="bc-s">${sub}</span></div><div class="bmeta">Bloco ${B(id).n} · <span data-bstart="${id}"></span> a <span data-bend="${id}"></span></div><div class="rings" aria-hidden="true">${rings}</div></div>`;
 };
-const agendaHTML = () => BLOCKS.map((b,i) => `<div class="ag" style="--i:${i}"><span class="agt">${fmt(bStart(b.id))}</span><span class="agn">${b.nome}</span><span class="agm">${b.min} min</span></div>`).join('');
+const agendaHTML = () => BLOCKS.map((b,i) => `<div class="ag" style="--i:${i}"><span class="agt" data-bstart="${b.id}"></span><span class="agn">${b.nome}</span><span class="agm"><span data-bmin="${b.id}"></span> min</span></div>`).join('');
 
 /* ============ SLIDES ============ */
-const S = [
-/* ---- 01 Abertura ---- */
-{ b:'ab', min:1, t:'Capa', cls:'cover', meta:false, notes:'Abra em silêncio. Deixe a tela aparecer por alguns segundos antes da primeira fala.',
+/* o:true = opcional (aparece com etiqueta; com ?so-essenciais some) */
+const ALL = [
+
+/* ---------- Abertura ---------- */
+{ b:'ab', min:1, t:'Capa', cls:'cover', meta:false,
+  notes:'Abra em silêncio. Deixe a tela aparecer por alguns segundos antes da primeira fala.',
   html:`<div class="cv">
     <div class="cv-t">
       <div class="kick kick-line">Palestra · servidores e gestores públicos</div>
@@ -356,72 +341,103 @@ const S = [
     </div>
   </div>` },
 
-{ b:'ab', min:2, t:'Revolta da Vacina', cls:'', notes:'Conte o caso sem pressa. Diga que a vacina era eficaz e que a revolta não foi só sobre a vacina: a reforma urbana autoritária e a carestia já estavam no ar. Em 1908, a epidemia de varíola matou quase 6,4 mil pessoas no Rio (A Gazeta/BBC).',
-  html:`${head('Caso · Rio de Janeiro, 1904', 'A vacina funcionava. A política falhou.')}
-  <div class="grid g4" style="margin-top:.5cqw">
-    <div class="card enter" style="--i:0"><h3>31 out</h3><p>Lei de vacinação obrigatória aprovada. Previa multa e comprovante para emprego e matrícula.</p></div>
-    <div class="card enter" style="--i:1"><h3>9 nov</h3><p>O projeto de regulamentação vaza para a imprensa.</p></div>
-    <div class="card enter" style="--i:2"><h3>10 a 16 nov</h3><p>A revolta paralisa a cidade.</p></div>
-    <div class="card enter" style="--i:3"><h3>16 nov</h3><p>Estado de sítio decretado. A obrigatoriedade é suspensa.</p></div>
+{ b:'ab', min:2, t:'Caminho da Escola', cls:'',
+  notes:'Conte como história, sem pressa. Deixe a pergunta final pairar antes de qualquer explicação.',
+  html:`${head('Caso · Recanto das Emas, DF', 'Bicicletas amarelas para ir à escola.')}
+  <div class="grid g2" style="gap:1.6cqw">
+    <div class="card enter" style="--i:0"><h3>A entrega</h3><p>O MEC distribuiu bicicletas para alunos irem à escola.</p></div>
+    <div class="card enter" style="--i:1"><h3>O uso</h3><p>Quase ninguém usou.</p></div>
+    <div class="card enter" style="--i:2"><h3>A cor</h3><p>Eram amarelas, como os ônibus do programa. Virou motivo de vergonha e bullying.</p></div>
+    <div class="card enter" style="--i:3"><h3>O silêncio</h3><p>A cor também foi ligada a grupos políticos locais. Ninguém perguntou aos jovens.</p></div>
   </div>
-  <p class="quote frag" data-f="1" style="margin-top:4.4cqw;font-size:2.9cqw">A vacina foi o pretexto que faltava. O conflito já existia, e a política não o tinha ouvido.</p>` },
+  <p class="quote frag" data-f="1" style="margin-top:2.6cqw">Quem testou a cor com quem ia pedalar?</p>` },
 
-{ b:'ab', min:1, t:'Pergunta para a sala', cls:'', notes:'Faça a pergunta e espere. Não comente as respostas: a palestra devolve a pergunta no final.',
+{ b:'ab', min:1, t:'Pergunta para a sala',
+  notes:'Faça a pergunta e espere. Não comente as respostas: a palestra devolve a pergunta no final.',
   html:`${head('Pergunta para a sala', 'Quem já viu uma política bem desenhada que não pegou?')}
-  <div class="pergunta enter" style="--i:0;max-width:70cqw;font-size:2.6cqw;margin-top:2cqw">O que faltou?</div>
-  <p class="micro enter" style="--i:1">Trinta segundos. Responda de cabeça, sem anotar.</p>` },
+  <div class="pergunta enter" style="--i:0;max-width:70cqw;font-size:2.6cqw;margin-top:1.6cqw">O que faltou?</div>
+  <p class="micro enter" style="--i:1">Trinta segundos. Responda de cabeça.</p>` },
 
-{ b:'ab', min:1, t:'Tese', cls:'dark', notes:'Diga a tese em uma frase e repita a segunda frase devagar. É a frase que a plateia deve levar.',
+{ b:'ab', min:1, t:'Tese', cls:'dark',
+  notes:'Diga a tese em uma frase e repita a segunda devagar. É a frase que a sala deve levar.',
   html:`${head('Tese', 'Políticas fracassam menos por falta de execução e mais por problemas mal formulados.')}
-  <p class="lead frag" data-f="1" style="font-size:2.6cqw;color:#fff;margin-top:3cqw;max-width:60ch">Formular bem um problema complexo é algo que ninguém consegue fazer sozinho.</p>` },
+  <p class="lead frag" data-f="1" style="font-size:2.6cqw;color:#fff;margin-top:2.6cqw;max-width:60ch">Formular bem um problema complexo ninguém consegue fazer sozinho.</p>` },
 
-{ b:'ab', min:0, t:'Roteiro do dia', cls:'', notes:'Mostre o roteiro em trinta segundos. Diga que as objeções e as perguntas ficam para o fim, e que quem quiser anotar a pergunta do início pode anotar agora.',
+{ b:'ab', min:0, t:'Roteiro do dia',
+  notes:'Mostre o roteiro em trinta segundos. Diga que as objeções e as perguntas ficam para o fim.',
   html:`${head('Roteiro', 'Como vamos chegar lá')}<div style="margin-top:1cqw">${agendaHTML()}</div>` },
 
-/* ---- 02 Que tipo de problema ---- */
-{ b:'b2', min:0, t:'Bloco 02 · Que tipo de problema é esse?', cls:'dark', meta:false, notes:'Anuncie o bloco em uma frase: vamos separar dois tipos de problema que parecem iguais.',
-  html:bcov('b2','Que tipo de problema é esse?','oftoooooo','Diferenciar complicado de complexo')},
+{ b:'ab', min:2, t:'Revolta da Vacina', o:true,
+  notes:'Conte o caso com calma: a vacina era eficaz, e a revolta não era só sobre a vacina. Em 1908, uma epidemia de varíola matou quase 6,4 mil pessoas no Rio.',
+  html:`${head('Caso · Rio de Janeiro, 1904', 'A vacina funcionava. A política falhou.')}
+  <div class="grid g4" style="gap:1.4cqw">
+    <div class="card enter" style="--i:0"><h3>31 out</h3><p>Lei de vacinação obrigatória, com multa e comprovante para emprego.</p></div>
+    <div class="card enter" style="--i:1"><h3>9 nov</h3><p>O regulamento vaza para a imprensa.</p></div>
+    <div class="card enter" style="--i:2"><h3>10 a 16 nov</h3><p>A cidade para. A revolta toma as ruas.</p></div>
+    <div class="card enter" style="--i:3"><h3>16 nov</h3><p>Estado de sítio. A obrigatoriedade é suspensa.</p></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:3cqw">A vacina foi o pretexto. <span class="gt">O conflito já existia.</span></p>` },
 
-{ b:'b2', min:2, t:'Complicado × complexo', cls:'', notes:'Dê o exemplo da ponte e da folha de pagamento. Depois, leia a definição de complexo devagar e pare na frase de efeito: não é mais variável, é outra natureza.',
+/* ---------- Bloco 2 ---------- */
+{ b:'b2', min:0, t:'Bloco 02 · Que tipo de problema é esse?', cls:'dark', meta:false,
+  notes:'Anuncie o bloco: vamos separar dois tipos de problema que parecem iguais.',
+  html:bcov('b2','Que tipo de problema é esse?','oftoooooo','Complicado × complexo')},
+
+{ b:'b2', min:2, t:'Complicado × complexo',
+  notes:'Dê o exemplo da ponte. Leia a frase de efeito devagar: não é mais variável, é outra natureza.',
   html:`${head('Dois tipos de problema', 'Complicado é difícil. Complexo muda quando você age.')}
   <div class="grid g2">
-    <div class="card enter" style="--i:0"><h3>Complicado</h3><p>Difícil, mas estável. Dá para decompor, planejar, calcular e executar.</p><p><b>Exemplos:</b> construir uma ponte; calcular a folha de pagamento.</p><span class="chip">Pede especialização</span></div>
-    <div class="card enter" style="--i:1"><h3>Complexo</h3><p>Muda conforme você age sobre ele. Envolve comportamento, instituições, incentivos, disputa de valores e efeitos não previstos.</p><span class="chip">Pede aprendizagem coletiva</span></div>
+    <div class="card enter" style="--i:0"><div class="ico">1</div><h3>Complicado</h3><p>Difícil, mas estável. Decompõe-se, planeja-se e executa-se.</p><span class="chip">Ex.: construir uma ponte</span></div>
+    <div class="card enter" style="--i:1"><div class="ico">2</div><h3>Complexo</h3><p>Muda com a ação. Envolve comportamento, instituições, incentivos e valores em disputa.</p><span class="chip">Pede aprendizagem coletiva</span></div>
   </div>
-  <p class="quote frag" data-f="1" style="margin-top:2.6cqw;font-size:2.5cqw">O complexo não é o complicado com mais variáveis. É <span class="gt">outra natureza de problema.</span></p>` },
+  <p class="quote frag" data-f="1" style="margin-top:2.8cqw">Não é o complicado com mais variáveis. <span class="gt">É outra natureza de problema.</span></p>` },
 
-{ b:'b2', min:2, t:'Teste da nuvem', cls:'', notes:'Projete a pergunta e deixe a sala votar antes de comentar. Depois diga que a mesma contratação tem os dois lados, e pergunte em qual deles o tempo da equipe vai.',
-  html:`${head('Teste da plateia', 'Uma contratação de nuvem tem dois lados. Qual pesa mais na sua equipe?')}
+{ b:'b2', min:2, t:'Teste da plateia',
+  notes:'Projete a pergunta e deixe a sala votar antes de comentar. Depois: a mesma contratação tem os dois lados.',
+  html:`${head('Teste da plateia', 'Contratar nuvem: qual lado pesa mais na sua equipe?')}
   <div class="vote" id="vote1">
     <button class="vopt enter" style="--i:0" data-c="0"><b>Elaborar e executar o edital, seguir normas e boas práticas.</b><span class="vn">0</span><span class="vb"><i></i></span></button>
     <button class="vopt enter" style="--i:1" data-c="0"><b>Soberania, governança de dados e confiança pública.</b><span class="vn">0</span><span class="vb"><i></i></span></button>
   </div>
-  <p class="micro">Clique em uma opção para votar. Cada clique soma um voto.</p>
-  <p class="quote frag" data-f="1" style="font-size:2.3cqw;margin-top:1.8cqw">A mesma contratação tem os dois lados. O tempo da sua equipe vai para qual deles?</p>` },
+  <p class="micro">Clique em uma opção para votar.</p>
+  <p class="quote frag" data-f="1" style="font-size:2.3cqw;margin-top:1.8cqw">A mesma contratação tem os dois lados.</p>` },
 
-{ b:'b2', min:2, t:'Problemas perversos', cls:'', notes:'Rittel e Webber, em 1973, descrevem problemas sem formulação definitiva, em que cada tentativa de solução muda o problema. Bason (2010, p. 9) fala de problemas abertos a interpretação, que provavelmente nunca serão totalmente resolvidos. Não diga que tudo é perverso; isso é contestado (ver as perguntas).',
-  html:`${head('Problemas perversos', 'Problemas complexos não se fecham de uma vez.')}
+{ b:'b2', min:2, t:'Problemas perversos',
+  notes:'Cite a ideia sem a referência no palco: cada tentativa de solução muda o problema. Os problemas não se fecham numa etapa só.',
+  html:`${head('Problemas perversos', 'Cada solução tentada muda o problema.')}
   <div class="grid g2" style="margin-top:.5cqw">
-    <div class="card dk enter" style="--i:0;padding:3.2cqw 3cqw"><h3 style="font-size:2.9cqw;color:#fff">“Cada tentativa de solução reformula o problema.”</h3><p>Rittel e Webber (1973) descrevem problemas sem formulação definitiva.</p></div>
-    <div class="card enter" style="--i:1;padding:3.2cqw 3cqw"><h3>Bason (2010)</h3><p>Problemas complexos, abertos a interpretação, com opções de solução concorrentes ou conflitantes, que provavelmente nunca serão totalmente resolvidos.</p></div>
+    <div class="card dk enter" style="--i:0;padding:3cqw 2.8cqw"><h3 style="font-size:2.7cqw">“Cada tentativa de solução reformula o problema.”</h3></div>
+    <div class="card enter" style="--i:1;padding:3cqw 2.8cqw"><h3>Sem fechamento</h3><p>Abertos a interpretação, com soluções concorrentes ou conflitantes. Talvez nunca resolvidos por completo.</p></div>
   </div>
-  <p class="foot frag" data-f="1" style="margin-top:3cqw">Fontes: Rittel & Webber (1973); Bason (2010, impr. p. 9).</p>` },
+  <p class="quote frag" data-f="1" style="margin-top:2.8cqw">Não se resolvem numa etapa só.</p>` },
 
-{ b:'b2', min:2, t:'Duplo desafio', cls:'', notes:'Leia as quatro forças externas: produtividade, expectativa dos cidadãos, globalização e pressão da mídia. Bason, citando Osborne e Brown (2005), diz que as forças externas são as que exigem inovação mais radical. Leitura do palestrante: o governo costuma responder às reformas internas quando o problema vem de fora.',
-  html:`${head('O duplo desafio', 'O setor público enfrenta dois tipos de mudança.')}
+{ b:'b2', min:2, t:'O duplo desafio',
+  notes:'Leia as quatro forças externas. Leitura do palestrante: o governo costuma responder às reformas internas quando o problema vem de fora.',
+  html:`${head('O duplo desafio', 'Reformas internas e forças de fora.')}
   <div class="grid g2">
-    <div class="card enter" style="--i:0"><h3>Planejadas e internas</h3><p>Reformas e objetivos já em curso. Adaptar-se a eles é o trabalho de rotina.</p></div>
-    <div class="card dk enter" style="--i:1"><h3>Emergentes e externas</h3><p>Forças socioeconômicas turbulentas: exigência de produtividade, expectativas dos cidadãos, globalização, pressão da mídia.</p></div>
+    <div class="card enter" style="--i:0"><h3>Planejadas e internas</h3><p>Reformas e metas já em curso.</p></div>
+    <div class="card dk enter" style="--i:1"><h3>Emergentes e externas</h3><p>Produtividade, expectativas dos cidadãos, globalização, pressão da mídia.</p></div>
   </div>
-  <p class="quote frag" data-f="1" style="margin-top:3.4cqw;font-size:2.8cqw">Política pública tenta tornar governável a complexidade. Mas ainda a tratamos como <span class="gt">decisão racional.</span></p>` },
+  <p class="quote frag" data-f="1" style="margin-top:2.8cqw">Ainda tratamos a política como <span class="gt">decisão racional.</span></p>` },
 
-/* ---- 03 Por que não enxergamos ---- */
-{ b:'b3', min:0, t:'Bloco 03 · Por que não enxergamos o problema inteiro', cls:'dark', meta:false, notes:'Anuncie o bloco: cada área vê uma parte e vê bem a sua. O problema está na combinação.',
+{ b:'b2', min:1, t:'Contrapeso: nem tudo é perverso', o:true,
+  notes:'Use se alguém disser que tudo é complexo. Cite Alford e Head (2017) e Termeer, Dewulf e Biesbroek (2019), e Bannink, Sancino e Sorrentino (2024).',
+  html:`${head('Contrapeso', 'Nem todo problema é perverso.')}
+  <div class="grid g3">
+    <div class="card enter" style="--i:0"><h3>Graus</h3><p>Há problemas mais e menos perversos.</p></div>
+    <div class="card enter" style="--i:1"><h3>Formato único</h3><p>Colaboração de um só formato não serve a todos os casos.</p></div>
+    <div class="card enter" style="--i:2"><h3>Atores</h3><p>O que é difícil pode ser a constelação de atores, mais que o problema.</p></div>
+  </div>` },
+
+/* ---------- Bloco 3 ---------- */
+{ b:'b3', min:0, t:'Bloco 03 · Por que não enxergamos o problema inteiro', cls:'dark', meta:false,
+  notes:'Anuncie o bloco: cada área vê uma parte e vê bem a sua. O problema está na combinação.',
   html:bcov('b3','Por que não enxergamos o problema inteiro','oooftoooo','Lentes, fronteiras e conflito')},
 
-{ b:'b3', min:2, t:'Paralaxe disciplinar', cls:'', notes:'Mostre a evasão escolar com as seis lentes e pergunte qual delas a sala costuma usar. Bason chama de paralaxe a combinação das lentes: o que está além de qualquer visão isolada.',
-  html:`${head('Paralaxe disciplinar', 'Cada área enxerga bem a sua parte. Ninguém enxerga o todo.')}
-  <p class="lead enter" style="--i:0;margin-bottom:2cqw">Evasão escolar, vista por seis lentes:</p>
+{ b:'b3', min:2, t:'Paralaxe disciplinar',
+  notes:'Mostre a evasão escolar pelas seis lentes. Pergunte qual lente a sala costuma usar. Paralaxe é o que aparece só na combinação.',
+  html:`${head('Paralaxe disciplinar', 'Cada área vê bem a sua parte. Ninguém vê o todo.')}
+  <p class="lead enter" style="--i:0;margin-bottom:1.8cqw">Evasão escolar, vista por seis lentes:</p>
   <div class="grid g3">
     <div class="card enter" style="--i:1"><h3>Educação</h3></div>
     <div class="card enter" style="--i:2"><h3>Assistência social</h3></div>
@@ -430,136 +446,147 @@ const S = [
     <div class="card enter" style="--i:5"><h3>Família</h3></div>
     <div class="card enter" style="--i:6"><h3>O próprio jovem</h3></div>
   </div>
-  <p class="quote frag" data-f="1" style="margin-top:3cqw;font-size:2.7cqw">Cada lente tem vieses. A combinação delas mostra o que nenhuma mostra sozinha.</p>` },
+  <p class="quote frag" data-f="1" style="margin-top:2.6cqw">A combinação mostra o que <span class="gt">nenhuma lente mostra sozinha.</span></p>` },
 
-{ b:'b3', min:2, t:'Oito lógicas', cls:'', notes:'Liste as oito lógicas e pergunte qual delas esteve em jogo na última reunião difícil da sala. Diga que a lista é uma ferramenta de leitura, não uma taxonomia consagrada na literatura.',
+{ b:'b3', min:2, t:'Oito lógicas',
+  notes:'Pergunte: qual dessas lógicas esteve em jogo na última reunião difícil? Alguma estava ausente? Apresente a lista como ferramenta de leitura.',
   html:`${head('Múltiplas racionalidades', 'Oito lógicas legítimas disputam a mesma decisão.')}
   <div class="grid g4" style="gap:1.4cqw">
-    <div class="card frag" data-f="1" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Técnica</h3></div>
-    <div class="card frag" data-f="1" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Política</h3></div>
-    <div class="card frag" data-f="1" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Jurídica</h3></div>
-    <div class="card frag" data-f="1" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Orçamentária</h3></div>
-    <div class="card frag" data-f="2" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Social</h3></div>
-    <div class="card frag" data-f="2" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Territorial</h3></div>
-    <div class="card frag" data-f="2" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Operacional</h3></div>
-    <div class="card frag" data-f="2" style="padding:1.8cqw 2cqw"><h3 style="margin:0;font-size:2.2cqw">Simbólica</h3></div>
+    <div class="card frag" data-f="1" style="padding:1.6cqw 2cqw"><h3 style="margin:0">Técnica</h3></div>
+    <div class="card frag" data-f="1" style="padding:1.6cqw 2cqw"><h3 style="margin:0">Política</h3></div>
+    <div class="card frag" data-f="1" style="padding:1.6cqw 2cqw"><h3 style="margin:0">Jurídica</h3></div>
+    <div class="card frag" data-f="1" style="padding:1.6cqw 2cqw"><h3 style="margin:0">Orçamentária</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.6cqw 2cqw"><h3 style="margin:0">Social</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.6cqw 2cqw"><h3 style="margin:0">Territorial</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.6cqw 2cqw"><h3 style="margin:0">Operacional</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.6cqw 2cqw"><h3 style="margin:0">Simbólica</h3></div>
   </div>
-  <p class="quote frag" data-f="3" style="margin-top:3.2cqw;font-size:2.8cqw">Nenhuma é dispensável. Nenhuma dá conta sozinha. <span class="gt">O desafio é fazê-las conversar.</span></p>` },
+  <p class="quote frag" data-f="3" style="margin-top:2.8cqw">Nenhuma é dispensável. <span class="gt">O desafio é fazê-las conversar.</span></p>` },
 
-{ b:'b3', min:1, t:'Crítica de fronteira', cls:'', notes:'Exemplo de Sevaldson (2022): o investidor, o gerente e o operário de uma mesma empresa veem o sistema de formas diferentes e desenham fronteiras diferentes. Termine com a regra de método: as fronteiras devem poder ser redesenhadas.',
+{ b:'b3', min:1, t:'Fronteiras',
+  notes:'Exemplo: investidor, gerente e operário de uma mesma empresa veem o sistema de formas diferentes. Termine: as fronteiras podem ser redesenhadas.',
   html:`${head('Fronteiras', 'Todo problema tem uma fronteira, e alguém a desenhou.')}
   <div class="row">
-    <div class="col" style="flex:1.1"><p class="lead enter" style="--i:0;font-size:2.1cqw">Definir um problema é traçar o que está dentro e o que está fora. Quem fica de fora costuma ser invisível para quem está dentro.</p>
-    <p class="quote frag" data-f="1" style="margin-top:2.6cqw;font-size:2.4cqw">Regra de método: mapeie muito além do que parece relevante. As fronteiras devem poder ser redesenhadas.</p></div>
-    <div class="col" style="flex:1"><div class="grid" style="gap:1.4cqw">
-      <div class="card enter" style="--i:1;padding:1.8cqw 2.2cqw"><h3 style="margin:0">Investidor</h3><p>Desenha uma fronteira.</p></div>
-      <div class="card enter" style="--i:2;padding:1.8cqw 2.2cqw"><h3 style="margin:0">Gerente</h3><p>Desenha outra.</p></div>
-      <div class="card enter" style="--i:3;padding:1.8cqw 2.2cqw"><h3 style="margin:0">Operário</h3><p>Desenha uma terceira, do mesmo sistema.</p></div>
+    <div class="col" style="flex:1.1"><p class="lead enter" style="--i:0;font-size:2.1cqw">Definir um problema é traçar o que fica dentro e o que fica fora. Quem fica de fora é invisível para quem está dentro.</p>
+    <p class="quote frag" data-f="1" style="margin-top:2.4cqw;font-size:2.4cqw">Mapeie além do que parece relevante. <span class="gt">As fronteiras podem ser redesenhadas.</span></p></div>
+    <div class="col" style="flex:1"><div class="grid" style="gap:1.2cqw">
+      <div class="card enter" style="--i:1;padding:1.6cqw 2cqw"><h3 style="margin:0">Investidor</h3><p>Desenha uma fronteira.</p></div>
+      <div class="card enter" style="--i:2;padding:1.6cqw 2cqw"><h3 style="margin:0">Gerente</h3><p>Desenha outra.</p></div>
+      <div class="card enter" style="--i:3;padding:1.6cqw 2cqw"><h3 style="margin:0">Operário</h3><p>Desenha uma terceira, do mesmo sistema.</p></div>
     </div></div>
-  </div>
-` },
+  </div>` },
 
-{ b:'b3', min:2, t:'Conflito como sinal', cls:'', notes:'Vire os cartões um a um (clique ou →). Pergunte qual das três leituras se aplica à sala. Depois, diga que um sistema perfeitamente eficiente é perfeitamente frágil.',
-  html:`${head('Conflito como sinal', 'A ausência de conflito é um alarme, não um resultado.')}
-  <p class="micro" style="margin:0 0 1.6cqw">Por que ninguém discorda? Clique ou aperte → para virar cada cartão.</p>
+{ b:'b3', min:2, t:'Conflito como sinal',
+  notes:'Vire os cartões (clique ou →). Pergunte qual das três leituras se aplica à sala. Feche com a frase sobre eficiência.',
+  html:`${head('Conflito como sinal', 'A ausência de conflito é um alarme.')}
+  <p class="micro" style="margin:0 0 1.4cqw">Por que ninguém discorda? Clique ou aperte → para virar.</p>
   <div class="flipg">
-    <div class="flip" data-f="1" tabindex="0"><div class="fi"><div class="ff"><span>Leitura 1</span><b>Por que ninguém discorda?</b></div><div class="fb"><b>Todos pensam igual.</b></div></div></div>
-    <div class="flip" data-f="2" tabindex="0"><div class="fi"><div class="ff"><span>Leitura 2</span><b>Por que ninguém discorda?</b></div><div class="fb"><b>Quem pensa diferente não foi convidado.</b></div></div></div>
-    <div class="flip" data-f="3" tabindex="0"><div class="fi"><div class="ff"><span>Leitura 3</span><b>Por que ninguém discorda?</b></div><div class="fb bad"><b>Já aprendeu que falar não muda nada.</b></div></div></div>
+    <div class="flip" data-f="1" tabindex="0"><div class="fi"><div class="ff"><span>Leitura 1</span><b>Todos pensam igual.</b></div><div class="fb"><b>Todos pensam igual.</b></div></div></div>
+    <div class="flip" data-f="2" tabindex="0"><div class="fi"><div class="ff"><span>Leitura 2</span><b>Quem pensa diferente não foi convidado.</b></div><div class="fb"><b>Quem pensa diferente não foi convidado.</b></div></div></div>
+    <div class="flip" data-f="3" tabindex="0"><div class="fi"><div class="ff"><span>Leitura 3</span><b>Já aprendeu que falar não muda nada.</b></div><div class="fb bad"><b>Já aprendeu que falar não muda nada.</b></div></div></div>
   </div>
-  <p class="quote frag" data-f="4" style="margin-top:3cqw;font-size:2.7cqw">Um sistema perfeitamente eficiente é <span class="gt">perfeitamente frágil.</span></p>` },
+  <p class="quote frag" data-f="4" style="margin-top:2.6cqw">Um sistema perfeitamente eficiente é <span class="gt">perfeitamente frágil.</span></p>` },
 
-{ b:'b3', min:2, t:'Cisternas', cls:'', notes:'Mostre os dois lados com o mesmo peso. Não cite o número "134 casos": não foi confirmado nas fontes. Não insinue vínculos políticos locais. Termine com a pergunta e espere a resposta da sala.',
+{ b:'b3', min:2, t:'Cisternas',
+  notes:'Mostre os dois lados com o mesmo peso. Faça a pergunta e espere a sala responder.',
   html:`${head('Caso · Semiárido, 2011–2012', 'Cisterna de placa ou de plástico?')}
-  <div class="grid g2" style="gap:1.8cqw">
-    <div class="card enter" style="--i:0"><h3>Placa</h3><p>Feita por pedreiros e famílias das próprias comunidades, no Programa Um Milhão de Cisternas (sociedade civil, com apoio do MDS). A ASA estima R$ 2,2 mil.</p></div>
-    <div class="card enter" style="--i:1"><h3>Plástico</h3><p>Compra industrial, instalada em cerca de um dia, no programa Água para Todos (Ministério da Integração). A ASA estima pouco mais de R$ 5 mil.</p></div>
+  <div class="grid g2" style="gap:1.6cqw">
+    <div class="card enter" style="--i:0"><h3>Placa</h3><p>Feita por pedreiros e famílias das comunidades, no P1MC, com a ASA e apoio do MDS. Custo estimado pela ASA: R$ 2,2 mil.</p></div>
+    <div class="card enter" style="--i:1"><h3>Plástico</h3><p>Instalada em cerca de um dia, no Água para Todos (Ministério da Integração). Custo estimado pela ASA: pouco mais de R$ 5 mil.</p></div>
+    <div class="card dk enter" style="--i:2"><p style="color:#fff"><b style="color:#fff">ASA:</b> 15 mil pessoas protestaram em Petrolina. Queixas de deformação e furos.</p></div>
+    <div class="card dk enter" style="--i:3"><p style="color:#fff"><b style="color:#fff">Ministério:</b> problema em 0 a 1% das 17,8 mil instaladas. O programa reúne tecnologias.</p></div>
   </div>
-  <div class="grid g2" style="gap:1.8cqw;margin-top:1.8cqw">
-    <div class="card dk enter" style="--i:2;padding:1.8cqw 2.2cqw"><p style="color:#E7E3F4">ASA: 15 mil pessoas protestaram em Petrolina. Queixas de deformações e furos.</p></div>
-    <div class="card dk enter" style="--i:3;padding:1.8cqw 2.2cqw"><p style="color:#E7E3F4">Ministério: problema em 0 a 1% das 17,8 mil instaladas. O programa reúne tecnologias diferentes.</p></div>
-  </div>
-  <p class="quote frag" data-f="1" style="margin-top:1.8cqw;font-size:2.2cqw">Em estiagens cada vez maiores, você precisa entregar 300 mil cisternas. Qual escolhe?</p>` },
+  <div class="pergunta frag" data-f="1" style="margin-top:2.2cqw;font-size:2cqw">Estiagem cada vez maior, 300 mil cisternas para entregar. Qual você escolhe?</div>` },
 
-{ b:'b3', min:1, t:'Dialógica', cls:'', notes:'Na leitura popular de Hegel, a contradição vira tese, antítese e síntese. Diga "na leitura popular" e cite a superação (Aufhebung) se alguém perguntar. Para Morin, os dois princípios permanecem juntos. Confira a edição e a página de Morin antes de citar: nenhum dos livros do material traz a referência.',
+{ b:'b3', min:1, t:'Dialética × dialógica',
+  notes:'Na leitura popular de Hegel, a contradição vira tese, antítese e síntese. Para Morin, os dois princípios permanecem juntos. Cite o conceito, não a edição.',
   html:`${head('Dialética × dialógica', 'Troque o “ou” pelo “e”.')}
   <div class="grid g2">
-    <div class="card enter" style="--i:0"><h3>Leitura popular de Hegel</h3><p>Tese, antítese, síntese. A contradição se resolve num terceiro termo.</p></div>
-    <div class="card dk enter" style="--i:1"><h3>Dialógica (Edgar Morin)</h3><p>Dois princípios necessários e antagônicos, que permanecem juntos sem se dissolver numa síntese.</p></div>
+    <div class="card enter" style="--i:0"><h3>Dialética, leitura popular</h3><p>Tese, antítese, síntese: a contradição se resolve num terceiro termo.</p></div>
+    <div class="card dk enter" style="--i:1"><h3>Dialógica (Morin)</h3><p>Dois princípios necessários e antagônicos, que permanecem juntos.</p></div>
   </div>
-  <p class="quote frag" data-f="1" style="margin-top:3.4cqw;font-size:2.8cqw">Boa parte das más políticas nasce de resolver cedo demais um “e” que foi lido como “ou”.</p>` },
+  <p class="quote frag" data-f="1" style="margin-top:2.8cqw">Muitas más políticas nascem de resolver cedo um <span class="gt">“e” lido como “ou”.</span></p>` },
 
-/* ---- 04 Erro padrão ---- */
-{ b:'b4', min:0, t:'Bloco 04 · O erro padrão', cls:'dark', meta:false, notes:'Anuncie o bloco em uma frase: o erro mais comum é tratar o complexo como complicado.',
+/* ---------- Bloco 4 ---------- */
+{ b:'b4', min:0, t:'Bloco 04 · O erro padrão', cls:'dark', meta:false,
+  notes:'Anuncie o bloco: o erro mais comum é tratar o complexo como complicado.',
   html:bcov('b4','O erro padrão','oftoooooo','Tratar o complexo como complicado')},
 
-{ b:'b4', min:2, t:'Ciclo do erro', cls:'', notes:'Leia as quatro etapas em sequência e pare em "faltou execução". Pergunte: alguém checou se o problema estava bem formulado? Sevaldson (2013) lembra que simplificação precoce pode levar a conclusões e suposições totalmente erradas.',
-  html:`${head('O ciclo do erro', 'A explicação mais comum é “faltou execução”.')}
+{ b:'b4', min:2, t:'Ciclo do erro',
+  notes:'Leia as quatro etapas em sequência e pare em “faltou execução”. Pergunte: alguém checou se o problema estava bem formulado?',
+  html:`${head('O ciclo do erro', 'A explicação mais comum: “faltou execução”.')}
   <div class="flow">
     <div class="card enter" style="--i:0"><b>Diagnóstico fechado</b></div><div class="arr enter" style="--i:1">→</div>
     <div class="card enter" style="--i:2"><b>Solução única</b></div><div class="arr enter" style="--i:3">→</div>
     <div class="card enter" style="--i:4"><b>Implementação linear</b></div><div class="arr enter" style="--i:5">→</div>
     <div class="card dk enter" style="--i:6"><b style="color:#fff">Faltou execução</b></div>
   </div>
-  <p class="quote frag" data-f="1" style="margin-top:4cqw;font-size:2.8cqw">Simplificar o problema não simplifica a realidade. <span class="gt">Só transfere o custo</span> para a implementação e para quem depende dela.</p>` },
+  <p class="quote frag" data-f="1" style="margin-top:3.4cqw">Simplificar o problema não simplifica a realidade. <span class="gt">Transfere o custo</span> para quem implementa.</p>` },
 
-{ b:'b4', min:2, t:'Minha Casa Minha Vida', cls:'', notes:'Esta é a leitura do deck, e a fonte das pesquisas em 22 municípios ainda não foi confirmada: não cite o número no palco. O subsídio alto e os conjuntos padronizados são a ideia; o que as pesquisas registraram é o efeito. Termine com a pergunta e espere.',
+{ b:'b4', min:2, t:'Minha Casa Minha Vida',
+  notes:'Mostre as duas colunas: a ideia e o que as pesquisas em 22 municípios registraram. Termine com a pergunta e espere.',
   html:`${head('Caso · Minha Casa Minha Vida, Faixa 1', 'Casa entregue é política entregue?')}
   <div class="grid g2">
-    <div class="card enter" style="--i:0"><h3>A ideia</h3><p>Produzir moradia em escala para famílias de baixíssima renda, com subsídio alto, em conjuntos padronizados e terrenos baratos.</p></div>
-    <div class="card enter" style="--i:1"><h3>O que as pesquisas registraram</h3><p>Conjuntos em áreas afastadas, sem transporte, serviço ou emprego por perto. Condomínios com taxas fora da renda. Planta de dois quartos que não comporta famílias grandes nem pequeno comércio.</p></div>
+    <div class="card enter" style="--i:0"><h3>A ideia</h3><p>Moradia em escala para famílias de baixíssima renda, com subsídio alto, em conjuntos padronizados e terrenos baratos.</p></div>
+    <div class="card enter" style="--i:1"><h3>Pesquisas em 22 municípios</h3><p>Áreas rurais antigas, sem transporte, serviço ou emprego. Taxas acima da renda. Em alguns casos, gestão tomada por milícia ou tráfico. Planta de dois quartos que não comporta família grande.</p></div>
   </div>
-  <div class="pergunta frag" data-f="1" style="margin-top:2.8cqw;font-size:2.2cqw">Uma família saiu do aluguel em área de risco e ganhou casa própria a 2 horas do trabalho. A política deu certo ou errado?</div>` },
+  <div class="pergunta frag" data-f="1" style="margin-top:2.2cqw;font-size:2cqw">Uma família saiu do aluguel em área de risco e ganhou casa a 2 horas do trabalho. Deu certo ou errado?</div>` },
 
-/* ---- 05 A resposta ---- */
-{ b:'b5', min:0, t:'Bloco 05 · A resposta: resolução colaborativa', cls:'dark', meta:false, notes:'Anuncie o bloco: não é a resposta mágica, é um método para formular melhor antes de decidir.',
+/* ---------- Bloco 5 ---------- */
+{ b:'b5', min:0, t:'Bloco 05 · A resposta: resolução colaborativa', cls:'dark', meta:false,
+  notes:'Anuncie o bloco: não é uma resposta mágica. É um método para formular melhor antes de decidir.',
   html:bcov('b5','A resposta: resolução colaborativa como método','ofofoooft','Um método, não um slogan')},
 
-{ b:'b5', min:2, t:'Inovação como mediação', cls:'', notes:'Leia as seis capacidades e diga que inovação pública não é o setor das ideias novas. Diga também a nota de enquadramento: aqui design não é estética e inovação não é criatividade.',
+{ b:'b5', min:2, t:'Inovação como mediação',
+  notes:'Diga que inovação pública não é o setor das ideias novas. Diga a nota: aqui design não é estética e inovação não é criatividade.',
   html:`${head('Ideia central', 'Inovação pública é uma forma de governar a incerteza.')}
-  <p class="lead enter" style="--i:0">Não é o setor das ideias novas. É o que organiza múltiplas lógicas num processo de aprendizagem e decisão.</p>
+  <p class="lead enter" style="--i:0">Organiza múltiplas lógicas num processo de aprendizagem e decisão.</p>
   <div class="grid g3" style="gap:1.4cqw">
-    <div class="card enter" style="--i:1;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Formular melhor o problema antes de escolher a resposta</p></div>
-    <div class="card enter" style="--i:2;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Tornar hipóteses explícitas e testáveis</p></div>
-    <div class="card enter" style="--i:3;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Aprender com evidência e experiência</p></div>
-    <div class="card enter" style="--i:4;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Envolver atores além dos que já estão na sala</p></div>
-    <div class="card enter" style="--i:5;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Testar pequeno, onde o erro é barato</p></div>
-    <div class="card enter" style="--i:6;padding:1.8cqw 2cqw"><p style="color:var(--ink);font-weight:600">Ajustar antes de escalar</p></div>
+    <div class="card enter" style="--i:1;padding:1.6cqw 2cqw"><p style="color:var(--ink);font-weight:600">Formular melhor o problema</p></div>
+    <div class="card enter" style="--i:2;padding:1.6cqw 2cqw"><p style="color:var(--ink);font-weight:600">Hipóteses explícitas e testáveis</p></div>
+    <div class="card enter" style="--i:3;padding:1.6cqw 2cqw"><p style="color:var(--ink);font-weight:600">Aprender com evidência e experiência</p></div>
+    <div class="card enter" style="--i:4;padding:1.6cqw 2cqw"><p style="color:var(--ink);font-weight:600">Envolver quem não está na sala</p></div>
+    <div class="card enter" style="--i:5;padding:1.6cqw 2cqw"><p style="color:var(--ink);font-weight:600">Testar pequeno, onde o erro é barato</p></div>
+    <div class="card enter" style="--i:6;padding:1.6cqw 2cqw"><p style="color:var(--ink);font-weight:600">Ajustar antes de escalar</p></div>
   </div>
-  <p class="foot">Aqui, design não é estética e inovação não é criatividade. São modos de pensar e agir na formulação de políticas.</p>` },
+  <p class="micro">Aqui, design não é estética e inovação não é criatividade.</p>` },
 
-{ b:'b5', min:1, t:'Modos de conhecer', cls:'', notes:'Diga que a maior parte da literatura de pensamento sistêmico privilegia o conhecimento proposicional, o de dados e conceitos. Escuta qualificada é conhecimento experiencial. Fundamento: Rajagopalan e Midgley (2020), a partir de Heron e Reason (1997).',
-  html:`${head('Modos de conhecer', 'Há quatro formas de conhecer, e não só a dos dados.')}
-  <div class="grid g2" style="gap:1.6cqw">
-    <div class="card enter" style="--i:0;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">Proposicional</h3><p>Conceitos e dados.</p></div>
-    <div class="card enter" style="--i:1;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">Experiencial</h3><p>Vivência direta.</p></div>
-    <div class="card enter" style="--i:2;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">Presentacional</h3><p>Expressão criativa: arte e narrativa.</p></div>
-    <div class="card enter" style="--i:3;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">Prática</h3><p>Saber-fazer.</p></div>
+{ b:'b5', min:1, t:'Modos de conhecer',
+  notes:'A maior parte do pensamento sistêmico privilegia o conhecimento de dados e conceitos. Escuta qualificada é conhecimento experiencial.',
+  html:`${head('Modos de conhecer', 'Há quatro formas de conhecer, não só a dos dados.')}
+  <div class="grid g2" style="gap:1.4cqw">
+    <div class="card enter" style="--i:0;padding:1.6cqw 2cqw"><h3 style="margin:0 0 .5cqw">Proposicional</h3><p>Conceitos e dados.</p></div>
+    <div class="card enter" style="--i:1;padding:1.6cqw 2cqw"><h3 style="margin:0 0 .5cqw">Experiencial</h3><p>Vivência direta.</p></div>
+    <div class="card enter" style="--i:2;padding:1.6cqw 2cqw"><h3 style="margin:0 0 .5cqw">Presentacional</h3><p>Arte e narrativa.</p></div>
+    <div class="card enter" style="--i:3;padding:1.6cqw 2cqw"><h3 style="margin:0 0 .5cqw">Prática</h3><p>Saber-fazer.</p></div>
   </div>
-  <p class="quote frag" data-f="1" style="margin-top:3cqw;font-size:2.7cqw">Escuta qualificada é uma forma de conhecimento. <span class="gt">Não é achismo.</span></p>` },
+  <p class="quote frag" data-f="1" style="margin-top:2.6cqw">Escuta qualificada é conhecimento. <span class="gt">Não é achismo.</span></p>` },
 
-{ b:'b5', min:2, t:'Movimento 1: expandir', cls:'', notes:'Leia a frase de abertura devagar. Mostre o GIGA-mapping como ideia, não como exigência: Sevaldson fala em no mínimo cerca de 300 entidades para mapas que servem para entender e gerar. Diga que a tradução para a gestão pública é do palestrante.',
+{ b:'b5', min:2, t:'Movimento 1: expandir',
+  notes:'Mostre o GIGA-mapping como ideia: mapas grandes, com centenas de entidades, servem para entender e gerar. A tradução para a gestão pública é sua.',
   html:`${head('Movimento 1', 'Expandir antes de simplificar.')}
   <div class="row">
-    <div class="col" style="flex:1"><p class="quote enter" style="--i:0;font-size:2.9cqw">Antes de definir o problema, liste tudo o que se relaciona a ele, <span class="gt">mesmo o que parece irrelevante.</span></p></div>
-    <div class="col" style="flex:1"><div class="grid" style="gap:1.2cqw">
-      <div class="card enter" style="--i:1;padding:1.6cqw 2cqw"><p>Mapeie o que já se sabe, para tornar visíveis os pressupostos herdados.</p></div>
-      <div class="card enter" style="--i:2;padding:1.6cqw 2cqw"><p>Olhe as relações. A complexidade mora nelas, não só nos objetos.</p></div>
-      <div class="card enter" style="--i:3;padding:1.6cqw 2cqw"><p>Mapas de grande porte servem para entender e gerar, não só para descrever.</p></div>
-      <div class="card enter" style="--i:4;padding:1.6cqw 2cqw"><p>Não sobre-desenhe o mapa. Ele tem de continuar aberto, não virar molde.</p></div>
+    <div class="col" style="flex:1"><p class="quote enter" style="--i:0;font-size:2.8cqw">Liste tudo o que se relaciona ao problema, <span class="gt">mesmo o que parece irrelevante.</span></p></div>
+    <div class="col" style="flex:1"><div class="grid" style="gap:1.1cqw">
+      <div class="card enter" style="--i:1;padding:1.5cqw 2cqw"><p>Mapeie o que já se sabe. Assim os pressupostos aparecem.</p></div>
+      <div class="card enter" style="--i:2;padding:1.5cqw 2cqw"><p>Olhe as relações. A complexidade mora nelas.</p></div>
+      <div class="card enter" style="--i:3;padding:1.5cqw 2cqw"><p>Mapas grandes, com centenas de entidades, servem para entender e gerar.</p></div>
+      <div class="card enter" style="--i:4;padding:1.5cqw 2cqw"><p>Não sobre-desenhe o mapa. Ele tem de continuar aberto.</p></div>
     </div></div>
   </div>
-  <p class="foot">Adaptado do Systems Oriented Design (Sevaldson). A tradução para a gestão pública é do palestrante.</p>` },
+  <p class="micro">Adaptado do Systems Oriented Design (Sevaldson).</p>` },
 
-{ b:'b5', min:2, t:'Exercício em duplas', cls:'', notes:'Peça duplas e inicie o cronômetro. Espere os dois minutos inteiros; não encurte. Depois, peça que uma pessoa de cada dupla diga em voz alta quem anotou.',
+{ b:'b5', min:2, t:'Exercício em duplas',
+  notes:'Peça duplas e inicie o cronômetro. Espere os dois minutos inteiros. Depois peça que uma dupla diga quem anotou.',
   html:`${head('Exercício · duplas · 2 minutos', 'Quem não está na mesa?')}
   <p class="lead enter" style="--i:0;max-width:60ch">Pense num problema que você enfrenta hoje. Anote uma pessoa ou grupo que não está nessa conversa.</p>
   <div class="timer enter" data-tot="120" data-rem="120" style="--i:1">
     <button class="tbtn" aria-label="Iniciar ou pausar o cronômetro de dois minutos"><svg viewBox="0 0 40 40" aria-hidden="true"><circle class="tr" cx="20" cy="20" r="17"/><circle class="tp" cx="20" cy="20" r="17"/></svg><span class="tt">2:00</span></button>
-    <span class="tl">Aperte para iniciar. Depois, o cronômetro zera sozinho.</span>
+    <span class="tl">Aperte para iniciar.</span>
   </div>` },
 
-{ b:'b5', min:1, t:'Movimento 2: convocar', cls:'', notes:'Desenhe os três círculos: quem decide, quem é consultado, quem é afetado. Leia a frase de efeito. Pergunte quem, no problema da sala, está no círculo mais externo.',
+{ b:'b5', min:1, t:'Movimento 2: convocar',
+  notes:'Desenhe os três círculos. Pergunte quem, no problema da sala, está no círculo mais externo.',
   html:`${head('Movimento 2', 'Convoque quem não está na mesa.')}
   <div class="row" style="align-items:center;gap:4cqw">
     <div class="circ enter" style="--i:0">
@@ -569,132 +596,199 @@ const S = [
       <span class="dot" style="left:50%;top:50%;background:#fff;color:var(--ink)">3</span>
     </div>
     <div class="legend">
-      <div class="card enter" style="--i:1"><h3>1 · Quem é afetado</h3><p>Quem vive o problema. Quase nunca está na sala, e é quem mais depende de a política dar certo.</p></div>
+      <div class="card enter" style="--i:1"><h3>1 · Quem é afetado</h3><p>Quem vive o problema. Quase nunca está na sala.</p></div>
       <div class="card enter" style="--i:2"><h3>2 · Quem é consultado</h3><p>Sociedade civil organizada. Às vezes está na sala.</p></div>
       <div class="card enter" style="--i:3"><h3>3 · Quem decide</h3><p>Técnicos e políticos. Sempre estão na sala.</p></div>
-      <div class="card dk frag" data-f="1" style="padding:1.2cqw 1.8cqw"><p style="color:#fff;font:700 1.75cqw/1.3 Figtree,sans-serif;margin:0">A participação não falha só quando alguém é ignorado. <span class="gt">Falha quando alguém sequer é convidado.</span></p></div>
+      <div class="card dk frag" data-f="1"><p style="color:#fff;font:700 1.8cqw/1.3 Figtree,sans-serif">A participação falha quando alguém <span class="gt">sequer é convidado.</span></p></div>
     </div>
-  </div>
-` },
-
-{ b:'b5', min:1, t:'Carta do ator ausente', cls:'', notes:'Leia em voz alta, devagar, sem comentar. Mostre cada linha com um clique. Se você apresentar isso como personagem ilustrativo, diga isso antes de ler. Não atribua a história a uma pessoa real.',
-  html:`${head('Carta do ator ausente', 'A pessoa que dorme no prédio há dois anos.')}
-  <div class="grid g2" style="gap:1.6cqw">
-    <div class="card frag" data-f="1"><span class="kick" style="margin:0 0 .8cqw;display:block">Interesse</span><h3 style="margin:0">Ter um lugar seguro.</h3></div>
-    <div class="card frag" data-f="2"><span class="kick" style="margin:0 0 .8cqw;display:block">Medo</span><h3 style="margin:0">Virar “questão de segurança”.</h3></div>
-    <div class="card frag" data-f="3"><span class="kick" style="margin:0 0 .8cqw;display:block">Moeda de troca</span><h3 style="margin:0">Nenhuma.</h3></div>
-    <div class="card dk frag" data-f="4"><span class="kick" style="margin:0 0 .8cqw;display:block">Situação</span><h3 style="margin:0;color:#fff">Não foi convidada.</h3></div>
   </div>` },
 
-{ b:'b5', min:2, t:'Caso Penela', cls:'', notes:'Clique no cartão, ou espere a cortina, para mostrar a troca. Não diga que o posto de justiça "não servia": diga que o diagnóstico mudou. O estudo cobre a identificação e a conceituação; não mede resultado.',
+{ b:'b5', min:1, t:'Carta do ator ausente',
+  notes:'Leia em voz alta, devagar, sem comentar. Mostre cada linha com um clique. Diga que é um personagem ilustrativo antes de ler.',
+  html:`${head('Carta do ator ausente', 'A pessoa que dorme no prédio há dois anos.')}
+  <div class="grid g2" style="gap:1.6cqw">
+    <div class="card frag" data-f="1"><span class="lbl" style="display:block;margin-bottom:.8cqw">Interesse</span><h3 style="margin:0">Ter um lugar seguro.</h3></div>
+    <div class="card frag" data-f="2"><span class="lbl" style="display:block;margin-bottom:.8cqw">Medo</span><h3 style="margin:0">Virar “questão de segurança”.</h3></div>
+    <div class="card frag" data-f="3"><span class="lbl" style="display:block;margin-bottom:.8cqw">Moeda de troca</span><h3 style="margin:0">Nenhuma.</h3></div>
+    <div class="card dk frag" data-f="4"><span class="lbl" style="display:block;margin-bottom:.8cqw;color:#A9A3C4">Situação</span><h3 style="margin:0;color:#fff">Não foi convidada.</h3></div>
+  </div>` },
+
+{ b:'b5', min:2, t:'Caso Penela',
+  notes:'Clique no cartão, ou espere a cortina, para mostrar a troca. Diga que o diagnóstico mudou.',
   html:`${head('Caso · Penela, Portugal', 'O problema estava na formulação.')}
   <div class="swap" id="swap1" tabindex="0" aria-label="Antes e depois: clique para alternar">
     <div class="sw sw-a"><span class="k">Pergunta do diagnóstico</span><b>Quais serviços de justiça levar à comunidade?</b></div>
-    <div class="sw sw-b"><span class="k">Problema reformulado</span><b>Restrições de mobilidade e falta de oportunidades econômicas explicavam a baixa demanda.</b></div>
+    <div class="sw sw-b"><span class="k">Problema reformulado</span><b>Restrições de mobilidade e falta de oportunidades explicavam a baixa demanda.</b></div>
     <span class="sweep"></span>
     <span class="lab l1">Antes</span><span class="lab l2">Depois</span>
   </div>
-  <div class="grid g2" style="margin-top:2.2cqw;gap:1.6cqw">
-    <p class="micro" style="font-size:1.45cqw;font-family:Figtree,sans-serif;color:var(--ink2)">Por que a abordagem tradicional falha, segundo o estudo: fragmenta o problema em microproblemas, supõe que poucos especialistas bastam e pode apontar o problema errado.</p>
-    <p class="micro" style="font-size:1.45cqw;font-family:Figtree,sans-serif;color:var(--ink2)">A escuta de baixo para cima mudou a pergunta e permitiu propor um conceito novo para testar.</p>
-  </div>
-  <p class="foot">Sá et al. (2020), The TQM Journal. Cobre identificação e conceituação; não mede resultado.</p>` },
+  <div class="grid g2" style="margin-top:2cqw;gap:1.6cqw">
+    <p class="micro" style="font-size:1.5cqw;font-family:Figtree,sans-serif;color:var(--ink2)">A abordagem tradicional fragmenta o problema, supõe que poucos especialistas bastam e pode apontar o problema errado.</p>
+    <p class="micro" style="font-size:1.5cqw;font-family:Figtree,sans-serif;color:var(--ink2)">Escutar de baixo para cima mudou a pergunta e gerou um conceito novo para testar.</p>
+  </div>` },
 
-{ b:'b5', min:1, t:'Movimento 3: testar pequeno', cls:'zip', notes:'Explique os três critérios da análise ZIP. Se houver tempo, cite Canberra: nove famílias, três ideias e um protótipo de profissional de referência (Forrester & Body, 2014). Feche com o teste pequeno.',
+{ b:'b5', min:1, t:'Movimento 3: testar pequeno',
+  notes:'Explique os três critérios da análise ZIP. Feche com o teste pequeno.',
   html:`${head('Movimento 3', 'Localize o ponto de intervenção e teste pequeno.')}
   <div class="grid g3">
     <div class="card enter" style="--i:0"><div class="zl">Z</div><h3>Zoom</h3><p>Onde falta informação. Aprofunde ali.</p></div>
     <div class="card enter" style="--i:1"><div class="zl">P</div><h3>Potencial</h3><p>Um problema evidente, ou algo que funciona e vale aprender.</p></div>
-    <div class="card enter" style="--i:2"><div class="zl">I</div><h3>Intervenção</h3><p>Algo novo que se pode fazer, ou uma relação nova que se pode criar.</p></div>
+    <div class="card enter" style="--i:2"><div class="zl">I</div><h3>Intervenção</h3><p>Algo novo a fazer, ou uma relação nova a criar.</p></div>
   </div>
-  <p class="quote frag" data-f="1" style="margin-top:3cqw;font-size:2.7cqw">Teste em pequena escala, onde o erro é barato. <span class="gt">Ajuste antes de escalar.</span></p>
-  <p class="foot">Análise ZIP: Sevaldson (2013).</p>` },
+  <p class="quote frag" data-f="1" style="margin-top:2.8cqw">Teste pequeno, onde o erro é barato. <span class="gt">Ajuste antes de escalar.</span></p>` },
 
-/* ---- 06 Objeções ---- */
-{ b:'b6', min:0, t:'Bloco 06 · Objeções que você vai ouvir', cls:'dark', meta:false, notes:'Anuncie o bloco: as objeções que você vai ouvir de gestores e servidores são legítimas, e têm resposta.',
-  html:bcov('b6','Objeções que você vai ouvir','oftoooooo','Três objeções e um caso')},
-
-{ b:'b6', min:2, t:'Três objeções', cls:'', notes:'Leia cada objeção antes da resposta. Para a segunda resposta, diga que uma unidade britânica de customer insight usava a pergunta: se conhecer o cliente é caro, quanto custa não conhecê-lo? Respostas paráfrases de Bason (2010), cap. 9.',
-  html:`${head('Objeções', 'Três objeções que você vai ouvir, e o que responder.')}
-  <div class="trow enter" style="--i:0"><b>“Vira ditadura do cidadão.”</b><span>Não. O cidadão contribui para descobrir o que vai funcionar. <em>Quem decide continua sendo a instância política.</em></span><span></span></div>
-  <div class="trow enter" style="--i:1;margin-top:1.4cqw"><b>“Custa caro e demora.”</b><span>Mais caro é descobrir tarde que a solução desenhada na mesa <em>não funciona.</em></span><span></span></div>
-  <div class="trow enter" style="--i:2;margin-top:1.4cqw"><b>“Cria expectativa.”</b><span>É uma objeção válida. <em>Seja transparente</em> sobre o que será feito e o que não será.</span><span></span></div>
-  <p class="foot">Paráfrase de Bason (2010), cap. 9, impr. p. 196–198.</p>` },
-
-{ b:'b6', min:2, t:'Caso Rio Doce', cls:'', notes:'Caso sensível. Tom descritivo: as duas posições na mesma tela, sem adjetivos e sem tomar partido. Antecedente, se perguntarem: o TAC-Gov (anterior) previa comissões de atingidos e assessorias técnicas, consolidadas só anos depois, com obstáculos judiciais (Agência Brasil, 2024). Se alguém perguntar sobre o lado político, volte à pergunta: participar do acompanhamento equivale a ter participado da construção?',
-  html:`${head('Caso · Rio Doce, 2015–2024', 'Acompanhar um acordo é o mesmo que construí-lo?')}
-  <p class="micro" style="font-family:Figtree,sans-serif;font-size:1.7cqw;color:var(--ink2);margin:0 0 2.2cqw">Repactuação da reparação do rompimento da barragem de Fundão. Assinada em 25/10/2024, atinge 49 municípios, 11 deles no Espírito Santo.</p>
-  <div class="grid g2" style="gap:1.8cqw">
-    <div class="card enter" style="--i:0"><h3>Atingidos e movimentos</h3><p>Denunciaram que não participaram da negociação. O MAB reconhece avanços e aponta insuficiências.</p></div>
-    <div class="card enter" style="--i:1"><h3>Instituições</h3><p>O MPF destaca o anexo 6, com espaços de diálogo e o Conselho Federal de Participação Social da Bacia do Rio Doce. Minas criou a IMPS/Doce (2025), de caráter consultivo.</p></div>
-  </div>
-  <div class="pergunta frag" data-f="1" style="margin-top:2.6cqw;font-size:2.1cqw">Participar do acompanhamento equivale a ter participado da construção?</div>` },
-
-/* ---- 07 Decidir ---- */
-{ b:'b7', min:0, t:'Bloco 07 · Decidir, sustentar e o papel do gestor', cls:'dark', meta:false, notes:'Anuncie o bloco: como decidimos vale tanto quanto o que decidimos.',
-  html:bcov('b7','Decidir, sustentar e o papel do gestor','ftoooofoo','Decisão acordada, legitimidade desenhada')},
-
-{ b:'b7', min:2, t:'Como decidir', cls:'', notes:'Leia os quatro modos. Pergunte à sala: em qual desses modos a última decisão da equipe foi tomada? Não aponte culpados: a autoridade com escuta é o modo realista no Estado.',
-  html:`${head('Como decidir', 'Decidir é acordar, não descobrir.')}
-  <div class="trow enter" style="--i:0;padding:1.2cqw 2.4cqw;background:transparent;color:var(--ink2)"><span style="font:500 1.3cqw 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em">Modo</span><span style="font:500 1.3cqw 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em">O que é</span><span style="font:500 1.3cqw 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em">O que custa</span></div>
-  <div class="trow enter" style="--i:1"><b>Consenso</b><span>Todos precisam concordar.</span><span>Alta legitimidade; risco de paralisia e de “vencer o teimoso”.</span></div>
-  <div class="trow enter" style="--i:2;margin-top:1cqw"><b>Consentimento</b><span>Ninguém tem objeção grave.</span><span>Mais rápido; aceita adesão morna.</span></div>
-  <div class="trow enter" style="--i:3;margin-top:1cqw"><b>Maioria</b><span>Vota-se e decide-se.</span><span>Rápido e claro; produz perdedores.</span></div>
-  <div class="trow enter" style="--i:4;margin-top:1cqw"><b>Autoridade com escuta</b><span>Alguém decide depois de ouvir.</span><span>Realista no Estado; legítima se a escuta for de verdade.</span></div>` },
-
-{ b:'b7', min:1, t:'Legitimidade é desenhada', cls:'', notes:'Diga que legitimidade vem de como decidimos: transparência, inclusão e aprendizado. Percorra as cinco dimensões de valor público rapidamente e demore em legitimidade.',
-  html:`${head('Legitimidade', 'Legitimidade é desenhada, não herdada.')}
-  <p class="lead enter" style="--i:0;font-size:2.2cqw">Ela vem de como decidimos: transparência, inclusão e aprendizado. Nasce da negociação de valores, não do consenso.</p>
-  <div class="grid g3" style="gap:1.4cqw;margin-top:1cqw">
-    <div class="card frag" data-f="1" style="padding:1.6cqw 2cqw"><h3 style="margin:0;font-size:2.1cqw">Experiência do cidadão</h3></div>
-    <div class="card frag" data-f="1" style="padding:1.6cqw 2cqw"><h3 style="margin:0;font-size:2.1cqw">Resultados sociais</h3></div>
-    <div class="card frag" data-f="2" style="padding:1.6cqw 2cqw"><h3 style="margin:0;font-size:2.1cqw">Eficiência e custo</h3></div>
-    <div class="card frag" data-f="2" style="padding:1.6cqw 2cqw;background:var(--grad);color:#fff"><h3 style="margin:0;font-size:2.1cqw;color:#fff">Legitimidade</h3></div>
-    <div class="card frag" data-f="3" style="padding:1.6cqw 2cqw"><h3 style="margin:0;font-size:2.1cqw">Aprendizado institucional</h3></div>
-  </div>
-  <p class="quote frag" data-f="4" style="margin-top:3cqw;font-size:2.6cqw">Valor público não é dado. <span class="gt">É descoberto e construído com as pessoas.</span></p>` },
-
-{ b:'b7', min:1, t:'O que toda decisão sacrifica', cls:'dark', notes:'Leia a frase inteira. Faça a pergunta final e espere. Não responda por eles.',
-  html:`${head('Toda decisão sacrifica algo', 'A diferença entre uma política honesta e uma ingênua é o que ela consegue dizer em voz alta.')}
-  <p class="bigq enter" style="--i:0;margin-top:1cqw;font-size:3.6cqw;max-width:80cqw">Toda decisão pública sacrifica algo.</p>
-  <div class="pergunta frag" data-f="1" style="margin-top:3.6cqw;font-size:2.2cqw;max-width:72cqw">O que a sua decisão mais recente sacrificou? Alguém consegue dizer isso em voz alta?</div>` },
-
-{ b:'b7', min:2, t:'Caso PAIC, Ceará', cls:'', notes:'Diga o que o Ceará fez que um decreto não faz: formação continuada, materiais, avaliação anual e apoio aos municípios com piores resultados. Os 85,3% vêm de reportagem (Band, 2025): cite a fonte. Não diga que a colaboração causou o resultado sozinha.',
-  html:`${head('Caso · Ceará, desde 2007', 'Colaborar entre entes deu resultado mensurável.')}
-  <div class="grid g3" style="gap:1.6cqw">
-    <div class="card enter" style="--i:0;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">2007</h3><p>14 de 184 municípios no nível desejável.</p></div>
-    <div class="card enter" style="--i:1;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw">2014</h3><p>141 municípios no nível desejável.</p></div>
-    <div class="card dk enter" style="--i:2;padding:1.8cqw 2.2cqw"><h3 style="margin:0 0 .6cqw;color:#fff">2025</h3><p style="color:#E7E3F4">85,3% das crianças do 2º ano alfabetizadas, a maior proporção do país.</p></div>
-  </div>
-  <div class="grid g3" style="gap:1.6cqw;margin-top:1.8cqw">
-    <p class="micro frag" data-f="1" style="font-family:Figtree,sans-serif;font-size:1.6cqw;color:var(--ink2);margin:0">Repasse de ICMS vinculado aos resultados: incentivo e colaboração andam juntos.</p>
-    <p class="micro frag" data-f="1" style="font-family:Figtree,sans-serif;font-size:1.6cqw;color:var(--ink2);margin:0">Não é teste causal. Quem analisa atribui o avanço mais à colaboração, mas isso é opinião.</p>
-    <p class="micro frag" data-f="1" style="font-family:Figtree,sans-serif;font-size:1.6cqw;color:var(--ink2);margin:0">É colaboração entre estado e municípios, não cocriação com cidadãos.</p>
-  </div>
-  <p class="quote frag" data-f="2" style="margin-top:2.8cqw;font-size:2.6cqw">Colaborar é sempre melhor, ou às vezes é apenas mais lento?</p>
-  <p class="foot">Indicador Criança Alfabetizada, segundo a Band (2025); PUC-Rio; CartaCapital.</p>` },
-
-{ b:'b7', min:1, t:'Gestor como curador', cls:'', notes:'Diga que o gestor é menos controlador e mais curador do processo de sentido. Se houver tempo, liste as seis práticas: questionar suposições; empatizar com cidadãos e servidores; lidar com divergência; prototipar antes de implementar; aprender com erros; criar valor público compartilhado.',
-  html:`${head('Papel do gestor', 'O gestor cuida do sentido, não controla o processo.')}
-  <div class="grid g2" style="gap:1.6cqw">
-    <div class="card enter" style="--i:0"><div class="ico">1</div><h3>Protege o propósito</h3><p>Para quem é o problema e para que serve a política.</p></div>
-    <div class="card enter" style="--i:1"><div class="ico">2</div><h3>Cria espaço para experimentar</h3><p>Autoriza aprender com o erro, em vez de punir o teste.</p></div>
-    <div class="card enter" style="--i:2"><div class="ico">3</div><h3>Media conflitos</h3><p>A divergência vira insumo, não ameaça.</p></div>
-    <div class="card enter" style="--i:3"><div class="ico">4</div><h3>Conecta aprendizado à decisão</h3><p>Fecha o ciclo: o que foi aprendido muda o que se decide.</p></div>
+{ b:'b5', min:2, t:'Caso Canberra', o:true,
+  notes:'Conte a história de uma mãe de duas crianças, sem nome. A regra de renda decidiu, e a família ficou de fora por 1,50 dólar. Nove famílias geraram três ideias e um protótipo.',
+  html:`${head('Caso · Canberra, Austrália', 'Se a renda passa por centavos, o sistema funcionou?')}
+  <div class="grid g2">
+    <div class="card enter" style="--i:0"><h3>A regra</h3><p>Uma mãe de duas crianças ficou fora da lista de moradia por 1,50 dólar acima do limite.</p></div>
+    <div class="card enter" style="--i:1"><h3>A escuta</h3><p>Entrevistas em profundidade com nove famílias com necessidades complexas.</p></div>
+    <div class="card enter" style="--i:2"><h3>As ideias</h3><p>Um profissional de referência escolhido pela família. Um perfil de informações que a família controla. Centros comunitários.</p></div>
+    <div class="card dk enter" style="--i:3"><h3 style="color:#fff">O protótipo</h3><p>Testado com as famílias antes de escalar.</p></div>
   </div>` },
 
-{ b:'b7', min:0, t:'Checklist', cls:'', notes:'Deixe que a sala leia. Peça que marquem, mentalmente, a item que mais vão fazer na próxima semana. Clique nos itens se quiser marcá-los ao vivo.',
+{ b:'b5', min:2, t:'Caso Oslo', o:true,
+  notes:'Caso sensível: use tom sóbrio e só o essencial. O mapa foi feito com a equipe, não para ela.',
+  html:`${head('Caso · Oslo, Noruega', 'Mapear o sistema junto com quem trabalha nele.')}
+  <div class="grid g2">
+    <div class="card enter" style="--i:0"><h3>O sistema</h3><p>Atendimento a vítimas de violência sexual, com pronto-socorro e polícia. Prevenção e resposta.</p></div>
+    <div class="card enter" style="--i:1"><h3>O mapa</h3><p>Todo o sistema mapeado e validado com especialistas, depois a jornada da vítima.</p></div>
+    <div class="card enter" style="--i:2"><h3>O efeito</h3><p>O mapa virou ferramenta da própria equipe, e a jornada foi adotada de imediato.</p></div>
+    <div class="card enter" style="--i:3"><h3>As mudanças</h3><p>Produto (uma manta com bolsos para evidências), espaço e sistema de informação.</p></div>
+  </div>
+  <p class="quote frag" data-f="1" style="margin-top:2.6cqw;font-size:2.4cqw">O mapa que entende o sistema <span class="gt">também serve a quem trabalha nele.</span></p>` },
+
+{ b:'b5', min:1, t:'Caso Balneário Camboriú', o:true,
+  notes:'Diga que o processo documenta a cocriação, não um impacto medido. Pergunte: quem desenha o formulário já o preencheu alguma vez?',
+  html:`${head('Caso · Balneário Camboriú, SC', 'Quem desenha o formulário já o preencheu?')}
+  <div class="grid g3">
+    <div class="card enter" style="--i:0"><h3>Antes</h3><p>Licenciamento de eventos em espaço público, um serviço burocrático.</p></div>
+    <div class="card enter" style="--i:1"><h3>Depois</h3><p>Servidores resolveram o problema junto com os usuários, em ciclos repetidos.</p></div>
+    <div class="card dk enter" style="--i:2"><h3 style="color:#fff">O limite</h3><p>Mostra o processo de cocriação, não o impacto.</p></div>
+  </div>` },
+
+{ b:'b5', min:1, t:'Três contribuições do design', o:true,
+  notes:'Leia as três contribuições. Ligue cada uma ao que a sala já viu hoje.',
+  html:`${head('Contribuições do design à política', 'O que o design faz de concreto.')}
+  <div class="grid g3">
+    <div class="card enter" style="--i:0"><div class="zl">1</div><h3>Definir o problema</h3><p>Delimitar o espaço do problema antes da resposta.</p></div>
+    <div class="card enter" style="--i:1"><div class="zl">2</div><h3>Gerar ideias</h3><p>Desenvolver ideias e conceitos para a política.</p></div>
+    <div class="card enter" style="--i:2"><div class="zl">3</div><h3>Tornar tangível</h3><p>Articular a política de forma que possa ser vista e testada.</p></div>
+  </div>` },
+
+/* ---------- Bloco 6 ---------- */
+{ b:'b6', min:0, t:'Bloco 06 · Objeções que você vai ouvir', cls:'dark', meta:false,
+  notes:'Anuncie o bloco: as objeções são legítimas e têm resposta.',
+  html:bcov('b6','Objeções que você vai ouvir','oftoooooo','Três objeções e um caso')},
+
+{ b:'b6', min:2, t:'Três objeções',
+  notes:'Leia cada objeção antes da resposta. Para a segunda: se conhecer o cliente é caro, quanto custa não conhecê-lo?',
+  html:`${head('Objeções', 'Três objeções que você vai ouvir, e o que responder.')}
+  <div class="trow enter" style="--i:0"><b>“Vira ditadura do cidadão.”</b><span>O cidadão contribui para descobrir o que vai funcionar. <em>Quem decide continua sendo a instância política.</em></span><span></span></div>
+  <div class="trow enter" style="--i:1;margin-top:1.4cqw"><b>“Custa caro e demora.”</b><span>Mais caro é descobrir tarde que a solução desenhada na mesa <em>não funciona.</em></span><span></span></div>
+  <div class="trow enter" style="--i:2;margin-top:1.4cqw"><b>“Cria expectativa.”</b><span>É válida. <em>Seja transparente</em> sobre o que será e o que não será feito.</span><span></span></div>` },
+
+{ b:'b6', min:2, t:'Caso Rio Doce',
+  notes:'Tom descritivo: as duas posições na mesma tela, sem adjetivos e sem tomar partido. Antecedente, se perguntarem: o TAC-Gov previa comissões de atingidos, consolidadas só anos depois, com obstáculos judiciais.',
+  html:`${head('Caso · Rio Doce, 2015–2024', 'Acompanhar um acordo é o mesmo que construí-lo?')}
+  <p class="micro" style="font-family:Figtree,sans-serif;font-size:1.6cqw;color:var(--ink2);margin:0 0 1.8cqw">Repactuação da reparação de Mariana. Assinada em 25/10/2024: 49 municípios, 11 deles no Espírito Santo.</p>
+  <div class="grid g2" style="gap:1.6cqw">
+    <div class="card enter" style="--i:0"><h3>Atingidos e movimentos</h3><p>Denunciam que não participaram da negociação. O MAB reconhece avanços e aponta insuficiências.</p></div>
+    <div class="card enter" style="--i:1"><h3>Instituições</h3><p>O MPF cita o anexo 6 e o Conselho Federal de Participação Social. Minas criou a IMPS/Doce, consultiva.</p></div>
+  </div>
+  <div class="pergunta frag" data-f="1" style="margin-top:2.4cqw;font-size:2.1cqw">Participar do acompanhamento equivale a ter participado da construção?</div>` },
+
+{ b:'b6', min:1, t:'Resistência cultural', o:true,
+  notes:'Conte que a resistência também é cultural: no Ministério das Finanças da Áustria, houve incômodo com o uso de vídeos de cidadãos em análise e decisão.',
+  html:`${head('Resistência', 'Parte da objeção é cultural, não técnica.')}
+  <p class="lead enter" style="--i:0">Um servidor de finanças ficou incomodado com o uso de vídeos de cidadãos na análise e na decisão.</p>
+  <p class="quote frag" data-f="1" style="font-size:2.6cqw;margin-top:1.8cqw">Desconfiança de qualquer mídia que não seja <span class="gt">texto escrito.</span></p>` },
+
+/* ---------- Bloco 7 ---------- */
+{ b:'b7', min:0, t:'Bloco 07 · Decidir, sustentar e o papel do gestor', cls:'dark', meta:false,
+  notes:'Anuncie o bloco: como decidimos vale tanto quanto o que decidimos.',
+  html:bcov('b7','Decidir, sustentar e o papel do gestor','ftoooofoo','Decisão acordada, legitimidade desenhada')},
+
+{ b:'b7', min:2, t:'Como decidir',
+  notes:'Leia os quatro modos. Pergunte em qual deles a última decisão da equipe foi tomada.',
+  html:`${head('Como decidir', 'Decidir é acordar, não descobrir.')}
+  <div class="trow enter" style="--i:0;padding:1cqw 2.2cqw;background:transparent"><span class="lbl">Modo</span><span class="lbl">O que é</span><span class="lbl">O que custa</span></div>
+  <div class="trow enter" style="--i:1"><b>Consenso</b><span>Todos concordam.</span><span>Alta legitimidade; risco de paralisia.</span></div>
+  <div class="trow enter" style="--i:2;margin-top:1cqw"><b>Consentimento</b><span>Ninguém tem objeção grave.</span><span>Mais rápido; adesão morna.</span></div>
+  <div class="trow enter" style="--i:3;margin-top:1cqw"><b>Maioria</b><span>Vota-se e decide-se.</span><span>Rápido; produz perdedores.</span></div>
+  <div class="trow enter" style="--i:4;margin-top:1cqw"><b>Autoridade com escuta</b><span>Alguém decide depois de ouvir.</span><span>Realista no Estado; legítima se a escuta for de verdade.</span></div>` },
+
+{ b:'b7', min:1, t:'Legitimidade é desenhada',
+  notes:'Legitimidade vem de como decidimos. Demore em legitimidade ao listar as cinco dimensões.',
+  html:`${head('Legitimidade', 'Legitimidade é desenhada, não herdada.')}
+  <p class="lead enter" style="--i:0">Vem de como decidimos: transparência, inclusão e aprendizado.</p>
+  <div class="grid g3" style="gap:1.2cqw;margin-top:.6cqw">
+    <div class="card frag" data-f="1" style="padding:1.4cqw 1.8cqw"><h3 style="margin:0;font-size:2cqw">Experiência do cidadão</h3></div>
+    <div class="card frag" data-f="1" style="padding:1.4cqw 1.8cqw"><h3 style="margin:0;font-size:2cqw">Resultados sociais</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.4cqw 1.8cqw"><h3 style="margin:0;font-size:2cqw">Eficiência e custo</h3></div>
+    <div class="card frag" data-f="2" style="padding:1.4cqw 1.8cqw;background:var(--grad);color:#fff"><h3 style="margin:0;font-size:2cqw;color:#fff">Legitimidade</h3></div>
+    <div class="card frag" data-f="3" style="padding:1.4cqw 1.8cqw"><h3 style="margin:0;font-size:2cqw">Aprendizado institucional</h3></div>
+  </div>
+  <p class="quote frag" data-f="4" style="margin-top:2.6cqw">Valor público é descoberto <span class="gt">e construído com as pessoas.</span></p>` },
+
+{ b:'b7', min:1, t:'O que toda decisão sacrifica', cls:'dark',
+  notes:'Leia a frase inteira. Faça a pergunta final e espere. Não responda por eles.',
+  html:`${head('Toda decisão sacrifica algo', 'Política honesta é a que diz o que sacrificou.')}
+  <p class="bigq enter" style="--i:0;margin-top:1cqw;font-size:3.6cqw;max-width:80cqw">Toda decisão pública sacrifica algo. A diferença entre uma política honesta e uma ingênua é dizer isso em voz alta.</p>
+  <div class="pergunta frag" data-f="1" style="margin-top:3cqw;font-size:2cqw;max-width:72cqw">O que a sua decisão mais recente sacrificou? Alguém consegue dizer?</div>` },
+
+{ b:'b7', min:2, t:'Caso PAIC, Ceará',
+  notes:'Diga o que o estado fez: formação continuada, materiais, avaliação anual e apoio aos municípios com piores resultados. Os 85,3% são do Indicador Criança Alfabetizada.',
+  html:`${head('Caso · Ceará, desde 2007', 'Colaborar entre entes deu resultado mensurável.')}
+  <div class="grid g3" style="gap:1.6cqw">
+    <div class="card enter" style="--i:0;padding:1.6cqw 2cqw"><h3 style="margin:0 0 .5cqw">2007</h3><p>14 de 184 municípios no nível desejável.</p></div>
+    <div class="card enter" style="--i:1;padding:1.6cqw 2cqw"><h3 style="margin:0 0 .5cqw">2014</h3><p>141 municípios no nível desejável.</p></div>
+    <div class="card dk enter" style="--i:2;padding:1.6cqw 2cqw"><h3 style="margin:0 0 .5cqw;color:#fff">2025</h3><p style="color:#E7E3F4">85,3% das crianças do 2º ano alfabetizadas, a maior proporção do país.</p></div>
+  </div>
+  <div class="grid g3" style="gap:1.6cqw;margin-top:1.6cqw">
+    <p class="micro frag" data-f="1" style="font-family:Figtree,sans-serif;font-size:1.5cqw;margin:0">Repasse de ICMS ligado aos resultados.</p>
+    <p class="micro frag" data-f="1" style="font-family:Figtree,sans-serif;font-size:1.5cqw;margin:0">Não é teste causal: o avanço é atribuído, em parte, à colaboração.</p>
+    <p class="micro frag" data-f="1" style="font-family:Figtree,sans-serif;font-size:1.5cqw;margin:0">Colaboração entre estado e municípios, não com cidadãos.</p>
+  </div>
+  <p class="quote frag" data-f="2" style="margin-top:2.4cqw">Colaborar é sempre melhor, <span class="gt">ou às vezes é só mais lento?</span></p>` },
+
+{ b:'b7', min:1, t:'Gestor como curador',
+  notes:'O gestor é menos controlador e mais curador do processo de sentido. Peça que a sala diga qual dos quatro papéis já exerce.',
+  html:`${head('Papel do gestor', 'O gestor cuida do sentido, não controla o processo.')}
+  <div class="grid g2" style="gap:1.5cqw">
+    <div class="card enter" style="--i:0"><div class="ico">1</div><h3>Protege o propósito</h3><p>Para quem é o problema e para que serve a política.</p></div>
+    <div class="card enter" style="--i:1"><div class="ico">2</div><h3>Cria espaço para testar</h3><p>Autoriza aprender com o erro.</p></div>
+    <div class="card enter" style="--i:2"><div class="ico">3</div><h3>Media conflitos</h3><p>A divergência vira insumo.</p></div>
+    <div class="card enter" style="--i:3"><div class="ico">4</div><h3>Conecta aprendizado à decisão</h3><p>O que se aprendeu muda o que se decide.</p></div>
+  </div>` },
+
+{ b:'b7', min:1, t:'Seis práticas de liderança', o:true,
+  notes:'Leia as seis práticas em uma respiração. Diga que cada uma pode virar um experimento na próxima semana.',
+  html:`${head('Seis práticas de liderança', 'O que o gestor faz no dia a dia.')}
+  <div class="grid g3" style="gap:1.4cqw">
+    <div class="card enter" style="--i:0;padding:1.5cqw 2cqw"><p style="color:var(--ink);font-weight:700">1 · Questionar suposições</p></div>
+    <div class="card enter" style="--i:1;padding:1.5cqw 2cqw"><p style="color:var(--ink);font-weight:700">2 · Empatizar com cidadãos e servidores</p></div>
+    <div class="card enter" style="--i:2;padding:1.5cqw 2cqw"><p style="color:var(--ink);font-weight:700">3 · Lidar com divergência e conflito</p></div>
+    <div class="card enter" style="--i:3;padding:1.5cqw 2cqw"><p style="color:var(--ink);font-weight:700">4 · Prototipar antes de implementar</p></div>
+    <div class="card enter" style="--i:4;padding:1.5cqw 2cqw"><p style="color:var(--ink);font-weight:700">5 · Aprender com erros e iterações</p></div>
+    <div class="card enter" style="--i:5;padding:1.5cqw 2cqw"><p style="color:var(--ink);font-weight:700">6 · Criar valor público compartilhado</p></div>
+  </div>` },
+
+/* ---------- Fechamento (0 min) ---------- */
+{ b:'b7', min:0, t:'Checklist', cls:'',
+  notes:'Deixe a sala ler. Peça que marquem mentalmente o item que vão fazer na próxima semana. Clique para marcar ao vivo.',
   html:`${head('Para levar', 'Antes da sua próxima política')}
   <div class="checklist">
     <button class="ctile enter" style="--i:0"><span class="n">01</span><b>Formule o problema antes da resposta.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-    <button class="ctile enter" style="--i:1"><span class="n">02</span><b>Liste o que se relaciona ao problema, mesmo o que parece irrelevante.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+    <button class="ctile enter" style="--i:1"><span class="n">02</span><b>Liste o que se relaciona ao problema, mesmo o irrelevante.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
     <button class="ctile enter" style="--i:2"><span class="n">03</span><b>Pergunte quem não está na mesa.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
     <button class="ctile enter" style="--i:3"><span class="n">04</span><b>Diga em voz alta o que a decisão sacrifica.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
     <button class="ctile enter" style="--i:4"><span class="n">05</span><b>Teste pequeno e ajuste antes de escalar.</b><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#11A15A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
   </div>
   <p class="micro">Clique em cada item para marcá-lo.</p>` },
 
-{ b:'b7', min:0, t:'Quatro Cs', cls:'', notes:'Diga que Bason propõe quatro dimensões mutuamente dependentes. Leitura do palestrante: coragem é o C que depende de quem decide começar, e é por aí que a conversa termina.',
+{ b:'b7', min:0, t:'Quatro Cs', cls:'',
+  notes:'Diga que as quatro dimensões dependem uma da outra. Feche com coragem: é a dimensão que começa em quem decide.',
   html:`${head('Bason (2010)', 'Quatro Cs sustentam a inovação pública.')}
   <div class="grid g4" style="gap:1.6cqw;margin-top:1cqw">
     <div class="card enter" style="--i:0"><div class="ico">C</div><h3>Consciência</h3><p>O panorama da inovação.</p></div>
@@ -702,16 +796,19 @@ const S = [
     <div class="card enter" style="--i:2"><div class="ico">C</div><h3>Cocriação</h3><p>Os processos.</p></div>
     <div class="card dk enter" style="--i:3"><div class="ico">C</div><h3 style="color:#fff">Coragem</h3><p>A liderança.</p></div>
   </div>
-  <p class="quote frag" data-f="1" style="margin-top:3.4cqw;font-size:2.6cqw">Líderes precisam tratar os quatro para acender e sustentar o poder de inovar.</p>` },
+  <p class="quote frag" data-f="1" style="margin-top:3cqw">Os quatro dependem uns dos outros.</p>` },
 
-{ b:'b7', min:0, t:'Frase final', cls:'dark', notes:'Repita a frase final devagar. Depois, passe para Dúvidas.',
+{ b:'b7', min:0, t:'Frase final', cls:'dark',
+  notes:'Repita a frase final devagar. Depois, passe para Dúvidas.',
   html:`${head('Fechamento', 'Conduzir pelo design é mediar, não controlar.')}
   <p class="bigq enter" style="--i:0;font-size:3.4cqw;margin-top:2cqw;max-width:72cqw">O conflito não é o defeito do processo. <span class="hl" style="--d:.8s">É a prova de que o problema está sendo enfrentado de verdade.</span></p>` },
 
-{ b:'b7', min:0, t:'Dúvidas', cls:'grad', notes:'Abra para perguntas. Se alguém disser que tudo é complexo, cite Alford e Head (2017): há problemas mais e menos perversos, e colaboração em formato único não serve para todos. Termine com Termeer, Dewulf e Biesbroek (2019), que avaliam criticamente o conceito.',
+{ b:'b7', min:0, t:'Dúvidas', cls:'grad',
+  notes:'Abra para perguntas. Se alguém disser que tudo é complexo, use o slide de contrapeso, se estiver na sessão.',
   html:`<div class="kick">Perguntas e contrapontos</div><h2 class="t" style="font-size:7cqw;margin-top:auto">${su('Dúvidas?')}</h2><p class="lead enter" style="--i:2;color:#fff;margin-bottom:auto">Casos, contrapontos e o que você quer levar daqui.</p>` },
 
-{ b:'b7', min:0, t:'Obrigada', cls:'cover', meta:false, notes:'Agradeça, mostre o contato da facilitadora e encerre.',
+{ b:'b7', min:0, t:'Obrigada', cls:'cover', meta:false,
+  notes:'Agradeça, mostre o contato da facilitadora e encerre.',
   html:`<div class="cv" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 6cqw">
     <div class="kick kick-line">Obrigada</div>
     <h2 class="t" style="font-size:5.4cqw;margin-bottom:0">${su('Conduzir pelo design é mediar.')}</h2>
@@ -721,30 +818,39 @@ const S = [
 ];
 
 /* ============ MOTOR ============ */
+const S = ESSENCIAIS ? ALL.filter(s => !s.o) : ALL;
 const stage = document.getElementById('stage');
 const app = document.getElementById('app');
+
+/* minutos por bloco, a partir dos slides incluídos */
+BLOCKS.forEach(b => { b.min = S.filter(s => s.b === b.id).reduce((a,s) => a + s.min, 0); });
+const bStart = id => { let a = 0; for (const b of BLOCKS) { if (b.id === id) return a; a += b.min; } return 0; };
 const TOTAL = BLOCKS.reduce((a,b) => a + b.min, 0);
 let acc = 0; S.forEach(s => { s.start = acc; acc += s.min; });
-const metaHTML = (s,i) => `<div class="meta"><span>Bloco ${B(s.b).n} · <b>${B(s.b).nome}</b></span><span>${String(i+1).padStart(2,'0')} / ${S.length}</span></div>`;
 
+const metaHTML = (s,i) => `<div class="meta"><span>Bloco ${B(s.b).n} · <b>${B(s.b).nome}</b></span><span>${String(i+1).padStart(2,'0')} / ${S.length}</span></div>`;
 S.forEach((s,i) => {
   const el = document.createElement('section');
   el.className = `slide ${s.cls || ''}`;
   el.dataset.i = i;
   el.setAttribute('aria-roledescription','slide');
   el.setAttribute('aria-label', `${i+1}. ${s.t}`);
-  el.innerHTML = s.html + (s.meta === false ? '' : metaHTML(s,i));
+  el.innerHTML = s.html + (s.meta === false ? '' : metaHTML(s,i)) + (s.o ? '<span class="opt-tag">opcional</span>' : '');
   stage.appendChild(el);
   s.el = el;
   s.max = Math.max(0, ...[...el.querySelectorAll('[data-f]')].map(x => +x.dataset.f));
 });
+/* preenche minutos e horários das capas e da agenda */
+document.querySelectorAll('[data-bmin]').forEach(e => e.textContent = B(e.dataset.bmin).min);
+document.querySelectorAll('[data-bstart]').forEach(e => e.textContent = fmt(bStart(e.dataset.bstart)));
+document.querySelectorAll('[data-bend]').forEach(e => e.textContent = fmt(bStart(e.dataset.bend) + B(e.dataset.bend).min));
 
 /* barra de progresso */
 const bar = document.getElementById('bar');
 BLOCKS.forEach(b => {
   const d = document.createElement('button');
   d.className = 'seg';
-  d.style.flex = b.min;
+  d.style.flex = Math.max(b.min, 1);
   d.title = `${b.n} · ${b.nome}`;
   d.setAttribute('aria-label', `Ir para o bloco ${b.n}: ${b.nome}`);
   d.innerHTML = '<i></i>';
@@ -762,7 +868,6 @@ function apply(){
     e.classList.toggle('act', f === step);
   });
 }
-
 function onEnter(s){
   clearTimeout(swapT);
   s.el.querySelectorAll('.swap').forEach(sw => {
@@ -770,7 +875,6 @@ function onEnter(s){
     swapT = setTimeout(() => sw.classList.add('rev'), 900);
   });
 }
-
 function show(i, where){
   i = Math.max(0, Math.min(S.length - 1, i));
   S.forEach((s,k) => {
@@ -785,7 +889,6 @@ function show(i, where){
   apply(); onEnter(sl); ui();
   try { history.replaceState(null, '', '#' + (i + 1)); } catch(e) {}
 }
-
 function next(){
   const sl = S[cur];
   if (step < sl.max) { step++; apply(); ui(); }
@@ -795,14 +898,13 @@ function prev(){
   if (step > 0) { step--; apply(); ui(); }
   else if (cur > 0) show(cur - 1, 'end');
 }
-
 function ui(){
   const s = S[cur];
   $('cnt').textContent = `${cur+1} / ${S.length}`;
   const el = s.start + (s.max ? s.min * step / (s.max + 1) : 0);
   let bs = 0;
   BLOCKS.forEach((b,bi) => {
-    const f = Math.min(1, Math.max(0, (el - bs) / b.min));
+    const f = b.min ? Math.min(1, Math.max(0, (el - bs) / b.min)) : 0;
     bar.children[bi].firstChild.style.width = (f * 100) + '%';
     bs += b.min;
   });
@@ -812,7 +914,6 @@ function ui(){
     $('notes').innerHTML = `<div class="nh">Notas · ${cur+1}. ${s.t} · ${step}/${s.max} revelações</div><p>${s.notes}</p><div class="nx">Próximo: ${nx}</div>`;
   }
 }
-
 function toggleNotes(){ app.classList.toggle('notes-on'); ui(); }
 function openIndex(){ $('index').hidden = false; }
 function closeIndex(){ $('index').hidden = true; }
@@ -823,7 +924,7 @@ function fs(){ if (!document.fullscreenElement) document.documentElement.request
 const ix = $('index');
 ix.innerHTML = `<div class="ix-h"><b>Índice · ${S.length} slides · ${fmt(TOTAL)}</b><button id="ixClose">Fechar (Esc)</button></div>` +
   BLOCKS.map(b => `<div class="ix-b"><h4>${b.n} · ${b.nome} <span>${b.min} min</span></h4><div class="ix-g">` +
-    S.map((s,i) => ({s,i})).filter(o => o.s.b === b.id).map(o => `<button data-go="${o.i}"><span>${String(o.i+1).padStart(2,'0')}</span>${o.s.t}</button>`).join('') +
+    S.map((s,i) => ({s,i})).filter(o => o.s.b === b.id).map(o => `<button class="${o.s.o?'opt':''}" data-go="${o.i}"><span>${String(o.i+1).padStart(2,'0')}</span>${o.s.t}${o.s.o?' · opcional':''}</button>`).join('') +
     `</div></div>`).join('');
 ix.addEventListener('click', e => {
   if (e.target.id === 'ixClose') return closeIndex();
@@ -831,7 +932,6 @@ ix.addEventListener('click', e => {
   if (b) { closeIndex(); show(+b.dataset.go, 'start'); }
 });
 
-/* controles */
 $('bp').onclick = prev;
 $('bn').onclick = next;
 $('bNotes').onclick = toggleNotes;
@@ -854,7 +954,6 @@ document.addEventListener('keydown', e => {
   else if (k === 'Escape') closeIndex();
 });
 
-/* toque */
 let tx = null;
 stage.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
 stage.addEventListener('touchend', e => {
@@ -863,17 +962,14 @@ stage.addEventListener('touchend', e => {
   if (dx < -50) next(); else if (dx > 50) prev();
 }, {passive:true});
 
-/* interações: votação, cronômetro, checklist, cartões, antes/depois */
 document.addEventListener('click', e => {
   const v = e.target.closest('.vopt');
   if (v) {
     v.dataset.c = +v.dataset.c + 1;
-    const box = v.closest('.vote');
-    const os = [...box.querySelectorAll('.vopt')];
+    const os = [...v.closest('.vote').querySelectorAll('.vopt')];
     const tot = os.reduce((a,o) => a + +o.dataset.c, 0) || 1;
     os.forEach(o => {
-      const n = o.querySelector('.vn');
-      n.textContent = o.dataset.c;
+      o.querySelector('.vn').textContent = o.dataset.c;
       o.querySelector('.vb i').style.width = (o.dataset.c / tot * 100) + '%';
     });
     const n = v.querySelector('.vn'); n.classList.add('bump'); setTimeout(() => n.classList.remove('bump'), 250);
@@ -882,10 +978,9 @@ document.addEventListener('click', e => {
   const tb = e.target.closest('.tbtn');
   if (tb) {
     const t = tb.closest('.timer');
-    let rem = +t.dataset.rem;
     if (t.classList.contains('run')) { t.classList.remove('run'); }
     else {
-      if (rem <= 0) { rem = +t.dataset.tot; t.dataset.rem = rem; }
+      if (+t.dataset.rem <= 0) t.dataset.rem = t.dataset.tot;
       t.classList.remove('done'); t.classList.add('run');
     }
     tupd(t); return;
@@ -913,7 +1008,6 @@ setInterval(() => {
   });
 }, 1000);
 
-/* parallax da capa */
 document.addEventListener('mousemove', e => {
   if (!S[cur] || !S[cur].el.classList.contains('cover')) return;
   const r = stage.getBoundingClientRect();
@@ -924,10 +1018,7 @@ document.addEventListener('mousemove', e => {
   });
 });
 
-/* dica que some */
 setTimeout(() => $('hint').classList.add('off'), 7000);
-
-/* início: hash ou primeiro slide */
 const h = parseInt(location.hash.slice(1), 10);
 show(isNaN(h) ? 0 : h - 1, 'start');
 </script>
