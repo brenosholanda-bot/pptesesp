@@ -121,11 +121,10 @@ button{font-family:inherit;cursor:pointer}
 @keyframes gbgrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes cvorb{to{transform:rotate(360deg)}}
 @keyframes cvpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
-@keyframes cvwave{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(3)}}
+@keyframes cvwave{0%{opacity:.38;transform:scale(1)}55%{opacity:.1}100%{opacity:0;transform:scale(22)}}
 .cv-orb{transform-box:view-box;transform-origin:300px 260px;animation:cvorb 48s linear infinite}
 .cv-core{transform-box:fill-box;transform-origin:center;animation:cvpulse 3.2s ease-in-out infinite}
-.cv-wave{transform-box:fill-box;transform-origin:center;animation:cvwave 4.5s ease-out infinite}
-.cv-wave.w2{animation-delay:2.25s}
+.cvw{transform-box:fill-box;transform-origin:center;opacity:0;animation:cvwave 6.9s cubic-bezier(.2,.6,.3,1) infinite}
 [data-f].cut{filter:none;transform:none;transition:opacity .1s}
 .rv:has(.t3.show) .river{d:path("M1300 400 C 1460 470, 1260 540, 1380 600 C 1480 660, 1300 760, 1410 850 C 1500 920, 1360 960, 1400 1010")}
 .rv .river{transition:stroke-dashoffset var(--dd,.7s) var(--ease) var(--td,0s),d 3s var(--ease)}
@@ -285,14 +284,13 @@ button{font-family:inherit;cursor:pointer}
 
 <!-- ============ ABERTURA ============ -->
   <section class="slide" data-b="ab" data-min="1" data-content="Tese da palestra: políticas fracassam menos por falta de execução e mais por problemas mal formulados (material-base, seção 1.1). Palestrantes: Breno Holanda e Nara Caliman." data-notes="Abra em silêncio. Deixe a tela aparecer por alguns segundos antes de falar.">
+    <svg class="a" style="left:0;top:0;pointer-events:none" width="1920" height="1080" viewBox="0 0 1920 1080" aria-hidden="true"><circle class="cvw" cx="1600" cy="700" r="60" fill="none" stroke="#A58BFF" stroke-width="2" vector-effect="non-scaling-stroke"/><circle class="cvw" style="animation-delay:2.3s" cx="1600" cy="700" r="60" fill="none" stroke="#A58BFF" stroke-width="2" vector-effect="non-scaling-stroke"/><circle class="cvw" style="animation-delay:4.6s" cx="1600" cy="700" r="60" fill="none" stroke="#A58BFF" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>
     <div class="a r" style="--d:1;left:120px;top:230px"><h1 class="cover-t" style="font-size:150px;line-height:1.02">Redesenhar o<br><span class="v">valor público</span><br>em meio ao conflito</h1></div>
     <div class="a r" style="--d:3;left:1320px;top:200px;width:480px"><p class="lead">Resolução colaborativa de problemas públicos.</p></div>
     <div class="a r mono" style="--d:4;left:120px;bottom:160px">Breno Holanda · Nara Caliman · novembro 2026</div>
     <svg class="a r" style="--d:2;left:1340px;top:470px" width="520" height="460" viewBox="0 0 600 520" aria-hidden="true">
       <circle cx="300" cy="260" r="210" fill="none" stroke="#2a2633" stroke-width="2"/>
       <circle cx="300" cy="260" r="140" fill="none" stroke="#2a2633" stroke-width="2"/>
-      <circle class="cv-wave" cx="300" cy="260" r="70" fill="none" stroke="#A58BFF" stroke-width="3"/>
-      <circle class="cv-wave w2" cx="300" cy="260" r="70" fill="none" stroke="#A58BFF" stroke-width="3"/>
       <g class="cv-orb"><g class="cv-links" stroke="#4a4657" stroke-width="2"><line x1="300" y1="260" x2="510" y2="260"/><line x1="300" y1="260" x2="90" y2="260"/><line x1="300" y1="260" x2="300" y2="50"/><line x1="300" y1="260" x2="300" y2="470"/></g>
       <circle cx="510" cy="260" r="12" fill="#fff"/><circle cx="90" cy="260" r="12" fill="#fff"/><circle cx="300" cy="50" r="12" fill="#fff"/><circle cx="300" cy="470" r="12" fill="#fff"/></g>
       <circle class="cv-core" cx="300" cy="260" r="70" fill="#9B2BFF"/>
