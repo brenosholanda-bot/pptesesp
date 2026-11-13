@@ -199,6 +199,17 @@ button{font-family:inherit;cursor:pointer}
 [data-f].grow{transform:scaleX(0);transform-origin:left center;transform-box:fill-box;filter:none;transition:transform 1.3s var(--ease),opacity .4s}
 [data-f].grow.show{transform:scaleX(1)}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition-duration:.01ms!important;transition-delay:0s!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+.pv .n1,.pv .n3,.pv .lbl,.pv path{transition:transform 1.4s var(--ease),fill 1.4s,d 1.4s var(--ease),color 1.4s}
+.pv .n1,.pv .n3{transform-box:view-box}
+.pv:has(.trig.show) .n1{transform:translate(-140px,70px);fill:#A58BFF}
+.pv:has(.trig.show) .n3{transform:translate(-90px,-40px);fill:#A58BFF}
+.pv:has(.trig.show) .l1{transform:translate(-140px,70px);color:#CDBDFF}
+.pv:has(.trig.show) .l3{transform:translate(-90px,-40px);color:#CDBDFF}
+.pv:has(.trig.show) .p1{d:path("M846 510 Q1250 500 1266 716")}
+.pv:has(.trig.show) .p2{d:path("M1245 762 Q930 880 584 722")}
+.pv:has(.trig.show) .p3{d:path("M548 678 Q540 520 794 508")}
+.trig{display:none}
 </style>
 </head>
 <body>
@@ -411,18 +422,19 @@ button{font-family:inherit;cursor:pointer}
     <div class="a" data-f="2" style="left:900px;top:590px;width:900px;border-top:1px solid #3a3646;padding-top:24px"><div class="mono" style="font-size:24px;color:#A09CB0">Impacto</div><div style="font-size:42px;font-weight:300;color:#FFFFFF;margin-top:10px;letter-spacing:-.02em">Alto no resultado</div><div class="body" style="font-size:27px;color:#D6D2E0;margin-top:8px;line-height:1.35">Define o que o sistema faz com os dados e quem confia nele.</div></div>
     <div class="a" data-f="3" style="left:900px;top:780px;width:900px;border-top:1px solid #3a3646;padding-top:24px"><div class="mono" style="font-size:24px;color:#CDBDFF">Como lidar</div><div style="font-size:42px;font-weight:300;color:#FFFFFF;margin-top:10px;letter-spacing:-.02em">Aprendizagem coletiva</div><div class="body" style="font-size:27px;color:#D6D2E0;margin-top:8px;line-height:1.35">Ouvir quem usa, testar pequeno e rever com quem decide.</div></div>
     </section>
-  <section class="slide" data-b="b1" data-min="2" data-notes="Desenhe o ciclo no ar. Cada tentativa de solução volta ao problema e o reformula." data-content="Rittel e Webber (1973): problemas sem formulação definitiva; cada tentativa de solução reformula o problema. Bason (2010, impr. p. 9): problemas abertos a interpretação, com soluções concorrentes ou conflitantes, provavelmente sem solução definitiva.">
+  <section class="slide pv" data-b="b1" data-min="2" data-notes="Desenhe o ciclo no ar. Cada tentativa de solução volta ao problema e o reformula." data-content="Rittel e Webber (1973): problemas sem formulação definitiva; cada tentativa de solução reformula o problema. Bason (2010, impr. p. 9): problemas abertos a interpretação, com soluções concorrentes ou conflitantes, provavelmente sem solução definitiva.">
     <div class="a r" style="--d:0;left:120px;top:170px"><h2 class="hm">Problemas perversos<br><span class="g2">não se fecham de uma vez.</span></h2></div>
     <svg class="a" style="left:0;top:0" width="1920" height="1080" aria-hidden="true">
       <defs><marker id="ar" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto"><path d="M0,0 L10,6 L0,12" fill="none" stroke="#9B2BFF" stroke-width="2.5"/></marker></defs>
-      <path data-f="1" d="M986 452 Q1290 470 1266 716" fill="none" stroke="#9B2BFF" stroke-width="3" marker-end="url(#ar)"/>
-      <path data-f="2" d="M1245 762 Q960 900 676 758" fill="none" stroke="#9B2BFF" stroke-width="3" marker-end="url(#ar)"/>
-      <path data-f="3" d="M638 718 Q620 470 934 452" fill="none" stroke="#9B2BFF" stroke-width="3" marker-end="url(#ar)"/>
-      <circle cx="960" cy="440" r="22" fill="#fff"/><circle cx="1270" cy="740" r="22" fill="#fff"/><circle cx="650" cy="740" r="22" fill="#fff"/>
+      <path class="p1" data-f="1" d="M986 452 Q1290 470 1266 716" fill="none" stroke="#9B2BFF" stroke-width="3" marker-end="url(#ar)"/>
+      <path class="p2" data-f="2" d="M1245 762 Q960 900 676 758" fill="none" stroke="#9B2BFF" stroke-width="3" marker-end="url(#ar)"/>
+      <path class="p3" data-f="3" d="M638 718 Q620 470 934 452" fill="none" stroke="#9B2BFF" stroke-width="3" marker-end="url(#ar)"/>
+      <circle class="n1" cx="960" cy="440" r="22" fill="#fff"/><circle cx="1270" cy="740" r="22" fill="#fff"/><circle class="n3" cx="650" cy="740" r="22" fill="#fff"/>
     </svg>
-    <div class="a" data-f="1" style="left:860px;top:385px;width:200px;text-align:center"><div class="lbl">Problema</div></div>
+    <div class="a" data-f="1" style="left:860px;top:385px;width:200px;text-align:center"><div class="lbl l1">Problema</div></div>
     <div class="a" data-f="2" style="left:1300px;top:722px;width:300px"><div class="lbl">Solução tentada</div></div>
-    <div class="a" data-f="3" style="left:200px;top:722px;width:420px;text-align:right"><div class="lbl">Problema reformulado</div></div>
+    <div class="a" data-f="3" style="left:200px;top:722px;width:420px;text-align:right"><div class="lbl l3">Problema reformulado</div></div>
+    <i class="trig" data-f="4"></i>
     <p class="a" data-f="4" style="left:120px;top:940px;width:1680px;font-size:30px;font-weight:300;margin:0;color:#fff">Cada solução tentada muda o próprio problema.</p>
   </section>
   <section class="slide" data-b="b1" data-min="1" data-notes="Desenhe as duas linhas. A planejada segue o plano; a emergente se afasta e não é clara. A resposta do governo precisa mudar de direção." data-content="Bason (2010, impr. p. 11–15), citando Osborne e Brown (2005): forças externas exigem inovação mais radical. Forças externas: produtividade, expectativas dos cidadãos, globalização, pressão da mídia (deck, slide 20). Leitura do palestrante: a resposta de rotina acompanha a linha planejada; a emergente pede outra direção.">
