@@ -237,7 +237,10 @@ button{font-family:inherit;cursor:pointer}
 #notes.on{opacity:1;transform:translate(-50%,0)}
 #notes .mono{display:block;margin-bottom:8px;font-size:15px}
 #hint{position:fixed;left:50%;top:12px;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:18px;letter-spacing:.06em;color:#6d6878;z-index:20;transition:opacity 1s;white-space:nowrap}
-#hint.off{opacity:0}
+body.focus .chrome-top,body.focus .topline,body.focus #sec,body.focus #clock,body.focus #ruler,body.focus #nav,body.focus #notes{display:none!important}
+#bFocus{position:fixed;right:18px;bottom:18px;z-index:30;display:none;width:44px;height:44px;border-radius:50%;border:1px solid #2b2734;background:rgba(20,18,24,.9);color:#CDBDFF;font-size:20px;cursor:pointer;opacity:.18;transition:opacity .25s}
+#bFocus:hover,#bFocus:focus{opacity:.9}
+body.focus #bFocus{display:block}
 .index{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:30;overflow:auto;padding:36px 5vw}
 .index[hidden]{display:none}
 .ix-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#ddd}
@@ -1106,7 +1109,6 @@ button{font-family:inherit;cursor:pointer}
 
 <div class="index" id="index" hidden></div>
 <div id="notes"></div>
-<div id="hint">← → avançam · N notas · G índice · F tela cheia · ?so-essenciais esconde os opcionais</div>
 <div id="clock"></div>
 <div id="ruler"></div>
 <nav id="nav">
@@ -1117,7 +1119,9 @@ button{font-family:inherit;cursor:pointer}
   <button class="nb" id="bNotes" aria-label="Notas (N)">N</button>
   <button class="nb" id="bIdx" aria-label="Índice (G)">G</button>
   <button class="nb" id="bFs" aria-label="Tela cheia (F)">⤢</button>
+  <button class="nb" id="bHide" aria-label="Só o slide (H)" title="Só o slide (H)">◻</button>
 </nav>
+<button id="bFocus" aria-label="Mostrar controles (H)" title="Mostrar controles (H)">◻</button>
 
 <script>
 const ESS = /so-essenciais/.test(location.search);
@@ -1125,7 +1129,7 @@ const BL = {ab:'Abertura', b1:'Que tipo de problema', b2:'Por que não enxergamo
 const BL_MIN = {}; const BLOCK_IDS = Object.keys(BL);
 const SHORT = {ab:'Abertura', b1:'Problema', b2:'Lentes', b3:'Erro', b4:'Resposta', b5:'Objeções', b6:'Decidir', fe:'Fim'};
 const stage = document.getElementById('stage');
-const fit = () => { const H = innerHeight - 170; const s = Math.min(innerWidth/1920, H/1080); stage.style.top = (H/2) + 'px'; stage.style.transform = `translate(-50%,-50%) scale(${s})`; };
+const fit = () => { const H = innerHeight - (document.body.classList.contains('focus') ? 0 : 170); const s = Math.min(innerWidth/1920, H/1080); stage.style.top = (H/2) + 'px'; stage.style.transform = `translate(-50%,-50%) scale(${s})`; };
 addEventListener('resize', fit); fit();
 
 /* slides */
@@ -1216,6 +1220,9 @@ document.getElementById('bn').onclick = next;
 document.getElementById('bNotes').onclick = toggleNotes;
 document.getElementById('bIdx').onclick = toggleIndex;
 document.getElementById('bFs').onclick = fs;
+function toggleFocus(){ document.body.classList.toggle('focus'); fit(); }
+document.getElementById('bHide').onclick = toggleFocus;
+document.getElementById('bFocus').onclick = toggleFocus;
 document.addEventListener('keydown', e => {
   if (e.target.closest('input,textarea,[contenteditable]')) return;
   const k = e.key;
@@ -1227,7 +1234,8 @@ document.addEventListener('keydown', e => {
   else if (k === 'n' || k === 'N') toggleNotes();
   else if (k === 'g' || k === 'G') toggleIndex();
   else if (k === 'f' || k === 'F') fs();
-  else if (k === 'Escape') ix.hidden = true;
+  else if (k === 'h' || k === 'H') toggleFocus();
+  else if (k === 'Escape') { ix.hidden = true; if (document.body.classList.contains('focus')) toggleFocus(); }
 });
 let tx = null;
 addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
